@@ -1,0 +1,15 @@
+users 
+=====
+id name description image email password role(1,2)
+
+tags
+==========
+id title user_id
+
+articles
+========
+id title image meta_description description user_id
+
+article_tag
+===========
+id article_id tag_id
