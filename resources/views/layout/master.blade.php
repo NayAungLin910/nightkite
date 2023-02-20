@@ -52,6 +52,8 @@
                         alt="NightKite banner" loading="lazy" />
                 </a>
             </span>
+
+            <!-- navbar toggle button -->
             <span class="text-3xl cursor-pointer mx-2 md:hidden block">
                 <i class="fa-solid fa-bars" onclick="toggleMenu(this)"></i>
             </span>
@@ -68,6 +70,8 @@
                     </div>
                 </a>
             </li>
+
+            <!-- if auth -->
             @if (Auth::check())
                 <li class="mx-3 my-5 md:my-0">
                     <button class=" cursor-pointer" onclick="dropdownToggle('profile')">
@@ -104,6 +108,7 @@
                     </div>
                 </li>
             @endif
+
         </ul>
     </nav>
 
@@ -170,7 +175,6 @@
             }).showToast();
         </script>
     @endif
-
 
     <script>
         // top nav bar menu toggle on mobile view

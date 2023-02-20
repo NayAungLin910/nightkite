@@ -5,16 +5,52 @@
 @layer components {
     .sky-button-rounded {
         @apply bg-sky-500 border border-sky-500 text-white duration-500 py-2 px-3 
-        focus:outline-none focus:ring focus:ring-sky-300 rounded-xl shadow-sm
+        focus:outline-none focus:ring focus:ring-sky-300 rounded-full shadow-md
       hover:text-sky-600 hover:bg-transparent active:bg-transparent active:text-sky-500;
     }
+    
+    .green-button-rounded {
+        @apply bg-green-500 border border-green-500 text-white duration-500 py-2 px-3 
+        focus:outline-none focus:ring focus:ring-green-300 rounded-full shadow-md
+      hover:text-green-600 hover:bg-transparent active:bg-transparent active:text-green-500;
+    }
+
+    .red-button-rounded {
+        @apply bg-red-500 border border-red-500 text-white duration-500 py-2 px-3 
+        focus:outline-none focus:ring focus:ring-red-300 rounded-full shadow-md
+      hover:text-red-600 hover:bg-transparent active:bg-transparent active:text-red-500;
+    }
+
+    .yellow-button-rounded {
+        @apply bg-yellow-500 border border-yellow-500 text-white duration-500 py-2 px-3 
+        focus:outline-none focus:ring focus:ring-yellow-300 rounded-full shadow-md
+      hover:text-yellow-600 hover:bg-transparent active:bg-transparent active:text-yellow-500;
+    }
+
+    .orange-button-rounded {
+        @apply bg-orange-500 border border-orange-500 text-white duration-500 py-2 px-3 
+        focus:outline-none focus:ring focus:ring-orange-300 rounded-full shadow-md
+      hover:text-orange-600 hover:bg-transparent active:bg-transparent active:text-orange-500;
+    }
+
     .input-form-sky {
         @apply my-2 py-2 px-4 rounded-lg block w-full h-8 text-black focus:outline-none border 
         focus:ring focus:ring-sky-400 border-sky-400;
     }
+
     .input-file-type {
         @apply bg-white block my-2 rounded-lg text-black w-full focus:outline-none file:bg-sky-500 
         file:border-none file:shadow-lg file:text-white file:mr-2 
         file:h-8 border border-sky-400 focus:ring focus:ring-sky-400;
+    }
+
+    /* popup-overlay active */
+    #popup-overlay.active {
+        @apply opacity-100 pointer-events-auto;
+    }
+
+    /* popup active */
+    #popup.active {
+        @apply scale-100;
     }
 }

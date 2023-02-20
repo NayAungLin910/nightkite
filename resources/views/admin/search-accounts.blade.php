@@ -1,12 +1,12 @@
 @extends('layout.master-dashboard')
 @section('custom-content')
     <div class="m-2">
-        <h1 class="text-xl text-center"><i class="fa-solid fa-user-check mr-2"></i>Accept Accounts</h1>
+        <h1 class="text-xl text-center"><i class="fa-solid fa-magnifying-glass mr-2"></i></i>Search Accounts</h1>
         <div class="mt-10 mb-4">
 
             <!-- filtering options -->
-            <form action="{{ route('admin.dashboard.accept-accounts') }}" id="clear-filter-form"></form>
-            <form action="{{ route('admin.dashboard.accept-accounts') }}">
+            <form action="{{ route('admin.dashboard.search-account') }}" id="clear-filter-form"></form>
+            <form action="{{ route('admin.dashboard.search-account') }}">
                 <div class="flex flex-col lg:flex-row items-center gap-4 mx-2">
                     <div>
                         <label for="filter-search">Search</label>
@@ -44,7 +44,6 @@
                                 </th>
                                 <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left">Name</th>
                                 <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left">Email</th>
-                                <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left"></th>
                             </tr>
                         </thead>
                         <tbody class="border-b">
@@ -56,35 +55,6 @@
                                     </td>
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $admin->name }}</td>
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $admin->email }}</td>
-                                    <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">
-                                        <div class="flex items-center gap-2">
-
-                                            <!-- accept account form -->
-                                            <form action="{{ route('admin.dashboard.accept-accounts') }}"
-                                                id="{{ $admin->email }}-accept-form" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="email" value="{{ $admin->email }}">
-                                                <button type="button"
-                                                    onclick='openPopupSubmit("Are you sure about accepting {{ $admin->email }} admin account?", "{{ $admin->email }}", "submit")'
-                                                    class="green-button-rounded w-10">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </button>
-                                            </form>
-
-                                            <!-- decline account form -->
-                                            <form action="{{ route('admin.dashboard.decline-account') }}"
-                                                id="{{ $admin->email }}-delete-form" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="email" value="{{ $admin->email }}">
-                                                <button type="button"
-                                                    onclick='openPopupSubmit("Are you sure about declining {{ $admin->email }} admin account?", "{{ $admin->email }}", "delete")'
-                                                    class="orange-button-rounded w-10">
-                                                    <i class="fa-solid fa-xmark"></i>
-                                                </button>
-                                            </form>
-
-                                        </div>
-                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

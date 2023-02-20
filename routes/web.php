@@ -34,8 +34,20 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     // dashboard of authoried user
     Route::view('/dashboard', 'admin.admin-home')->name('admin.dashboard.home');
 
-    // accept accounts
-    Route::get('/dashboard/accept-accounts', [\App\Http\Controllers\AdminAccountManagement::class, 'getAcceptAccounts'])->name('admin.dashboard.accept-accounts');
+    // Routes for super admin only
+    Route::middleware(['AuthAdmin'])->group(function () {
+        // accept accounts 
+        Route::get('/dashboard/accept-accounts', [\App\Http\Controllers\AdminAccountManagement::class, 'getAcceptAccounts'])
+            ->name('admin.dashboard.accept-accounts');
+        Route::post('/dashboard/accept-accounts', [\App\Http\Controllers\AdminAccountManagement::class, 'postAcceptAccount']);
+        // decline account
+        Route::post('/dashboard/decline-account', [\App\Http\Controllers\AdminAccountManagement::class, 'declineAccount'])
+            ->name('admin.dashboard.decline-account');
+    });
+
+    // search accepted admins
+    Route::get('/dashboard/search-account', [\App\Http\Controllers\AdminAccountManagement::class, "searchAdmin"])
+        ->name('admin.dashboard.search-account');
 
     // logout route 
     Route::post('/logout', [\App\Http\Controllers\Auth\AdminAuthController::class, "postLogout"])->name('admin.logout');

@@ -43,12 +43,14 @@
 
 <body>
 
-    <!-- side bar -->
+    <!-- side bar toggle button -->
     <span class="absolute z-10 text-white text-4xl top-5 left-4 cursor-pointer block lg:hidden" onclick="openSidebar()">
         <span class="px-2 bg-gray-900 rounded-lg">
             <i class="fa-solid fa-bars"></i>
         </span>
     </span>
+
+    <!-- side bar -->
     <div id="sidebar"
         class="fixed z-10 top-0 bottom-0 lg:left-0 left-[-300px] p-2 w-[300px] overflow-y-auto 
     text-center bg-slate-50 text-black shadow">
@@ -103,24 +105,27 @@
                 <span class="text-base ml-4">Admin</span>
                 <span class="text-sm transition-all duration-500" id="chatbox-arrow">
                     <i
-                        class="fa-solid fa-chevron-down {{ request()->is('admin/dashboard/accept-accounts*') ? 'rotate-180' : '' }}"></i>
+                        class="fa-solid fa-chevron-down {{ request()->is('admin/dashboard/accept-accounts*') || request()->is('admin/dashboard/search-account*') ? 'rotate-180' : '' }}"></i>
                 </span>
             </div>
         </div>
-        <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/accept-accounts*') ? '' : 'hidden' }}"
+        <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/accept-accounts*') || request()->is('admin/dashboard/search-account*') ? '' : 'hidden' }}"
             id="chatbox-submenu">
-            <a href="{{ route('admin.dashboard.accept-accounts') }}">
-                <h1 class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/accept-accounts*') ? 'bg-slate-200' : '' }}">
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-user-check"></i>
-                        <span class="text-sm">
-                            Accept Accounts
-                        </span>
-                    </div>
-                </h1>
-            </a>
-            <a href="">
-                <h1 class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500">
+            @if (Auth::user()->role === '3')
+                <a href="{{ route('admin.dashboard.accept-accounts') }}">
+                    <h1
+                        class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/accept-accounts*') ? 'bg-slate-200' : '' }}">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-user-check"></i>
+                            <span class="text-sm">
+                                Accept Accounts
+                            </span>
+                        </div>
+                    </h1>
+                </a>
+            @endif
+            <a href="{{ route('admin.dashboard.search-account') }}">
+                <h1 class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/search-account*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span class="text-sm">
@@ -137,6 +142,27 @@
     <main id="main-content" class="transition-all duration-500 lg:pl-[300px] z-0">
         @yield('custom-content')
     </main>
+
+    <!-- popup -->
+    <div class=" bg-white duration-200 ease-in-out rounded-xl fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] border shadow-md w-full md:w-auto z-30 py-6 px-4 scale-0"
+        id="popup">
+        <p class="text-lg font-semibold text-center" id="popup-text"></p>
+        <div class="flex items-center gap-2 place-content-center mt-4">
+            <button class="orange-button-rounded w-auto" onclick="closePopup()">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back
+            </button>
+            <button class="green-button-rounded w-auto" onclick="acceptPopup()">
+                <i class="fa-solid fa-check"></i>
+                Accept
+            </button>
+        </div>
+    </div>
+
+    <!-- popup overlay-->
+    <div class="duration-200 ease-in-out opacity-0 fixed top-0 left-0 bottom-0 right-0 bg-black/[0.5] z-20 pointer-events-none"
+        id="popup-overlay" onclick="closePopup()">
+    </div>
 
     <!-- toastify js -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
@@ -233,12 +259,44 @@
         }
     </script>
 
-    <!-- uses the below technique to show dropdown boxes if the current url is related with them -->
-    {{-- @if (url()->current() === 'http://127.0.0.1:8000/dashboard')
-        <script>
-            dropdown('chatbox');
-        </script>
-    @endif --}}
+    <!-- popup open, close, submit and cancel -->
+    <script>
+        let email = ""; // global email variable
+        let type = ""; // submit or delete
+
+        // open popup and display
+        function openPopupSubmit(text, email, type) {
+            document.querySelector(`#popup-overlay`).classList.toggle('active'); // show popup overlay
+            document.querySelector(`#popup`).classList.toggle('active'); // show popup
+            document.querySelector(`#popup-text`).innerHTML = text; // show the given popup text
+
+            this.email = email; // assign email to global email variable
+            this.type = type;
+        }
+
+        // accept popup
+        function acceptPopup() {
+            switch (this.type) {
+                case 'submit':
+                    document.getElementById(`${this.email}-accept-form`).submit(); // submit the given form 
+                    break;
+                case 'delete':
+                    document.getElementById(`${this.email}-delete-form`).submit(); // submit the given form 
+                    break;
+                default:
+                    console.log('Popup type was not found!');
+            }
+
+            document.querySelector(`#popup`).classList.toggle('active'); // close popup 
+            document.querySelector(`#popup-overlay`).classList.toggle('active'); // close popup overlay
+        }
+
+        // close popup
+        function closePopup() {
+            document.querySelector(`#popup`).classList.toggle('active'); // close popup
+            document.querySelector(`#popup-overlay`).classList.toggle('active'); // close popup overlay
+        }
+    </script>
 
     <!-- custom script -->
     @yield('custom-script')
