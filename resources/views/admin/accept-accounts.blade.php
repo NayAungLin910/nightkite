@@ -1,4 +1,8 @@
 @extends('layout.master-dashboard')
+@section('meta-title', 'Accept Accounts - NightKite')
+@section('meta-description',
+    'Accept the accounts that are registered in order to let the user login and publish blogs
+    or articles. The accounts can also be declined on this page too.')
 @section('custom-content')
     <div class="m-2">
         <h1 class="text-xl text-center"><i class="fa-solid fa-user-check mr-2"></i>Accept Accounts</h1>
@@ -7,11 +11,21 @@
             <!-- filtering options -->
             <form action="{{ route('admin.dashboard.accept-accounts') }}" id="clear-filter-form"></form>
             <form action="{{ route('admin.dashboard.accept-accounts') }}">
-                <div class="flex flex-col lg:flex-row items-center gap-4 mx-2">
+                <div class="flex flex-col lg:flex-row flex-wrap items-center gap-4 mx-2 mb-3">
                     <div>
                         <label for="filter-search">Search</label>
                         <input value="{{ $search }}" type="text" class="input-form-sky" name="search"
                             id="filter-search" />
+                    </div>
+                    <div>
+                        <label for="filter-timeline">Sort By</label>
+                        <select name="timeline"
+                            class="my-2 px-2 w-full min-w-[4rem] whitespace-nowrap block h-8 text-black focus:outline-none border 
+                        focus:ring focus:ring-sky-400 appearance-none border-sky-400 rounded-lg"
+                            id="filter-timeline">
+                            <option value="latest" @if ($timeline === 'latest') selected @endif>Latest</option>
+                            <option value="oldest" @if ($timeline === 'oldest') selected @endif>Oldest</option>
+                        </select>
                     </div>
                     <div>
                         <label for="filter-startdate">Start Date</label>
@@ -23,10 +37,10 @@
                         <input type="datetime-local" value="{{ $reqEndDate }}" class="input-form-sky" name="enddate"
                             id="filter-enddate" />
                     </div>
-                    <button type="submit" class="green-button-rounded lg:mt-5">
+                    <button type="submit" class="green-button-rounded lg:mt-5 whitespace-nowrap">
                         <i class="fa-solid fa-magnifying-glass"></i> Search
                     </button>
-                    <button type="submit" class="orange-button-rounded lg:mt-5" form="clear-filter-form">
+                    <button type="submit" class="orange-button-rounded lg:mt-5 whitespace-nowrap" form="clear-filter-form">
                         <i class="fa-solid fa-broom"></i> Clear
                     </button>
                 </div>
@@ -44,20 +58,24 @@
                                 </th>
                                 <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left">Name</th>
                                 <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left">Email</th>
+                                <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left">Created At
+                                </th>
                                 <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left"></th>
                             </tr>
                         </thead>
                         <tbody class="border-b">
                             @foreach ($admins as $admin)
-                                <tr class="border-b hover:bg-slate-50">
+                                <tr class="border-b hover:bg-slate-50 group/admin">
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">
                                         <img class="max-h-14 rounded-full" src="{{ asset($admin->image) }}" loading="lazy"
                                             alt="{{ $admin->name }}'s profile image">
                                     </td>
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $admin->name }}</td>
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $admin->email }}</td>
+                                    <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $admin->created_at }}
+                                    </td>
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">
-                                        <div class="flex items-center gap-2">
+                                        <div class="flex items-center gap-2 opacity-0 group-hover/admin:opacity-100">
 
                                             <!-- accept account form -->
                                             <form action="{{ route('admin.dashboard.accept-accounts') }}"

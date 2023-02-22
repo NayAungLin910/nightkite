@@ -4,7 +4,7 @@ id name description image email password role(1,2)
 
 tags
 ==========
-id title user_id
+id title slug user_id
 
 articles
 ========

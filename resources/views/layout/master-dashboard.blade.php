@@ -75,6 +75,7 @@
             <hr class="my-2 text-gray-900" />
         </div>
 
+        <!-- back to site -->
         <a href="{{ route('welcome') }}">
             <div
                 class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-slate-50 hover:bg-slate-200 text-black">
@@ -95,22 +96,23 @@
 
         <hr class="my-4 text-gray-600" />
 
+        <!-- admins account management -->
         <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer
             bg-slate-50 hover:bg-slate-200 text-black"
-            onclick="dropdown('chatbox')">
+            onclick="dropdown('admins')">
             <span>
                 <i class="fa-solid fa-users"></i>
             </span>
             <div class="flex justify-between w-full items-center">
-                <span class="text-base ml-4">Admin</span>
-                <span class="text-sm transition-all duration-500" id="chatbox-arrow">
+                <span class="text-base ml-4">Admins</span>
+                <span class="text-sm transition-all duration-500" id="admins-arrow">
                     <i
                         class="fa-solid fa-chevron-down {{ request()->is('admin/dashboard/accept-accounts*') || request()->is('admin/dashboard/search-account*') ? 'rotate-180' : '' }}"></i>
                 </span>
             </div>
         </div>
         <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/accept-accounts*') || request()->is('admin/dashboard/search-account*') ? '' : 'hidden' }}"
-            id="chatbox-submenu">
+            id="admins-submenu">
             @if (Auth::user()->role === '3')
                 <a href="{{ route('admin.dashboard.accept-accounts') }}">
                     <h1
@@ -125,11 +127,53 @@
                 </a>
             @endif
             <a href="{{ route('admin.dashboard.search-account') }}">
-                <h1 class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/search-account*') ? 'bg-slate-200' : '' }}">
+                <h1
+                    class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/search-account*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span class="text-sm">
                             Search Admin Accounts
+                        </span>
+                    </div>
+                </h1>
+            </a>
+        </div>
+
+        <!-- tags create, search and delete -->
+        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer
+            bg-slate-50 hover:bg-slate-200 text-black"
+            onclick="dropdown('tags')">
+            <span>
+                <i class="fa-solid fa-tag"></i>
+            </span>
+            <div class="flex justify-between w-full items-center">
+                <span class="text-base ml-4">Tags</span>
+                <span class="text-sm transition-all duration-500" id="tags-arrow">
+                    <i
+                        class="fa-solid fa-chevron-down {{ request()->is('admin/dashboard/tags*') ? 'rotate-180' : '' }}"></i>
+                </span>
+            </div>
+        </div>
+        <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/tags*') ? '' : 'hidden' }}"
+            id="tags-submenu">
+            <a href="{{ route('admin.dashboard.create-tags') }}">
+                <h1
+                    class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/tags/create*') ? 'bg-slate-200' : '' }}">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i>
+                        <span class="text-sm">
+                            Create Tags
+                        </span>
+                    </div>
+                </h1>
+            </a>
+            <a href="{{ route('admin.dashboard.get-tags') }}">
+                <h1
+                    class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/tags/get*') ? 'bg-slate-200' : '' }}">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <span class="text-sm">
+                            Search Tags
                         </span>
                     </div>
                 </h1>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('image');
             $table->string('meta_description');
             $table->longText('description');
-            $table->unsignedBigInteger('user_id');
+            $table->foreignUuid('user_id');
             $table->timestamps();
         });
     }

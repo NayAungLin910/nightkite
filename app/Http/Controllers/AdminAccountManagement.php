@@ -17,6 +17,7 @@ class AdminAccountManagement extends Controller
         $search = "";
         $reqStartDate = "";
         $reqEndDate = "";
+        $timeline = $request->timeline ?? "latest";
 
         $admins = User::query();
 
@@ -38,9 +39,16 @@ class AdminAccountManagement extends Controller
             $admins = $admins->whereBetween('created_at', [$startdate, $enddate]);
         }
 
-        $admins = $admins->select('id', 'name', 'email', 'image', 'role')->where('role', '1')->paginate('10');
+        /* orderby the admin list according to the selected timeline */
+        if ($timeline === "oldest") {
+            $admins = $admins->oldest();
+        } else {
+            $admins = $admins->latest();
+        }
 
-        return view('admin.accept-accounts', compact('admins', 'search', 'reqStartDate', 'reqEndDate'));
+        $admins = $admins->select('id', 'name', 'email', 'image', 'role', 'created_at')->where('role', '1')->paginate('10');
+
+        return view('admin.accept-accounts', compact('admins', 'search', 'reqStartDate', 'reqEndDate', 'timeline'));
     }
 
     /* accept the account */
@@ -121,7 +129,7 @@ class AdminAccountManagement extends Controller
         Note that the search and date range queires are being repeated 
         in order to also take effect on orWhere('role', '3')
         */
-    
+
         /* select name similar to search */
         if ($request->search) {
             $search = $request->search;
@@ -141,7 +149,7 @@ class AdminAccountManagement extends Controller
         }
 
         $admins = $admins->paginate('10');
-        
+
 
         return view('admin.search-accounts', compact('admins', 'search', 'reqStartDate', 'reqEndDate'));
     }

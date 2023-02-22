@@ -49,6 +49,18 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     Route::get('/dashboard/search-account', [\App\Http\Controllers\AdminAccountManagement::class, "searchAdmin"])
         ->name('admin.dashboard.search-account');
 
+    // Tags management
+    // return create tag view
+    Route::view('/dashboard/tags/create', 'admin.tags.create-tags')->name('admin.dashboard.create-tags');
+    // create tag
+    Route::post('/dashboard/tags/create', [\App\Http\Controllers\TagController::class, "postTag"]);
+    // search tag
+    Route::get('/dashboard/tags/get', [\App\Http\Controllers\TagController::class, "getTag"])
+        ->name('admin.dashboard.get-tags');
+    // delete tag
+    Route::post('/dashboard/tags/delete', [\App\Http\Controllers\TagController::class, "deleteTag"])
+        ->name('admin.dashboard.delete-tag');
+
     // logout route 
     Route::post('/logout', [\App\Http\Controllers\Auth\AdminAuthController::class, "postLogout"])->name('admin.logout');
 });
