@@ -188,7 +188,7 @@
     </main>
 
     <!-- popup -->
-    <div class=" bg-white duration-200 ease-in-out rounded-xl fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] border shadow-md w-full md:w-auto z-30 py-6 px-4 scale-0"
+    <div class=" bg-white duration-200 ease-in-out rounded-xl fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] shadow-md w-full md:w-auto z-30 py-6 px-4 scale-0 border-t-8"
         id="popup">
         <p class="text-lg font-semibold text-center" id="popup-text"></p>
         <div class="flex items-center gap-2 place-content-center mt-4">
@@ -316,6 +316,17 @@
 
             this.email = email; // assign email to global email variable
             this.type = type;
+
+            switch (this.type) {
+                case 'submit':
+                    document.querySelector(`#popup`).classList.add('border-green-500'); // green border
+                    break;
+                case 'delete':
+                    document.querySelector(`#popup`).classList.add('border-orange-500'); // orage border
+                    break;
+                default:
+                    console.log('Popup type was not found!');
+            }
         }
 
         // accept popup
@@ -337,8 +348,20 @@
 
         // close popup
         function closePopup() {
-            document.querySelector(`#popup`).classList.toggle('active'); // close popup
+            let popup =  document.querySelector(`#popup`);
+
+            popup.classList.toggle('active'); // close popup
             document.querySelector(`#popup-overlay`).classList.toggle('active'); // close popup overlay
+            
+            // if popup has border green remove it
+            if(popup.classList.contains('border-green-500')) {
+                popup.classList.remove('border-green-500');
+            }
+            
+            // if popup has border orange remove it
+            if(popup.classList.contains('border-orange-500')) {
+                popup.classList.remove('border-orange-500');
+            }
         }
     </script>
 

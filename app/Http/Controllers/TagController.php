@@ -41,6 +41,7 @@ class TagController extends Controller
         $search = "";
         $reqStartDate = "";
         $reqEndDate = "";
+        $timeline = $request->timeline ?? "latest";
 
         $tags = Tag::query();
 
@@ -62,9 +63,16 @@ class TagController extends Controller
             $tags = $tags->whereBetween('created_at', [$startdate, $enddate]);
         }
 
-        $tags = $tags->select('id', 'title', 'slug', 'created_at')->withCount('articles')->latest()->paginate('10');
+        /* orderby the admin list according to the selected timeline */
+        if ($timeline === "oldest") {
+            $tags = $tags->oldest();
+        } else {
+            $tags = $tags->latest();
+        }
 
-        return view('admin.tags.get-tags', compact('tags', 'search', 'reqStartDate', 'reqEndDate'));
+        $tags = $tags->select('id', 'title', 'slug', 'created_at', 'user_id')->with('user:id,name,email')->withCount('articles')->paginate('10');
+
+        return view('admin.tags.get-tags', compact('tags', 'search', 'reqStartDate', 'reqEndDate', 'timeline'));
     }
 
     // delete tag
@@ -77,7 +85,7 @@ class TagController extends Controller
         $tag = Tag::where('slug', $request->slug)->first();
 
         // if no tag is found send error
-        if(!$tag) {
+        if (!$tag) {
             return redirect()->back()->withErrors([
                 "errors" => "Something went wrong!"
             ]);

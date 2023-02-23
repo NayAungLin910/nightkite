@@ -43,6 +43,9 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
         // decline account
         Route::post('/dashboard/decline-account', [\App\Http\Controllers\AdminAccountManagement::class, 'declineAccount'])
             ->name('admin.dashboard.decline-account');
+        // delete the accepted admin account
+        Route::post('/dashboard/delete-admin-account', [\App\Http\Controllers\AdminAccountManagement::class, 'deleteAdminAccount'])
+            ->name('admin.dashboard.delete-admin-account');
     });
 
     // search accepted admins

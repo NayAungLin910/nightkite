@@ -102,6 +102,7 @@ class AdminAccountManagement extends Controller
         $search = "";
         $reqStartDate = "";
         $reqEndDate = "";
+        $timeline = $request->timeline ?? "latest";
 
         $admins = User::query();
 
@@ -123,7 +124,14 @@ class AdminAccountManagement extends Controller
             $admins = $admins->whereBetween('created_at', [$startdate, $enddate]);
         }
 
-        $admins = $admins->select('id', 'name', 'email', 'image', 'role')->where('role', '2')->orWhere('role', '3');
+        /* orderby the admin list according to the selected timeline */
+        if ($timeline === "oldest") {
+            $admins = $admins->oldest();
+        } else {
+            $admins = $admins->latest();
+        }
+
+        $admins = $admins->select('id', 'name', 'email', 'image', 'role', 'created_at')->where('role', '2')->orWhere('role', '3');
 
         /* 
         Note that the search and date range queires are being repeated 
@@ -148,9 +156,44 @@ class AdminAccountManagement extends Controller
             $admins = $admins->whereBetween('created_at', [$startdate, $enddate]);
         }
 
+        /* orderby the admin list according to the selected timeline */
+        if ($timeline === "oldest") {
+            $admins = $admins->oldest();
+        } else {
+            $admins = $admins->latest();
+        }
+
+
         $admins = $admins->paginate('10');
 
 
-        return view('admin.search-accounts', compact('admins', 'search', 'reqStartDate', 'reqEndDate'));
+        return view('admin.search-accounts', compact('admins', 'search', 'reqStartDate', 'reqEndDate', 'timeline'));
+    }
+
+    /* deleting accepted admin account */
+    public function deleteAdminAccount(Request $request)
+    {
+        $request->validate([
+            "email" => "required|email|string|exists:users,email"
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        // if user not found or if the user is super admin then shows error
+        if (!$user || $user->role === '3') {
+            return back()->with("error", "Delete process failed! Something went wrong!");
+        }
+
+        // delete image
+        if (File::exists(public_path($user->image))) {
+            if ($user->image !== '/default_images/nightkite_logo_transparent.webp') { // if the image is not default image
+                File::delete(public_path($user->image));
+            }
+        }
+
+        $userName = $user->name;
+        $user->delete(); // delete user
+
+        return back()->with('info', "The admin account $userName has been deleted!");
     }
 }

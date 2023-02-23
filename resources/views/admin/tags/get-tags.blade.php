@@ -11,11 +11,21 @@
             <!-- filtering options -->
             <form action="{{ route('admin.dashboard.get-tags') }}" id="clear-filter-form"></form>
             <form action="{{ route('admin.dashboard.get-tags') }}">
-                <div class="flex flex-col lg:flex-row items-center gap-4 mx-2">
+                <div class="flex flex-col lg:flex-row items-center gap-4 mx-2 flex-wrap mb-3">
                     <div>
                         <label for="filter-search">Search</label>
                         <input value="{{ $search }}" type="text" class="input-form-sky" name="search"
                             id="filter-search" />
+                    </div>
+                    <div>
+                        <label for="filter-timeline">Sort By</label>
+                        <select name="timeline"
+                            class="my-2 px-2 w-full min-w-[4rem] whitespace-nowrap block h-8 text-black focus:outline-none border 
+                        focus:ring focus:ring-sky-400 appearance-none border-sky-400 rounded-lg"
+                            id="filter-timeline">
+                            <option value="latest" @if ($timeline === 'latest') selected @endif>Latest</option>
+                            <option value="oldest" @if ($timeline === 'oldest') selected @endif>Oldest</option>
+                        </select>
                     </div>
                     <div>
                         <label for="filter-startdate">Start Date</label>
@@ -43,9 +53,11 @@
                         <thead class="border-b text-lg">
                             <tr>
                                 <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left">Title</th>
+                                <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left">Admin</th>
                                 <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left">Created At
                                 </th>
-                                <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left">Articles Count</th>
+                                <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left">Articles
+                                    Count</th>
                                 <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left"></th>
                             </tr>
                         </thead>
@@ -53,8 +65,21 @@
                             @foreach ($tags as $tag)
                                 <tr class="border-b hover:bg-slate-50 group/tag">
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $tag->title }}</td>
+                                    <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">
+
+                                        <!-- if user exists, show user name if not show not found! -->
+                                        @if ($tag->user)
+                                            {{ $tag->user->name }}
+                                        @else
+                                            <p
+                                                class=" w-[5.5rem] whitespace-nowrap bg-slate-200 rounded-lg px-2 py-1 italic">
+                                                Not found!</p>
+                                        @endif
+
+                                    </td>
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $tag->created_at }}</td>
-                                    <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $tag->articles_count }}</td>
+                                    <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $tag->articles_count }}
+                                    </td>
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">
                                         <div class="flex items-center gap-2 opacity-0 group-hover/tag:opacity-100">
                                             <!-- delete tag form -->
