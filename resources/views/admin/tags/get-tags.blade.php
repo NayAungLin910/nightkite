@@ -81,18 +81,31 @@
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $tag->articles_count }}
                                     </td>
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">
-                                        <div class="flex items-center gap-2 opacity-0 group-hover/tag:opacity-100">
-                                            <!-- delete tag form -->
-                                            <form action="{{ route('admin.dashboard.delete-tag') }}"
-                                                id="{{ $tag->slug }}-delete-form" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="slug" value="{{ $tag->slug }}">
+                                        <div
+                                            class="flex items-center gap-2 {{ Auth::user()->id === '3' ? 'opacity-0 group-hover/tag:opacity-100' : '' }} ">
+
+                                            <!-- if the current user is super admin or the current admin, created the tag, display delete button -->
+                                            @if (Auth::user()->id === '3' || Auth::user()->id === $tag->user_id)
+                                                <!-- delete tag form -->
+                                                <form action="{{ route('admin.dashboard.delete-tag') }}"
+                                                    id="{{ $tag->slug }}-delete-form" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="slug" value="{{ $tag->slug }}">
+                                                    <button type="button"
+                                                        onclick='openPopupSubmit("Are you sure about deleting {{ $tag->title }} tag?", "{{ $tag->slug }}", "delete")'
+                                                        class="orange-button-rounded w-10">
+                                                        <i class="fa-solid fa-xmark"></i>
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <!-- else show fake button -->
                                                 <button type="button"
-                                                    onclick='openPopupSubmit("Are you sure about deleting {{ $tag->title }} tag?", "{{ $tag->slug }}", "delete")'
-                                                    class="orange-button-rounded w-10">
+                                                    disabled
+                                                    class="orange-button-rounded w-10 opacity-0">
                                                     <i class="fa-solid fa-xmark"></i>
                                                 </button>
-                                            </form>
+                                            @endif
+
                                         </div>
                                     </td>
                                 </tr>

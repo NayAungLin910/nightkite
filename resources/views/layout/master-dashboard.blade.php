@@ -72,8 +72,10 @@
                 </h1>
             </div>
 
-            <hr class="my-2 text-gray-900" />
+
         </div>
+
+        <hr class="my-2 text-gray-900" />
 
         <!-- back to site -->
         <a href="{{ route('welcome') }}">
@@ -180,7 +182,52 @@
             </a>
         </div>
 
+        <!-- articles create, search and delete -->
+        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer
+            bg-slate-50 hover:bg-slate-200 text-black"
+            onclick="dropdown('articles')">
+            <span>
+                <i class="fa-solid fa-newspaper"></i>
+            </span>
+            <div class="flex justify-between w-full items-center">
+                <span class="text-base ml-4">Articles</span>
+                <span class="text-sm transition-all duration-500" id="articles-arrow">
+                    <i
+                        class="fa-solid fa-chevron-down {{ request()->is('admin/dashboard/articles*') ? 'rotate-180' : '' }}"></i>
+                </span>
+            </div>
+        </div>
+        <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/articles*') ? '' : 'hidden' }}"
+            id="articles-submenu">
+            <a href="">
+                <h1
+                    class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/articles/create*') ? 'bg-slate-200' : '' }}">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i>
+                        <span class="text-sm">
+                            Create Articles
+                        </span>
+                    </div>
+                </h1>
+            </a>
+            <a href="">
+                <h1
+                    class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/articles/get*') ? 'bg-slate-200' : '' }}">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <span class="text-sm">
+                            Search Articles
+                        </span>
+                    </div>
+                </h1>
+            </a>
+        </div>
+
+        <hr class="my-4 text-gray-600" />
+
     </div>
+
+
 
     <!-- custom content -->
     <main id="main-content" class="transition-all duration-500 lg:pl-[300px] z-0">
@@ -348,18 +395,18 @@
 
         // close popup
         function closePopup() {
-            let popup =  document.querySelector(`#popup`);
+            let popup = document.querySelector(`#popup`);
 
             popup.classList.toggle('active'); // close popup
             document.querySelector(`#popup-overlay`).classList.toggle('active'); // close popup overlay
-            
+
             // if popup has border green remove it
-            if(popup.classList.contains('border-green-500')) {
+            if (popup.classList.contains('border-green-500')) {
                 popup.classList.remove('border-green-500');
             }
-            
+
             // if popup has border orange remove it
-            if(popup.classList.contains('border-orange-500')) {
+            if (popup.classList.contains('border-orange-500')) {
                 popup.classList.remove('border-orange-500');
             }
         }

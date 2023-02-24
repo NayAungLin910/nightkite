@@ -6,6 +6,7 @@ use App\Models\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 class TagController extends Controller
@@ -89,6 +90,15 @@ class TagController extends Controller
             return redirect()->back()->withErrors([
                 "errors" => "Something went wrong!"
             ]);
+        }
+
+        // if not super admin, check gate
+        if(Auth::user()->role !== '3') {
+
+            // only the admin who created the tag can delete it
+            if(Gate::denies('delete-tag', $tag)) {
+                return redirect()->back()->with('error', "Unauthorized action!");
+            }
         }
 
         // delete tag

@@ -63,6 +63,8 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     // delete tag
     Route::post('/dashboard/tags/delete', [\App\Http\Controllers\TagController::class, "deleteTag"])
         ->name('admin.dashboard.delete-tag');
+    
+    // Artcles management
 
     // logout route 
     Route::post('/logout', [\App\Http\Controllers\Auth\AdminAuthController::class, "postLogout"])->name('admin.logout');

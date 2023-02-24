@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+
+use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rules\Password;
 
 class AuthServiceProvider extends ServiceProvider
@@ -33,5 +37,10 @@ class AuthServiceProvider extends ServiceProvider
                 ->numbers()
                 ->symbols()
         );
+
+        // tag delete gate, will only allow the user with the same user_id on the tag
+        Gate::define('delete-tag', function (User $user, Tag $tag) {
+            return $user->id === $tag->user_id;
+        });
     }
 }
