@@ -14,33 +14,24 @@ class AdminAccountManagement extends Controller
     /* admin acccount accept page */
     public function getAcceptAccounts(Request $request)
     {
-        $search = "";
-        $reqStartDate = "";
-        $reqEndDate = "";
-        $timeline = $request->timeline ?? "latest";
-
         $admins = User::query();
 
         /* select name similar to search */
         if ($request->search) {
-            $search = $request->search;
-            $admins = $admins->where('name', 'like', "%$search%");
+            $admins = $admins->where('name', 'like', "%$request->search%");
         }
 
         /* select registration between startdate and enddate */
         if ($request->startdate && $request->enddate) {
 
-            $reqStartDate = $request->startdate;
-            $reqEndDate = $request->enddate;
-
-            $startdate = Carbon::parse($reqStartDate);
-            $enddate = Carbon::parse($reqEndDate);
+            $startdate = Carbon::parse($request->startdate);
+            $enddate = Carbon::parse($request->enddate);
 
             $admins = $admins->whereBetween('created_at', [$startdate, $enddate]);
         }
 
         /* orderby the admin list according to the selected timeline */
-        if ($timeline === "oldest") {
+        if ($request->timeline && $request->timeline === "oldest") {
             $admins = $admins->oldest();
         } else {
             $admins = $admins->latest();
@@ -48,7 +39,7 @@ class AdminAccountManagement extends Controller
 
         $admins = $admins->select('id', 'name', 'email', 'image', 'role', 'created_at')->where('role', '1')->paginate('10');
 
-        return view('admin.accept-accounts', compact('admins', 'search', 'reqStartDate', 'reqEndDate', 'timeline'));
+        return view('admin.accept-accounts', compact('admins'));
     }
 
     /* accept the account */
@@ -99,33 +90,25 @@ class AdminAccountManagement extends Controller
     /* search accepted admins */
     public function searchAdmin(Request $request)
     {
-        $search = "";
-        $reqStartDate = "";
-        $reqEndDate = "";
-        $timeline = $request->timeline ?? "latest";
 
         $admins = User::query();
 
         /* select name similar to search */
         if ($request->search) {
-            $search = $request->search;
-            $admins = $admins->where('name', 'like', "%$search%");
+            $admins = $admins->where('name', 'like', "%$request->search%");
         }
 
         /* select registration between startdate and enddate */
         if ($request->startdate && $request->enddate) {
 
-            $reqStartDate = $request->startdate;
-            $reqEndDate = $request->enddate;
-
-            $startdate = Carbon::parse($reqStartDate);
-            $enddate = Carbon::parse($reqEndDate);
+            $startdate = Carbon::parse($request->startdate);
+            $enddate = Carbon::parse($request->enddate);
 
             $admins = $admins->whereBetween('created_at', [$startdate, $enddate]);
         }
 
         /* orderby the admin list according to the selected timeline */
-        if ($timeline === "oldest") {
+        if ($request->timeline && $request->timeline === "oldest") {
             $admins = $admins->oldest();
         } else {
             $admins = $admins->latest();
@@ -140,34 +123,30 @@ class AdminAccountManagement extends Controller
 
         /* select name similar to search */
         if ($request->search) {
-            $search = $request->search;
-            $admins = $admins->where('name', 'like', "%$search%");
+            $admins = $admins->where('name', 'like', "%$request->search%");
         }
 
         /* select registration between startdate and enddate */
         if ($request->startdate && $request->enddate) {
 
-            $reqStartDate = $request->startdate;
-            $reqEndDate = $request->enddate;
-
-            $startdate = Carbon::parse($reqStartDate);
-            $enddate = Carbon::parse($reqEndDate);
+            $startdate = Carbon::parse($request->startdate);
+            $enddate = Carbon::parse($request->enddate);
 
             $admins = $admins->whereBetween('created_at', [$startdate, $enddate]);
         }
 
         /* orderby the admin list according to the selected timeline */
-        if ($timeline === "oldest") {
-            $admins = $admins->oldest();
-        } else {
-            $admins = $admins->latest();
+        if ($request->timeline) {
+            if ($request->timeline === "oldest") {
+                $admins = $admins->oldest();
+            } else {
+                $admins = $admins->latest();
+            }
         }
-
 
         $admins = $admins->paginate('10');
 
-
-        return view('admin.search-accounts', compact('admins', 'search', 'reqStartDate', 'reqEndDate', 'timeline'));
+        return view('admin.search-accounts', compact('admins'));
     }
 
     /* deleting accepted admin account */

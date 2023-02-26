@@ -14,7 +14,7 @@
                 <div class="flex flex-col lg:flex-row flex-wrap items-center gap-4 mx-2 mb-3">
                     <div>
                         <label for="filter-search">Search</label>
-                        <input value="{{ $search }}" type="text" class="input-form-sky" name="search"
+                        <input value="{{ request('search') }}" type="text" class="input-form-sky" name="search"
                             id="filter-search" />
                     </div>
                     <div>
@@ -23,18 +23,18 @@
                             class="my-2 px-2 w-full min-w-[4rem] whitespace-nowrap block h-8 text-black focus:outline-none border 
                         focus:ring focus:ring-sky-400 appearance-none border-sky-400 rounded-lg"
                             id="filter-timeline">
-                            <option value="latest" @if ($timeline === 'latest') selected @endif>Latest</option>
-                            <option value="oldest" @if ($timeline === 'oldest') selected @endif>Oldest</option>
+                            <option value="latest" @if (request('timeline') === 'latest') selected @endif>Latest</option>
+                            <option value="oldest" @if (request('timeline') === 'oldest') selected @endif>Oldest</option>
                         </select>
                     </div>
                     <div>
                         <label for="filter-startdate">Start Date</label>
-                        <input type="datetime-local" value="{{ $reqStartDate }}" class="input-form-sky" name="startdate"
+                        <input type="datetime-local" value="{{ request('startdate') }}" class="input-form-sky" name="startdate"
                             id="filter-startdate" />
                     </div>
                     <div>
                         <label for="filter-enddate">End Date</label>
-                        <input type="datetime-local" value="{{ $reqEndDate }}" class="input-form-sky" name="enddate"
+                        <input type="datetime-local" value="{{ request('enddate') }}" class="input-form-sky" name="enddate"
                             id="filter-enddate" />
                     </div>
                     <button type="submit" class="green-button-rounded lg:mt-5 whitespace-nowrap">

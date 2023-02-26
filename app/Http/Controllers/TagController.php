@@ -38,42 +38,43 @@ class TagController extends Controller
     // get tags
     public function getTag(Request $request)
     {
-        $search = "";
-        $search = "";
-        $reqStartDate = "";
-        $reqEndDate = "";
-        $timeline = $request->timeline ?? "latest";
-
         $tags = Tag::query();
 
         /* select title similar to search */
         if ($request->search) {
-            $search = $request->search;
-            $tags = $tags->where('title', 'like', "%$search%");
+            $tags = $tags->where('title', 'like', "%$request->search%");
         }
 
         /* select registration between startdate and enddate */
         if ($request->startdate && $request->enddate) {
 
-            $reqStartDate = $request->startdate;
-            $reqEndDate = $request->enddate;
-
-            $startdate = Carbon::parse($reqStartDate);
-            $enddate = Carbon::parse($reqEndDate);
+            $startdate = Carbon::parse($request->startdate);
+            $enddate = Carbon::parse($request->enddate);
 
             $tags = $tags->whereBetween('created_at', [$startdate, $enddate]);
         }
 
         /* orderby the admin list according to the selected timeline */
-        if ($timeline === "oldest") {
+        if ($request->timeline && $request->timeline === "oldest") {
             $tags = $tags->oldest();
         } else {
             $tags = $tags->latest();
         }
 
+        /* select according to who created the tag */
+        if ($request->by) {
+            if ($request->by === 'me') {
+                $tags = $tags->where('user_id', Auth::user()->id);
+            } elseif ($request->by === 'others') {
+                $tags = $tags->whereNot(function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                });
+            }
+        }
+
         $tags = $tags->select('id', 'title', 'slug', 'created_at', 'user_id')->with('user:id,name,email')->withCount('articles')->paginate('10');
 
-        return view('admin.tags.get-tags', compact('tags', 'search', 'reqStartDate', 'reqEndDate', 'timeline'));
+        return view('admin.tags.get-tags', compact('tags'));
     }
 
     // delete tag
@@ -93,10 +94,10 @@ class TagController extends Controller
         }
 
         // if not super admin, check gate
-        if(Auth::user()->role !== '3') {
+        if (Auth::user()->role !== '3') {
 
             // only the admin who created the tag can delete it
-            if(Gate::denies('delete-tag', $tag)) {
+            if (Gate::denies('delete-tag', $tag)) {
                 return redirect()->back()->with('error', "Unauthorized action!");
             }
         }

@@ -14,27 +14,32 @@
                 <div class="flex flex-col lg:flex-row items-center gap-4 mx-2 flex-wrap mb-3">
                     <div>
                         <label for="filter-search">Search</label>
-                        <input value="{{ $search }}" type="text" class="input-form-sky" name="search"
+                        <input value="{{ request('search') }}" type="text" class="input-form-sky" name="search"
                             id="filter-search" />
                     </div>
                     <div>
                         <label for="filter-timeline">Sort By</label>
-                        <select name="timeline"
-                            class="my-2 px-2 w-full min-w-[4rem] whitespace-nowrap block h-8 text-black focus:outline-none border 
-                        focus:ring focus:ring-sky-400 appearance-none border-sky-400 rounded-lg"
-                            id="filter-timeline">
-                            <option value="latest" @if ($timeline === 'latest') selected @endif>Latest</option>
-                            <option value="oldest" @if ($timeline === 'oldest') selected @endif>Oldest</option>
+                        <select name="timeline" class="select-sky" id="filter-timeline">
+                            <option value="latest" @if (request('timeline') === 'latest') selected @endif>Latest</option>
+                            <option value="oldest" @if (request('timeline') === 'oldest') selected @endif>Oldest</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="filter-by">By</label>
+                        <select name="by" class="select-sky" id="filter-by">
+                            <option value="all" @if (request('by') === 'all') selected @endif>All</option>
+                            <option value="me" @if (request('by') === 'me') selected @endif>Me</option>
+                            <option value="others" @if (request('by') === 'others') selected @endif>Others</option>
                         </select>
                     </div>
                     <div>
                         <label for="filter-startdate">Start Date</label>
-                        <input type="datetime-local" value="{{ $reqStartDate }}" class="input-form-sky" name="startdate"
+                        <input type="datetime-local" value="{{ request('startdate') }}" class="input-form-sky" name="startdate"
                             id="filter-startdate" />
                     </div>
                     <div>
                         <label for="filter-enddate">End Date</label>
-                        <input type="datetime-local" value="{{ $reqEndDate }}" class="input-form-sky" name="enddate"
+                        <input type="datetime-local" value="{{ request('enddate') }}" class="input-form-sky" name="enddate"
                             id="filter-enddate" />
                     </div>
                     <button type="submit" class="green-button-rounded lg:mt-5">
@@ -57,7 +62,8 @@
                                 <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left">Created At
                                 </th>
                                 <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left">Articles
-                                    Count</th>
+                                    Count
+                                </th>
                                 <th class="p-3 w-auto tracking-wide font-semibold whitespace-nowrap text-left"></th>
                             </tr>
                         </thead>
@@ -73,7 +79,8 @@
                                         @else
                                             <p
                                                 class=" w-[5.5rem] whitespace-nowrap bg-slate-200 rounded-lg px-2 py-1 italic">
-                                                Not found!</p>
+                                                Not found!
+                                            </p>
                                         @endif
 
                                     </td>
@@ -82,10 +89,10 @@
                                     </td>
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">
                                         <div
-                                            class="flex items-center gap-2 {{ Auth::user()->id === '3' ? 'opacity-0 group-hover/tag:opacity-100' : '' }} ">
+                                            class="flex items-center gap-2 {{ Auth::user()->role === '3' ? 'opacity-0 group-hover/tag:opacity-100' : '' }} ">
 
-                                            <!-- if the current user is super admin or the current admin, created the tag, display delete button -->
-                                            @if (Auth::user()->id === '3' || Auth::user()->id === $tag->user_id)
+                                            <!-- if the current user is super admin or the admin who created the tag, then display delete button -->
+                                            @if (Auth::user()->role === '3' || Auth::user()->id === $tag->user_id)
                                                 <!-- delete tag form -->
                                                 <form action="{{ route('admin.dashboard.delete-tag') }}"
                                                     id="{{ $tag->slug }}-delete-form" method="POST">
@@ -99,8 +106,7 @@
                                                 </form>
                                             @else
                                                 <!-- else show fake button -->
-                                                <button type="button"
-                                                    disabled
+                                                <button type="button" disabled
                                                     class="orange-button-rounded w-10 opacity-0">
                                                     <i class="fa-solid fa-xmark"></i>
                                                 </button>
