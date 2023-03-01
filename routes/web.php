@@ -34,15 +34,20 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     // dashboard of authoried user
     Route::view('/dashboard', 'admin.admin-home')->name('admin.dashboard.home');
 
+    // view profile
+    Route::view('/dashboard/profile', 'admin.profile')->name('admin.dashboard.profile'); 
+
     // Routes for super admin only
     Route::middleware(['AuthAdmin'])->group(function () {
         // accept accounts 
         Route::get('/dashboard/accept-accounts', [\App\Http\Controllers\AdminAccountManagement::class, 'getAcceptAccounts'])
             ->name('admin.dashboard.accept-accounts');
         Route::post('/dashboard/accept-accounts', [\App\Http\Controllers\AdminAccountManagement::class, 'postAcceptAccount']);
+
         // decline account
         Route::post('/dashboard/decline-account', [\App\Http\Controllers\AdminAccountManagement::class, 'declineAccount'])
             ->name('admin.dashboard.decline-account');
+
         // delete the accepted admin account
         Route::post('/dashboard/delete-admin-account', [\App\Http\Controllers\AdminAccountManagement::class, 'deleteAdminAccount'])
             ->name('admin.dashboard.delete-admin-account');
@@ -55,16 +60,25 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     // Tags management
     // return create tag view
     Route::view('/dashboard/tags/create', 'admin.tags.create-tags')->name('admin.dashboard.create-tags');
+
     // create tag
     Route::post('/dashboard/tags/create', [\App\Http\Controllers\TagController::class, "postTag"]);
+
     // search tag
     Route::get('/dashboard/tags/get', [\App\Http\Controllers\TagController::class, "getTag"])
         ->name('admin.dashboard.get-tags');
+
     // delete tag
     Route::post('/dashboard/tags/delete', [\App\Http\Controllers\TagController::class, "deleteTag"])
         ->name('admin.dashboard.delete-tag');
     
-    // Artcles management
+    // Articles management
+    // return the article create view
+    Route::get('/dashboard/articles/create', [\App\Http\Controllers\ArticleController::class, "getArticleCreate"])
+        ->name('admin.dashboard.create-article');
+    
+    // create article
+    Route::post('/dashboard/articles/create', [\App\Http\Controllers\ArticleController::class, "postArticleCreate"]);
 
     // logout route 
     Route::post('/logout', [\App\Http\Controllers\Auth\AdminAuthController::class, "postLogout"])->name('admin.logout');

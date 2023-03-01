@@ -2,6 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    h1 {
+        @apply text-2xl;
+    }
+
+    h2 {
+        @apply text-xl;
+    }
+
+    h3 {
+        @apply text-lg;
+    }
+
+    h4 {
+        @apply text-base;
+    }
+
+    h5 {
+        @apply text-sm;
+    }
+
+    h6 {
+        @apply text-xs;
+    }
+
+    blockquote {
+        @apply p-4 my-3 border-l-4 bg-slate-50 text-black text-justify text-lg italic;
+    }
+
+    pre {
+        @apply p-4 my-3 border shadow rounded-xl text-sm bg-slate-50;
+    }
+
+    ul {
+        @apply max-w-md space-y-1 list-disc list-inside;
+    }
+
+    ol {
+        @apply max-w-md space-y-1 list-decimal list-inside;
+    }
+}
+
 @layer components {
     .sky-button-rounded {
         @apply bg-sky-500 border border-sky-500 text-white duration-500 py-2 px-3 
@@ -61,5 +103,15 @@
     /* popup active */
     #popup.active {
         @apply scale-100;
+    }
+}
+
+@layer utilities {
+    .ul-clear {
+        @apply list-none;
+    }
+    
+    .ol-clear {
+        @apply list-none;
     }
 }

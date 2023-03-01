@@ -67,7 +67,7 @@
 
             <div class="flex items-center px-4 my-2 gap-2">
                 <i class="fa-solid fa-gauge"></i>
-                <h1 class="">
+                <h1>
                     Dashboard
                 </h1>
             </div>
@@ -88,13 +88,16 @@
             </div>
         </a>
 
-        <div
-            class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-slate-50 hover:bg-slate-200 text-black">
-            <span>
-                <i class="fa-solid fa-bookmark"></i>
-            </span>
-            <span class="text-base ml-4">Bookmark</span>
-        </div>
+        <!-- profile -->
+        <a href="{{ route('admin.dashboard.profile') }}">
+            <div
+                class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-slate-200 text-black {{ request()->is('admin/dashboard/profile*') ? 'bg-slate-200' : 'bg-slate-50' }}">
+                <span>
+                    <i class="fa-solid fa-user"></i>
+                </span>
+                <span class="text-base ml-4">Profile</span>
+            </div>
+        </a>
 
         <hr class="my-4 text-gray-600" />
 
@@ -117,7 +120,7 @@
             id="admins-submenu">
             @if (Auth::user()->role === '3')
                 <a href="{{ route('admin.dashboard.accept-accounts') }}">
-                    <h1
+                    <div
                         class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/accept-accounts*') ? 'bg-slate-200' : '' }}">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-user-check"></i>
@@ -125,11 +128,11 @@
                                 Accept Accounts
                             </span>
                         </div>
-                    </h1>
+                    </div>
                 </a>
             @endif
             <a href="{{ route('admin.dashboard.search-account') }}">
-                <h1
+                <div
                     class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/search-account*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -137,7 +140,7 @@
                             Search Admin Accounts
                         </span>
                     </div>
-                </h1>
+                </div>
             </a>
         </div>
 
@@ -159,7 +162,7 @@
         <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/tags*') ? '' : 'hidden' }}"
             id="tags-submenu">
             <a href="{{ route('admin.dashboard.create-tags') }}">
-                <h1
+                <div
                     class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/tags/create*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-plus"></i>
@@ -167,10 +170,10 @@
                             Create Tags
                         </span>
                     </div>
-                </h1>
+                </div>
             </a>
             <a href="{{ route('admin.dashboard.get-tags') }}">
-                <h1
+                <div
                     class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/tags/get*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -178,7 +181,7 @@
                             Search Tags
                         </span>
                     </div>
-                </h1>
+                </div>
             </a>
         </div>
 
@@ -199,19 +202,19 @@
         </div>
         <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/articles*') ? '' : 'hidden' }}"
             id="articles-submenu">
-            <a href="">
-                <h1
+            <a href="{{ route('admin.dashboard.create-article') }}">
+                <div
                     class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/articles/create*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-plus"></i>
                         <span class="text-sm">
-                            Create Articles
+                            Create Article
                         </span>
                     </div>
-                </h1>
+                </div>
             </a>
             <a href="">
-                <h1
+                <div
                     class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/articles/get*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -219,7 +222,7 @@
                             Search Articles
                         </span>
                     </div>
-                </h1>
+                </div>
             </a>
         </div>
 
