@@ -8,7 +8,7 @@
 @endsection
 @section('custom-content')
     <div class="m-2">
-        
+
         <!-- title -->
         <h1 class="text-xl text-center mb-10"><i class="fa-solid fa-plus mr-1"></i> Create Article</h1>
 
@@ -28,7 +28,8 @@
             <div class="md:w-[80%] w-full mx-4 md:mx-auto">
 
                 <!-- create article form -->
-                <form action="{{ route('admin.dashboard.create-article') }}" method="POST" class="w-full">
+                <form action="{{ route('admin.dashboard.create-article') }}" method="POST" class="w-full"
+                    enctype="multipart/form-data">
                     @csrf
 
                     <!-- title -->
@@ -58,9 +59,15 @@
                             class="block w-auto py-1 px-2 my-2 appearance-none border border-sky-400 focus:outline-none focus:ring focus:ring-sky-400"
                             name="tags[]" id="tags">
                             @foreach ($tags as $tag)
-                                <option value="{{ $tag->slug }}">{{ $tag->title }}</option>
+                                <option value="{{ $tag->id }}">{{ $tag->title }}</option>
                             @endforeach
                         </select>
+                    </div>
+
+                    <!-- image -->
+                    <div class="my-2">
+                        <label for="image">Image</label>
+                        <input type="file" name="image" class="input-file-type" />
                     </div>
 
                     <!-- create submit button -->
