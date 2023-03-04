@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug');
+            $table->longText('title');
+            $table->longText('slug');
             $table->string('image');
-            $table->string('meta_description');
+            $table->longText('meta_description');
             $table->longText('description');
             $table->foreignUuid('user_id');
             $table->timestamps();

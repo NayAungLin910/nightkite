@@ -28,6 +28,14 @@ class Article extends Model
         );
     }
 
+    // updated_at attribute mutator 
+    protected function updatedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Carbon::parse($value)->format('d/m/Y h:i:s')
+        );
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -52,4 +52,18 @@ class ArticleController extends Controller
 
         return redirect()->back()->with('success', "A new article has been created!");
     }
+
+    /* search articles */
+    public function getArticles(Request $request)
+    {
+        $articles = Article::query();
+
+        $articles = $articles->select('id', 'title', 'slug', 'image', 'meta_description', 'user_id', 'created_at', 'updated_at')
+            ->with('user:id,name,email', 'tags:id,title')
+            ->paginate(10);
+
+        $tags = Tag::orderBy('title')->get(); // for filter option
+
+        return view('admin.articles.get-articles', compact('articles', 'tags'));
+    }
 }

@@ -101,7 +101,7 @@
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['table', ['table']],
                 ['insert', ['link', 'picture']],
-                ['view', ['codeview', 'help']]
+                ['view', ['help']]
             ]
         });
     </script>

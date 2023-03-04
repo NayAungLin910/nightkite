@@ -35,7 +35,7 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     Route::view('/dashboard', 'admin.admin-home')->name('admin.dashboard.home');
 
     // view profile
-    Route::view('/dashboard/profile', 'admin.profile')->name('admin.dashboard.profile'); 
+    Route::view('/dashboard/profile', 'admin.profile')->name('admin.dashboard.profile');
 
     // Routes for super admin only
     Route::middleware(['AuthAdmin'])->group(function () {
@@ -71,14 +71,18 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     // delete tag
     Route::post('/dashboard/tags/delete', [\App\Http\Controllers\TagController::class, "deleteTag"])
         ->name('admin.dashboard.delete-tag');
-    
+
     // Articles management
     // return the article create view
     Route::get('/dashboard/articles/create', [\App\Http\Controllers\ArticleController::class, "getArticleCreate"])
         ->name('admin.dashboard.create-article');
-    
+
     // create article
     Route::post('/dashboard/articles/create', [\App\Http\Controllers\ArticleController::class, "postArticleCreate"]);
+
+    // search article
+    Route::get('/dashboard/articles/search', [\App\Http\Controllers\ArticleController::class, "getArticles"])
+        ->name('admin.dashboard.search-article');;
 
     // logout route 
     Route::post('/logout', [\App\Http\Controllers\Auth\AdminAuthController::class, "postLogout"])->name('admin.logout');

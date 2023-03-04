@@ -53,7 +53,7 @@
     <!-- side bar -->
     <div id="sidebar"
         class="fixed z-10 top-0 bottom-0 lg:left-0 left-[-300px] p-2 w-[300px] overflow-y-auto 
-    text-center bg-slate-50 text-black shadow">
+    text-center bg-slate-50 text-black shadow h-screen">
         <div class="text-dark text-xl">
             <div class="p-2.5 mt-1 flex items-center">
                 <a href="{{ route('welcome') }}">
@@ -71,7 +71,6 @@
                     Dashboard
                 </h1>
             </div>
-
 
         </div>
 
@@ -213,9 +212,9 @@
                     </div>
                 </div>
             </a>
-            <a href="">
+            <a href="{{ route('admin.dashboard.search-article') }}">
                 <div
-                    class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/articles/get*') ? 'bg-slate-200' : '' }}">
+                    class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/articles/search*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span class="text-sm">
@@ -230,15 +229,13 @@
 
     </div>
 
-
-
     <!-- custom content -->
     <main id="main-content" class="transition-all duration-500 lg:pl-[300px] z-0">
         @yield('custom-content')
     </main>
 
     <!-- popup -->
-    <div class=" bg-white duration-200 ease-in-out rounded-xl fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] shadow-md w-full md:w-auto z-30 py-6 px-4 scale-0 border-t-8"
+    <div class="bg-white duration-200 ease-in-out rounded-xl fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] shadow-md w-full md:w-auto z-30 py-6 px-4 scale-0 border-t-8"
         id="popup">
         <p class="text-lg font-semibold text-center" id="popup-text"></p>
         <div class="flex items-center gap-2 place-content-center mt-4">

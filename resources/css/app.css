@@ -110,8 +110,16 @@
     .ul-clear {
         @apply list-none;
     }
-    
+
     .ol-clear {
         @apply list-none;
+    }
+
+    .limit-lines {
+        --max-lines: 4;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: var(--max-lines);
     }
 }
