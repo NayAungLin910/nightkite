@@ -29,6 +29,9 @@ Route::middleware(['NotAuth'])->group(function () {
 // welcome page
 Route::view('/', 'welcome')->name('welcome');
 
+// view article
+Route::get('/articles/{slug}', [\App\Http\Controllers\ArticleController::class, "viewArticle"]);
+
 // Routes only for authorized users
 Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     // dashboard of authoried user
@@ -82,7 +85,7 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
 
     // search article
     Route::get('/dashboard/articles/search', [\App\Http\Controllers\ArticleController::class, "getArticles"])
-        ->name('admin.dashboard.search-article');;
+        ->name('admin.dashboard.search-article');
 
     // logout route 
     Route::post('/logout', [\App\Http\Controllers\Auth\AdminAuthController::class, "postLogout"])->name('admin.logout');
