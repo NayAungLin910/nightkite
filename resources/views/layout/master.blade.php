@@ -61,7 +61,7 @@
         <ul id="top-nav-ul"
             class="ul-clear md:flex md:ml-3 md:items-center z-10 md:z-auto md:static absolute bg-slate-50 text-black md:bg-white left-0 w-full md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500 ">
             <li class="mx-3 my-5 md:my-0">
-                <a href="#" class="text-xl hover:text-cyan-500 duration-500">
+                <a href="#" class="text-xl text-black hover:no-underline hover:text-cyan-500 duration-500">
                     <div class="flex items-center gap-1">
                         <i class="fa-solid fa-tag"></i>
                         <span>
@@ -82,7 +82,7 @@
                         class="hidden md:absolute rounded-lg w-auto bg-white text-black shadow py-2 px-1">
                         <ul class="ul-clear">
                             <li class="rounded-lg cursor-pointer px-4 py-2 hover:bg-gray-100">
-                                <a href="{{ route('admin.dashboard.home') }}">
+                                <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.home') }}">
                                     <div class="flex items-center gap-2">
                                         <i class="fa-solid fa-gauge"></i>
                                         Dashboard

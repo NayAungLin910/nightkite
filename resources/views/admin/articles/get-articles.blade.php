@@ -66,23 +66,34 @@
 
         <!-- articles display -->
         <div class="grid md:grid-cols-3 grid-cols-1 gap-1 gap-y-3">
-            @foreach ($articles as $a)
-                <div>
-                    <div class="bg-slate-50 shadow-md mx-4 h-auto">
-                        <img src="{{ $a->image }}" alt="{{ $a->title }}" class="rounded-t-xl mx-auto" width="auto"
-                            height="auto" loading="lazy" />
-                        <div class="py-2 px-4">
-                            <p class="truncate"><a class="hover:underline text-blue-600 font-semibold mt-1"
-                                    href="{{ url("/articles/$a->slug") }}">{{ $a->title }}</a></p>
-                            <p class="text-justify text-sm mt-1 limit-lines">
-                                {{ $a->meta_description }}
-                            </p>
-                            <p class="truncate text-xs opacity-70 mt-1">Created On: {{ $a->created_at }}</p>
-                            <p class="truncate text-xs opacity-70">Updated On: {{ $a->updated_at }}</p>
+
+            <!-- if articles exist -->
+            @if ($articles->count() > 0)
+                @foreach ($articles as $a)
+                    <div>
+                        <div class="bg-slate-50 shadow-md mx-4 h-auto">
+                            <img src="{{ $a->image }}" alt="{{ $a->title }}"
+                                class="rounded-t-xl mx-auto max-h-[25rem]" loading="lazy" />
+                            <div class="py-2 px-4">
+                                <p class="truncate"><a class="hover:underline text-blue-600 font-semibold mt-1"
+                                        href="{{ url("/articles/$a->slug") }}">{{ $a->title }}</a></p>
+                                <p class="text-justify text-sm mt-1 limit-lines">
+                                    {{ $a->meta_description }}
+                                </p>
+                                <p class="truncate text-xs opacity-70 mt-1">Created On: {{ $a->created_at }}</p>
+                                <p class="truncate text-xs opacity-70">Updated On: {{ $a->updated_at }}</p>
+                            </div>
                         </div>
                     </div>
+                @endforeach
+            @else
+                <!-- if no article -->
+                <div class="text-center col-span-3 py-20">
+                    <span class="text-lg font-semibold py-4 px-4 bg-slate-50 shadow-md rounded-lg">
+                        No records found 😕!
+                    </span>
                 </div>
-            @endforeach
+            @endif
         </div>
 
         <!-- pagination -->

@@ -12,27 +12,32 @@ class SummerImageUploadService
     public static function transformUpload($description)
     {
         $dom = new \DOMDocument();
-        $dom->loadHTML($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        // include @ sign to escape warning
+        @$dom->loadHTML($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         $imageFile = $dom->getElementsByTagName('img');
 
         foreach ($imageFile as $item => $image) {
-            
+
             $name = $image->getAttribute('data-filename');
-            $image_name = uniqid() . $name; 
-            $display_path = url('/storage/images/' .  $image_name); // atual path to display image
+            $plainName = substr($name, 0, strrpos($name, ".")); // get the filename without extension
+
+            $image_name = uniqid() . $name;
+            $displayPath = url('/storage/images/' .  $image_name); // atual path to display image
             $image_path = public_path('/storage/images/') . $image_name; // path for saving image
 
             $data = $image->getAttribute('src');
             list($type, $data) = explode(';', $data); // get data and type from data
             list(, $data)      = explode(',', $data); // change the data again to decode it
             $imageData = base64_decode($data);
-            
+
             file_put_contents($image_path, $imageData); // save the image as its original extension
 
             $image->removeAttribute('src');
-            $image->setAttribute('src', $display_path);
+            $image->removeAttribute('style');
+            $image->setAttribute('alt', $plainName); // set alt attribute
+            $image->setAttribute('src', $displayPath);
             $image->setAttribute('loading', 'lazy'); // includes lazy loading
-            $image->setAttribute('class', 'summer-image'); // includes a class to identify as an image uploaded by summernote
+            $image->setAttribute('class', 'rounded-lg mx-auto max-h-[25rem]'); // includes tailwind classes
         }
 
         $description = $dom->saveHTML();

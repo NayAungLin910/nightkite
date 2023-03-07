@@ -77,18 +77,18 @@
         <hr class="my-2 text-gray-900" />
 
         <!-- back to site -->
-        <a href="{{ route('welcome') }}">
+        <a class="text-black hover:no-underline" href="{{ route('welcome') }}">
             <div
                 class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-slate-50 hover:bg-slate-200 text-black">
                 <span>
                     <i class="fa-solid fa-arrow-left"></i>
                 </span>
-                <span class="text-base ml-4">Back to Site</span>
+                <span class="text-base ml-4 ">Back to Site</span>
             </div>
         </a>
 
         <!-- profile -->
-        <a href="{{ route('admin.dashboard.profile') }}">
+        <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.profile') }}">
             <div
                 class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-slate-200 text-black {{ request()->is('admin/dashboard/profile*') ? 'bg-slate-200' : 'bg-slate-50' }}">
                 <span>
@@ -118,7 +118,7 @@
         <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/accept-accounts*') || request()->is('admin/dashboard/search-account*') ? '' : 'hidden' }}"
             id="admins-submenu">
             @if (Auth::user()->role === '3')
-                <a href="{{ route('admin.dashboard.accept-accounts') }}">
+                <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.accept-accounts') }}">
                     <div
                         class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/accept-accounts*') ? 'bg-slate-200' : '' }}">
                         <div class="flex items-center gap-2">
@@ -130,7 +130,7 @@
                     </div>
                 </a>
             @endif
-            <a href="{{ route('admin.dashboard.search-account') }}">
+            <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.search-account') }}">
                 <div
                     class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/search-account*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
@@ -160,7 +160,7 @@
         </div>
         <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/tags*') ? '' : 'hidden' }}"
             id="tags-submenu">
-            <a href="{{ route('admin.dashboard.create-tags') }}">
+            <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.create-tags') }}">
                 <div
                     class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/tags/create*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
@@ -171,7 +171,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ route('admin.dashboard.get-tags') }}">
+            <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.get-tags') }}">
                 <div
                     class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/tags/get*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
@@ -201,7 +201,7 @@
         </div>
         <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/articles*') ? '' : 'hidden' }}"
             id="articles-submenu">
-            <a href="{{ route('admin.dashboard.create-article') }}">
+            <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.create-article') }}">
                 <div
                     class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/articles/create*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
@@ -212,7 +212,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ route('admin.dashboard.search-article') }}">
+            <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.search-article') }}">
                 <div
                     class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/articles/search*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">

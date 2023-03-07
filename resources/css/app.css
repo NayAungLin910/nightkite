@@ -42,6 +42,10 @@
     ol {
         @apply max-w-md space-y-1 list-decimal list-inside;
     }
+
+    a {
+        @apply text-blue-600 hover:underline;
+    }
 }
 
 @layer components {
@@ -102,7 +106,7 @@
 
     /* popup active */
     #popup.active {
-        @apply scale-100;
+        @apply scale-100 rounded-lg;
     }
 }
 
