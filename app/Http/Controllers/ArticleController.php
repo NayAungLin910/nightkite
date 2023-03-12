@@ -109,10 +109,10 @@ class ArticleController extends Controller
     public function viewArticle($slug)
     {
         $article = Article::where('slug', $slug)
-            ->with('tags:id,title', 'user:id,name,email,image')
+            ->with('tags:id,slug,title', 'user:id,name,email,image')
             ->first();
 
-        if(!$article) {
+        if (!$article) {
             return abort(404); // returns 404 status code
         }
 

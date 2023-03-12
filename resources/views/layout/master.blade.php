@@ -104,7 +104,7 @@
             @endif
         </ul>
     </nav>
-
+    
     <!-- custom content -->
     <main id="main-content" class="transition-all duration-500">
         @yield('custom-content')

@@ -3,6 +3,10 @@
 @section('meta-description', "$article->meta_description")
 @section('meta-canonical', url()->current())
 @section('custom-content')
+
+    <!-- progress bar on scroll -->
+    <div id="inner-progress-bar" class="sticky top-0 w-0 h-[0.4rem] rounded-tr-lg rounded-br-lg text-white bg-sky-500"></div>
+
     <div class="my-2">
         <div class="flex flex-col lg:flex-row gap-3">
             <div class="lg:w-[83%] px-3 text-justify">
@@ -11,7 +15,7 @@
                 <div class="w-[320px] h-[50px] bg-slate-50 my-2 mx-auto"></div>
 
                 <!-- title -->
-                <h1 class="text-xl text-center mb-3">{{ $article->title }}</h1>
+                <h1 class="text-2xl text-center font-semibold mt-2 mb-3">{{ $article->title }}</h1>
 
                 <!-- article image -->
                 <div class="px-3 pt-1 ">
@@ -20,8 +24,20 @@
                 </div>
 
                 <!-- description -->
-                <div id="article-description" class="mt-1">
+                <div id="article-description" class="mt-1 text-lg lg:px-3 px-1">
                     {!! $article->description !!}
+                </div>
+
+                <!-- tags of the article -->
+                <div class="mt-6 mb-4 flex flex-wrap gap-3 bg-slate-100 px-3 py-2 rounded-lg">
+                    <p class="block w-full text-lg font-semibold">
+                        Related Topics
+                    </p>
+                    @foreach ($article->tags as $tag)
+                        <a class="px-3 hover:no-underline py-1 cursor-pointer rounded-md shadow-lg bg-sky-600 text-white">
+                            {{ $tag->title }}
+                        </a>
+                    @endforeach
                 </div>
 
                 <!-- bottom ad -->
@@ -35,4 +51,29 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('custom-script')
+
+    <!-- progressbar script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const progressInner = document.querySelector('#inner-progress-bar');
+
+            window.addEventListener('scroll', function() {
+                let rootElement = document.documentElement; // the root element of the document e.g.<html>
+                let scrollTop = rootElement.scrollTop || document.body
+                    .scrollTop; // pixels count scrolled from top
+                let scrollHeight = rootElement.scrollHeight || document.body
+                    .scrollHeight // height of the element
+
+                let percentage = scrollTop / (scrollHeight - rootElement.clientHeight) *
+                    100; // scroll percentage according to content
+
+                let roundedPercent = Math.round(percentage); // rounded percentage number 
+
+                progressInner.style.width = percentage + "%"; // expand width according to scroll percentage
+            })
+        })
+    </script>
 @endsection

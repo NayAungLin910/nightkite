@@ -71,7 +71,7 @@
             @if ($articles->count() > 0)
                 @foreach ($articles as $a)
                     <div>
-                        <div class="bg-slate-50 shadow-md mx-4 h-auto">
+                        <div class="bg-slate-50 shadow-lg mx-4 h-auto">
                             <img src="{{ $a->image }}" alt="{{ $a->title }}"
                                 class="rounded-t-xl mx-auto max-h-[25rem]" loading="lazy" />
                             <div class="py-2 px-4">
