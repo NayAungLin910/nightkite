@@ -38,8 +38,8 @@ class AuthServiceProvider extends ServiceProvider
                 ->symbols()
         );
 
-        // tag delete gate, will only allow the user with the same user_id on the tag
-        Gate::define('delete-tag', function (User $user, Tag $tag) {
+        // tag delete update gate, will only allow the user with the same user_id on the tag
+        Gate::define('delete-update-tag', function (User $user, Tag $tag) {
             return $user->id === $tag->user_id;
         });
     }

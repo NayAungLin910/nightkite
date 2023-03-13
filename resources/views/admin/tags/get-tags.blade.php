@@ -104,6 +104,11 @@
                                                         <i class="fa-solid fa-xmark"></i>
                                                     </button>
                                                 </form>
+
+                                                <!-- update tag link -->
+                                                <a class="sky-button-rounded w-10" alt="update the tag, {{ $tag->title }}" href="{{ route('admin.dashboard.update-tag', ['slug' => $tag->slug]) }}">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </a>
                                             @else
                                                 <!-- else show fake button -->
                                                 <button type="button" disabled

@@ -75,6 +75,13 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     Route::post('/dashboard/tags/delete', [\App\Http\Controllers\TagController::class, "deleteTag"])
         ->name('admin.dashboard.delete-tag');
 
+    // show edit tag
+    Route::get('/dashboard/tags/update/{slug}', [\App\Http\Controllers\TagController::class, "showUpdateTag"])
+        ->name('admin.dashboard.update-tag');
+
+    // post edit tag
+    Route::post('/dashboard/tags/update/{slug}', [\App\Http\Controllers\TagController::class, "postUpdateTag"]);
+
     // Articles management
     // return the article create view
     Route::get('/dashboard/articles/create', [\App\Http\Controllers\ArticleController::class, "getArticleCreate"])

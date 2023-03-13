@@ -179,11 +179,11 @@
                 (
                     e.className = "fa-solid fa-xmark",
                     list.classList.add('top-[59px]'),
-                    list.classList.add('opacity-90')
+                    list.classList.add('opacity-95')
                 ) : (
                     e.className = "fa-solid fa-bars",
                     list.classList.remove('top-[59px]'),
-                    list.classList.remove('opacity-90')
+                    list.classList.remove('opacity-95')
                 );
         }
 

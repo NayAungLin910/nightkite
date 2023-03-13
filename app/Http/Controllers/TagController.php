@@ -97,7 +97,7 @@ class TagController extends Controller
         if (Auth::user()->role !== '3') {
 
             // only the admin who created the tag can delete it
-            if (Gate::denies('delete-tag', $tag)) {
+            if (Gate::denies('delete-update-tag', $tag)) {
                 return redirect()->back()->with('error', "Unauthorized action!");
             }
         }
@@ -107,5 +107,57 @@ class TagController extends Controller
         $tag->delete();
 
         return redirect()->back()->with('info', "Tag named $tagTitle has been deleted!");
+    }
+
+    // show update tag
+    public function showUpdateTag($slug)
+    {
+        $tag = Tag::where('slug', $slug)->first();
+
+        if (!$tag) {
+            abort(404);
+        }
+
+        // if not super admin
+        if (Auth::user()->role !== '3') {
+            // only the admin who created the tag can delete it
+            if (Gate::denies('delete-update-tag', $tag)) {
+                return redirect()->back()->with('error', "Unauthorized action!");
+            }
+        }
+
+        return view('admin.tags.update-tags', compact('tag'));
+    }
+
+    // handle post request to update tag
+    public function postUpdateTag($slug, Request $request)
+    {
+        $request->validate([
+            "name" => "required|string|min:3|max:150"
+        ]);
+
+        $tag = Tag::where('slug', $slug)->first();
+
+        if (!$tag) {
+            return redirect()->back()->with('error', "Tag Not Found!");
+        }
+
+        $request->validate([
+            "name" => "unique:tags,title,$tag->id"
+        ]);
+
+        // if not super admin
+        if (Auth::user()->role !== '3') {
+            // only the admin who created the tag can delete it
+            if (Gate::denies('delete-update-tag', $tag)) {
+                return redirect()->back()->with('error', "Unauthorized action!");
+            }
+        }
+
+        // save a new name
+        $tag->title = $request->name;
+        $tag->save();
+
+        return redirect()->back()->with('success', "A new name has been saved!");
     }
 }
