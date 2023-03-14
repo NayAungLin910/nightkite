@@ -21,7 +21,7 @@ class TagController extends Controller
         // create a tag
         $tag = Tag::create([
             "title" => $request->name,
-            "slug" => Str::slug(uniqid() . $request->name),
+            "slug" => Str::slug(random_int(1000000000, 9999999999) . $request->name),
             "user_id" => Auth::user()->id,
         ]);
 

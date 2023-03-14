@@ -1,6 +1,8 @@
 @extends('layout.master-dashboard')
 @section('meta-title', 'Profile of the Logined Admin - NightKite')
 @section('meta-description', 'View the various information of the logined admin.')
+@section('meta-og-title', "Admin Profile Page - NightKite")
+@section('meta-og-description', "Check the various information of the currently logined admin account from this page.")
 
 @section('custom-content')
 

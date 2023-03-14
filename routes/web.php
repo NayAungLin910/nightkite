@@ -94,6 +94,10 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     Route::get('/dashboard/articles/search', [\App\Http\Controllers\ArticleController::class, "getArticles"])
         ->name('admin.dashboard.search-article');
 
+    // edit article
+    Route::get('/dashboard/article/edit/{slug}', [\App\Http\Controllers\ArticleController::class, "editArticle"])
+        ->name('admin.dashboard.edit-article');
+
     // logout route 
     Route::post('/logout', [\App\Http\Controllers\Auth\AdminAuthController::class, "postLogout"])->name('admin.logout');
 });

@@ -82,6 +82,16 @@
                                 </p>
                                 <p class="truncate text-xs opacity-70 mt-1">Created On: {{ $a->created_at }}</p>
                                 <p class="truncate text-xs opacity-70">Updated On: {{ $a->updated_at }}</p>
+
+                            </div>
+                            <div class="py-2 px-4 flex place-content-between">
+                                <a href="{{ route('admin.dashboard.edit-article', ['slug' => $a->slug]) }}"
+                                    alt="edit the article named, {{ $a->title }}" class="sky-button-rounded w-10">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <button class="orange-button-rounded w-10">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
                             </div>
                         </div>
                     </div>

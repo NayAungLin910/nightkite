@@ -33,7 +33,7 @@ class ArticleController extends Controller
 
         // upload the image
         $image = $request->file('image');
-        $image_name = uniqid() . $image->getClientOriginalName();
+        $image_name = random_int(1000000000, 9999999999) . $image->getClientOriginalName();
         $image->move(public_path('/storage/images'), $image_name);
 
         // use SummerImageUploadService to transform and upload images inside the description
@@ -42,7 +42,7 @@ class ArticleController extends Controller
         // create article
         $article = Article::create([
             'title' => $request->title,
-            'slug' => Str::slug(uniqid() . $request->title),
+            'slug' => Str::slug(random_int(1000000000, 9999999999) . $request->title),
             'meta_description' => $request->meta_description,
             'description' => $description,
             'user_id' => Auth::user()->id,
@@ -117,5 +117,11 @@ class ArticleController extends Controller
         }
 
         return view('admin.articles.view-article', compact('article'));
+    }
+
+    /* edit artilce */
+    public function editArticle($slug)
+    {
+        return $slug;
     }
 }

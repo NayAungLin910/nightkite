@@ -74,7 +74,7 @@ class AdminAuthController extends Controller
 
         // upload the profile image
         $image = $request->file('image');
-        $image_name = uniqid() . $image->getClientOriginalName();
+        $image_name = random_int(1000000000, 9999999999) . $image->getClientOriginalName();
         $image->move(public_path('/storage/images'), $image_name);
 
         // create user

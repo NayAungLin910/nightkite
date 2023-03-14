@@ -1,8 +1,8 @@
 @extends('layout.master-dashboard')
-@section('meta-title', 'Accept Accounts - NightKite')
-@section('meta-description',
-    'Search the accepted accounts that can write blogs or articles using various filter
-    options.')
+@section('meta-title', 'Search Accepted Accounts - NightKite')
+@section('meta-description', 'Search the accepted admin and super admin accounts using various filter options.')
+@section('meta-og-title', "Accepted Accounts Search Page - NightKite")
+@section('meta-og-description', "The accepted admin accounts can be searched on this page easily.")
 @section('custom-content')
     <div class="m-2">
         <h1 class="text-xl text-center"><i class="fa-solid fa-magnifying-glass mr-2"></i></i>Search Accounts</h1>
@@ -29,8 +29,8 @@
                     </div>
                     <div>
                         <label for="filter-startdate">Start Date</label>
-                        <input type="datetime-local" value="{{ request('startdate') }}" class="input-form-sky" name="startdate"
-                            id="filter-startdate" />
+                        <input type="datetime-local" value="{{ request('startdate') }}" class="input-form-sky"
+                            name="startdate" id="filter-startdate" />
                     </div>
                     <div>
                         <label for="filter-enddate">End Date</label>
@@ -80,9 +80,13 @@
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $admin->email }}</td>
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">
                                         @if ($admin->role === '3')
-                                            <p class="block w-[6rem] py-1 px-2 text-sm text-white bg-indigo-500 whitespace-nowrap rounded-lg text-center shadow-md">Super Admin</p>
+                                            <p
+                                                class="block w-[6rem] py-1 px-2 text-sm text-white bg-indigo-500 whitespace-nowrap rounded-lg text-center shadow-md">
+                                                Super Admin</p>
                                         @elseif ($admin->role === '2')
-                                        <p class="block w-[4rem] py-1 px-2 text-sm text-white bg-green-500 whitespace-nowrap rounded-lg text-center shadow-md">Admin</p>
+                                            <p
+                                                class="block w-[4rem] py-1 px-2 text-sm text-white bg-green-500 whitespace-nowrap rounded-lg text-center shadow-md">
+                                                Admin</p>
                                         @endif
                                     </td>
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $admin->created_at }}</td>
@@ -93,7 +97,8 @@
                                             <div class="flex items-center gap-2 opacity-0 group-hover/admin:opacity-100">
 
                                                 <!-- delete account form -->
-                                                <form action="{{ route('admin.dashboard.delete-admin-account') }}" id="{{ $admin->email }}-delete-form" method="POST">
+                                                <form action="{{ route('admin.dashboard.delete-admin-account') }}"
+                                                    id="{{ $admin->email }}-delete-form" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="email" value="{{ $admin->email }}">
                                                     <button type="button"

@@ -1,6 +1,8 @@
 @extends('layout.master-dashboard')
 @section('meta-title', 'Write Article - NightKite')
 @section('meta-description', 'The page to write a new article or blog and then publish it to the website.')
+@section('meta-og-title', "Create the Articles and Publish Them - NightKite")
+@section('meta-og-description', "Publish the articles or blogs by also attaching the related tags and images too.")
 @section('meta-canonical', url()->current())
 @section('custom-css')
     <!-- summernote css -->

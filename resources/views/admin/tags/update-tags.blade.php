@@ -3,7 +3,7 @@
 @section('meta-description',
     "The tag, $tag->title can be renamed on this page.")
 @section('meta-og-title', "$tag->title, rename page - NightKite")
-@section('meta-og-description', "$tag->title, tag can be easily renamed by just submitting the form on the page. - NightKite")
+@section('meta-og-description', "$tag->title, tag can be easily renamed by just submitting the form on the page.")
 @section('custom-content')
     <div class="mx-2 mt-2">
         <h1 class="text-xl text-center mt-[4rem] lg:mt-0 mb-10"><i class="fa-solid fa-pen-to-square mr-1"></i> Rename the tag, {{ $tag->title }}</h1>
