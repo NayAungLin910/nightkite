@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Tag;
-use App\Services\CategoryFilterService;
 use App\Services\SummerImageUploadService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class ArticleController extends Controller
 {
@@ -35,6 +35,11 @@ class ArticleController extends Controller
         $image = $request->file('image');
         $image_name = random_int(1000000000, 9999999999) . $image->getClientOriginalName();
         $image->move(public_path('/storage/images'), $image_name);
+
+        // optimize the uploaded image
+        $image_path = public_path('/storage/images/') . $image_name;
+        $img = Image::make($image_path); // creates a new image source using image intervention package
+        $img->save($image_path, 0); // save the image with a medium quality
 
         // use SummerImageUploadService to transform and upload images inside the description
         $description = SummerImageUploadService::transformUpload($request->description);
@@ -123,5 +128,11 @@ class ArticleController extends Controller
     public function editArticle($slug)
     {
         return $slug;
+    }
+
+    /* delete article */
+    public function deleteArticle(Request $request)
+    {
+        return $request->all();
     }
 }

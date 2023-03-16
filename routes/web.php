@@ -98,6 +98,10 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     Route::get('/dashboard/article/edit/{slug}', [\App\Http\Controllers\ArticleController::class, "editArticle"])
         ->name('admin.dashboard.edit-article');
 
+    // delete article
+    Route::post('/dashboard/article/delete', [\App\Http\Controllers\ArticleController::class, "deleteArticle"])
+        ->name('admin.dashboard.delete-article');
+
     // logout route 
     Route::post('/logout', [\App\Http\Controllers\Auth\AdminAuthController::class, "postLogout"])->name('admin.logout');
 });

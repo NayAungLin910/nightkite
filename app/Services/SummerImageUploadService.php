@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Intervention\Image\Facades\Image;
+
 class SummerImageUploadService
 {
     /*
@@ -31,6 +33,9 @@ class SummerImageUploadService
             $imageData = base64_decode($data);
 
             file_put_contents($image_path, $imageData); // save the image as its original extension
+
+            $img = Image::make($image_path); // creates a new image source using image intervention package
+            $img->save($image_path, 0); // save the image with a medium quality
 
             $image->removeAttribute('src');
             $image->removeAttribute('style');

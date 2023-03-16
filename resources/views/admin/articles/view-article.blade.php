@@ -34,7 +34,7 @@
                         Related Topics
                     </p>
                     @foreach ($article->tags as $tag)
-                        <a class="px-3 hover:no-underline py-1 cursor-pointer rounded-md shadow-lg bg-sky-600 text-white">
+                        <a class="px-3 hover:no-underline py-1 cursor-pointer rounded-md shadow-lg bg-sky-700 text-white">
                             {{ $tag->title }}
                         </a>
                     @endforeach

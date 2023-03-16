@@ -256,7 +256,7 @@
     </div>
 
     <!-- toastify js -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <!-- show toast according to session -->
     @if (session()->has('error'))
@@ -352,16 +352,16 @@
 
     <!-- popup open, close, submit and cancel -->
     <script>
-        let email = ""; // global email variable
+        let identity = ""; // global identity variable
         let type = ""; // submit or delete
 
         // open popup and display
-        function openPopupSubmit(text, email, type) {
+        function openPopupSubmit(text, identity, type) {
             document.querySelector(`#popup-overlay`).classList.toggle('active'); // show popup overlay
             document.querySelector(`#popup`).classList.toggle('active'); // show popup
             document.querySelector(`#popup-text`).innerHTML = text; // show the given popup text
 
-            this.email = email; // assign email to global email variable
+            this.identity = identity; // assign identity to global identity variable
             this.type = type;
 
             switch (this.type) {
@@ -380,10 +380,10 @@
         function acceptPopup() {
             switch (this.type) {
                 case 'submit':
-                    document.getElementById(`${this.email}-accept-form`).submit(); // submit the given form 
+                    document.getElementById(`${this.identity}-accept-form`).submit(); // submit the given form 
                     break;
                 case 'delete':
-                    document.getElementById(`${this.email}-delete-form`).submit(); // submit the given form 
+                    document.getElementById(`${this.identity}-delete-form`).submit(); // submit the given form 
                     break;
                 default:
                     console.log('Popup type was not found!');

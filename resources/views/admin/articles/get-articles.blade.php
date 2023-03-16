@@ -89,9 +89,21 @@
                                     alt="edit the article named, {{ $a->title }}" class="sky-button-rounded w-10">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
-                                <button class="orange-button-rounded w-10">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
+
+                                <!-- only superadmin or the related admin will be accessible -->
+                                @if (Auth::user()->role === '3' || Auth::user()->id === $a->user_id)
+                                    <form id="{{ $a->slug }}-delete-form"
+                                        action="{{ route('admin.dashboard.delete-article') }}" method="POST">
+                                        @csrf
+                                        <input name="articleSlug" type="hidden" value="{{ $a->slug }}">
+                                        <button type="button"
+                                            onclick='openPopupSubmit("Are you sure about deleting the article named, {{ $a->title }}?", "{{ $a->slug }}", "delete")'
+                                            class="orange-button-rounded w-10">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>
+                                    </form>
+                                @endif
+
                             </div>
                         </div>
                     </div>
