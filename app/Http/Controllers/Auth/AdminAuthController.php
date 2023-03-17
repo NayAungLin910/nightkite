@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Intervention\Image\Facades\Image;
 
 class AdminAuthController extends Controller
 {
@@ -76,6 +77,12 @@ class AdminAuthController extends Controller
         $image = $request->file('image');
         $image_name = random_int(1000000000, 9999999999) . $image->getClientOriginalName();
         $image->move(public_path('/storage/images'), $image_name);
+
+        // optimize the uploaded image
+        $image_path = public_path('/storage/images/') . $image_name;
+        $img = Image::make($image_path); // creates a new image source using image intervention package
+        $img->save($image_path, 50); // save the image with a medium quality
+
 
         // create user
         $user = User::create([

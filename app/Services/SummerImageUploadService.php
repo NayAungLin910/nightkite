@@ -23,8 +23,8 @@ class SummerImageUploadService
             $name = $image->getAttribute('data-filename');
             $plainName = substr($name, 0, strrpos($name, ".")); // get the filename without extension
 
-            $image_name = uniqid() . $name;
-            $displayPath = url('/storage/images/' .  $image_name); // atual path to display image
+            $image_name = random_int(1000000000, 9999999999) . $name; // unique image name
+            $displayPath = url('/storage/images/' .  $image_name); // actual path to display image
             $image_path = public_path('/storage/images/') . $image_name; // path for saving image
 
             $data = $image->getAttribute('src');
@@ -35,7 +35,7 @@ class SummerImageUploadService
             file_put_contents($image_path, $imageData); // save the image as its original extension
 
             $img = Image::make($image_path); // creates a new image source using image intervention package
-            $img->save($image_path, 0); // save the image with a medium quality
+            $img->save($image_path, 50); // save the image with a medium quality
 
             $image->removeAttribute('src');
             $image->removeAttribute('style');

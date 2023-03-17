@@ -8,6 +8,8 @@ use App\Services\SummerImageUploadService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
@@ -39,7 +41,7 @@ class ArticleController extends Controller
         // optimize the uploaded image
         $image_path = public_path('/storage/images/') . $image_name;
         $img = Image::make($image_path); // creates a new image source using image intervention package
-        $img->save($image_path, 0); // save the image with a medium quality
+        $img->save($image_path, 50); // save the image with a medium quality
 
         // use SummerImageUploadService to transform and upload images inside the description
         $description = SummerImageUploadService::transformUpload($request->description);
@@ -133,6 +135,55 @@ class ArticleController extends Controller
     /* delete article */
     public function deleteArticle(Request $request)
     {
-        return $request->all();
+        $request->validate([
+            "articleSlug" => "required|string|exists:articles,slug"
+        ]);
+
+        $article = Article::where('slug', $request->articleSlug)->with('tags')->first();
+
+        // if article does not exist
+        if (!$article) {
+            return redirect()->back()->with("error", "Something went wrong!");
+        }
+
+        // if not super admin, check gate
+        if (Auth::user()->role !== '3') {
+
+            // only the admin who created the article can delete it
+            if (Gate::denies('delete-update-article', $article)) {
+                return redirect()->back()->with('error', "Unauthorized action!");
+            }
+        }
+
+        $article->tags()->detach(); // detach all tags
+
+        // delete main image
+        if (File::exists(public_path($article->image))) {
+            File::delete(public_path($article->image));
+        }
+
+        // delete images inside the article description
+
+        $dom = new \DOMDocument();
+        // include @ sign to escape warning
+        @$dom->loadHTML($article->description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $imageFile = $dom->getElementsByTagName('img'); // get all img tags
+
+        // loops and delete all images included in the description
+        foreach ($imageFile as $item => $image) {
+
+            $imageHref = $image->getAttribute('src');
+            $imageName = substr($imageHref, strrpos($imageHref, '/') + 1); // get the image name with extension
+
+            if (File::exists(public_path('/storage/images/') . $imageName)) {
+                File::delete(public_path('/storage/images/') . $imageName);
+            }
+        }
+
+        // delete article
+        $articleTitle = $article->title;
+        $article->delete();
+
+        return redirect()->back()->with("info", "The article named, $articleTitle has been deleted!");
     }
 }

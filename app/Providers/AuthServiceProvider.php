@@ -4,6 +4,7 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 
+use App\Models\Article;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -41,6 +42,11 @@ class AuthServiceProvider extends ServiceProvider
         // tag delete update gate, will only allow the user with the same user_id on the tag
         Gate::define('delete-update-tag', function (User $user, Tag $tag) {
             return $user->id === $tag->user_id;
+        });
+
+        // aritcle delete and update, only allow the owner of the article and super admin
+        Gate::define('delete-update-article', function (User $user, Article $article) {
+            return $user->id === $article->user_id;
         });
     }
 }
