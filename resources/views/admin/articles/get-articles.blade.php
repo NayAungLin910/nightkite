@@ -97,7 +97,7 @@
                                         @csrf
                                         <input name="articleSlug" type="hidden" value="{{ $a->slug }}">
                                         <button type="button"
-                                            onclick='openPopupSubmit("Are you sure about deleting the article named, {{ $a->title }}?", "{{ $a->slug }}", "delete")'
+                                            onclick='openPopupDeleteSubmit("Are you sure about deleting the article named, {{ $a->title }}?", "{{ $a->slug }}")'
                                             class="orange-button-rounded w-10">
                                             <i class="fa-solid fa-xmark"></i>
                                         </button>
@@ -123,4 +123,8 @@
             {{ $articles->withQueryString()->links('pagination::tailwind') }}
         </div>
     </div>
+@endsection
+
+@section('custom-script')
+    <script type="text/javascript" src="{{ asset('/js/popup-delete.js') }}"></script>
 @endsection

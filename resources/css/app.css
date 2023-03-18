@@ -108,6 +108,16 @@
     #popup.active {
         @apply scale-100 rounded-lg;
     }
+
+    /* popup-overlay active */
+    #popup-overlay-delete.active {
+        @apply opacity-100 pointer-events-auto;
+    }
+
+    /* popup active */
+    #popup-delete.active {
+        @apply scale-100 rounded-lg;
+    }
 }
 
 @layer utilities {

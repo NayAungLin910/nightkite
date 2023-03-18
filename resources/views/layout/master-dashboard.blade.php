@@ -25,7 +25,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     <!-- tailwindcss -->
-    @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
 
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -235,7 +235,7 @@
     </main>
 
     <!-- popup -->
-    <div class="bg-white duration-200 ease-in-out rounded-xl fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] shadow-md w-full md:w-auto z-30 py-6 px-4 scale-0 border-t-8"
+    <div class="bg-white duration-200 ease-in-out rounded-xl fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] shadow-md w-full md:w-auto z-30 py-6 px-4 scale-0 border-t-8 border-green-500"
         id="popup">
         <p class="text-lg font-semibold text-center" id="popup-text"></p>
         <div class="flex items-center gap-2 place-content-center mt-4">
@@ -250,9 +250,30 @@
         </div>
     </div>
 
+    <!-- delete popup -->
+    <div class="bg-white duration-200 ease-in-out rounded-xl fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] shadow-md w-full md:w-auto z-30 py-6 px-4 scale-0 border-t-8 border-orange-500"
+        id="popup-delete">
+        <p class="text-lg font-semibold text-center" id="popup-text-delete"></p>
+        <div class="flex items-center gap-2 place-content-center mt-4">
+            <button class="orange-button-rounded w-auto" onclick="closePopupDelete()">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back
+            </button>
+            <button class="green-button-rounded w-auto" onclick="acceptPopupDelete()">
+                <i class="fa-solid fa-check"></i>
+                Accept
+            </button>
+        </div>
+    </div>
+
     <!-- popup overlay-->
     <div class="duration-200 ease-in-out opacity-0 fixed top-0 left-0 bottom-0 right-0 bg-black/[0.5] z-20 pointer-events-none"
         id="popup-overlay" onclick="closePopup()">
+    </div>
+
+    <!-- popup overlay delete -->
+    <div class="duration-200 ease-in-out opacity-0 fixed top-0 left-0 bottom-0 right-0 bg-black/[0.5] z-20 pointer-events-none"
+        id="popup-overlay-delete" onclick="closePopupDelete()">
     </div>
 
     <!-- toastify js -->
@@ -314,27 +335,6 @@
         </script>
     @endif
 
-    <!-- top nav bar menu toggle on mobile view -->
-    <script>
-        function toggleMenu(e) {
-            let list = document.getElementById('top-nav-ul');
-            let main = document.getElementById('main-content');
-
-            e.className === "fa-solid fa-bars" ?
-                (
-                    e.className = "fa-solid fa-xmark",
-                    list.classList.add('top-[65px]'),
-                    list.classList.add('opacity-70'),
-                    main.classList.add('blur-sm')
-                ) : (
-                    e.className = "fa-solid fa-bars",
-                    list.classList.remove('top-[65px]'),
-                    list.classList.remove('opacity-70'),
-                    main.classList.remove('blur-sm')
-                );
-        }
-    </script>
-
     <!-- sidebar open/close toggle -->
     <script>
         function openSidebar() {
@@ -347,68 +347,6 @@
         function dropdown(type) {
             document.querySelector(`#${type}-submenu`).classList.toggle('hidden');
             document.querySelector(`#${type}-arrow`).classList.toggle('rotate-180');
-        }
-    </script>
-
-    <!-- popup open, close, submit and cancel -->
-    <script>
-        let identity = ""; // global identity variable
-        let type = ""; // submit or delete
-
-        // open popup and display
-        function openPopupSubmit(text, identity, type) {
-            document.querySelector(`#popup-overlay`).classList.toggle('active'); // show popup overlay
-            document.querySelector(`#popup`).classList.toggle('active'); // show popup
-            document.querySelector(`#popup-text`).innerHTML = text; // show the given popup text
-
-            this.identity = identity; // assign identity to global identity variable
-            this.type = type;
-
-            switch (this.type) {
-                case 'submit':
-                    document.querySelector(`#popup`).classList.add('border-green-500'); // green border
-                    break;
-                case 'delete':
-                    document.querySelector(`#popup`).classList.add('border-orange-500'); // orage border
-                    break;
-                default:
-                    console.log('Popup type was not found!');
-            }
-        }
-
-        // accept popup
-        function acceptPopup() {
-            switch (this.type) {
-                case 'submit':
-                    document.getElementById(`${this.identity}-accept-form`).submit(); // submit the given form 
-                    break;
-                case 'delete':
-                    document.getElementById(`${this.identity}-delete-form`).submit(); // submit the given form 
-                    break;
-                default:
-                    console.log('Popup type was not found!');
-            }
-
-            document.querySelector(`#popup`).classList.toggle('active'); // close popup 
-            document.querySelector(`#popup-overlay`).classList.toggle('active'); // close popup overlay
-        }
-
-        // close popup
-        function closePopup() {
-            let popup = document.querySelector(`#popup`);
-
-            popup.classList.toggle('active'); // close popup
-            document.querySelector(`#popup-overlay`).classList.toggle('active'); // close popup overlay
-
-            // if popup has border green remove it
-            if (popup.classList.contains('border-green-500')) {
-                popup.classList.remove('border-green-500');
-            }
-
-            // if popup has border orange remove it
-            if (popup.classList.contains('border-orange-500')) {
-                popup.classList.remove('border-orange-500');
-            }
         }
     </script>
 

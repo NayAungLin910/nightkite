@@ -25,7 +25,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     <!-- tailwindcss -->
-    @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
 
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -169,8 +169,8 @@
         </script>
     @endif
 
+    <!-- top nav bar menu toggle on mobile view -->
     <script>
-        // top nav bar menu toggle on mobile view
         function toggleMenu(e) {
             let list = document.getElementById('top-nav-ul');
             let main = document.getElementById('main-content');

@@ -99,7 +99,7 @@
                                                     @csrf
                                                     <input type="hidden" name="slug" value="{{ $tag->slug }}">
                                                     <button type="button"
-                                                        onclick='openPopupSubmit("Are you sure about deleting {{ $tag->title }} tag?", "{{ $tag->slug }}", "delete")'
+                                                        onclick='openPopupDeleteSubmit("Are you sure about deleting {{ $tag->title }} tag?", "{{ $tag->slug }}")'
                                                         class="orange-button-rounded w-10">
                                                         <i class="fa-solid fa-xmark"></i>
                                                     </button>
@@ -138,4 +138,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('custom-script')
+    <script type="text/javascript" src="{{ asset('/js/popup-delete.js') }}"></script>
 @endsection

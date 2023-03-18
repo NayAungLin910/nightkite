@@ -3,6 +3,7 @@
 @section('meta-description', 'Search the accepted admin and super admin accounts using various filter options.')
 @section('meta-og-title', "Accepted Accounts Search Page - NightKite")
 @section('meta-og-description', "The accepted admin accounts can be searched on this page easily.")
+
 @section('custom-content')
     <div class="m-2">
         <h1 class="text-xl text-center"><i class="fa-solid fa-magnifying-glass mr-2"></i></i>Search Accounts</h1>
@@ -102,7 +103,7 @@
                                                     @csrf
                                                     <input type="hidden" name="email" value="{{ $admin->email }}">
                                                     <button type="button"
-                                                        onclick='openPopupSubmit("Are you sure about deleting {{ $admin->email }} admin account?", "{{ $admin->email }}", "delete")'
+                                                        onclick='openPopupDeleteSubmit("Are you sure about deleting {{ $admin->email }} admin account?", "{{ $admin->email }}")'
                                                         class="orange-button-rounded w-10">
                                                         <i class="fa-solid fa-xmark"></i>
                                                     </button>
@@ -131,4 +132,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('custom-script')
+    <script type="text/javascript" src="{{ asset('/js/popup-delete.js') }}"></script>
 @endsection

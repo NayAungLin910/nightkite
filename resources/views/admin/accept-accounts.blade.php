@@ -85,7 +85,7 @@
                                                 @csrf
                                                 <input type="hidden" name="email" value="{{ $admin->email }}">
                                                 <button type="button"
-                                                    onclick='openPopupSubmit("Are you sure about accepting {{ $admin->email }} admin account?", "{{ $admin->email }}", "submit")'
+                                                    onclick='openPopupSubmit("Are you sure about accepting {{ $admin->email }} admin account?", "{{ $admin->email }}")'
                                                     class="green-button-rounded w-10">
                                                     <i class="fa-solid fa-check"></i>
                                                 </button>
@@ -97,7 +97,7 @@
                                                 @csrf
                                                 <input type="hidden" name="email" value="{{ $admin->email }}">
                                                 <button type="button"
-                                                    onclick='openPopupSubmit("Are you sure about declining {{ $admin->email }} admin account?", "{{ $admin->email }}", "delete")'
+                                                    onclick='openPopupDeleteSubmit("Are you sure about declining {{ $admin->email }} admin account?", "{{ $admin->email }}")'
                                                     class="orange-button-rounded w-10">
                                                     <i class="fa-solid fa-xmark"></i>
                                                 </button>
@@ -124,4 +124,9 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('custom-script')
+    <script type="text/javascript" src="{{ asset('/js/popup.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/popup-delete.js') }}"></script>
 @endsection
