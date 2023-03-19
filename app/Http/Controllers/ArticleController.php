@@ -129,7 +129,15 @@ class ArticleController extends Controller
     /* edit artilce */
     public function editArticle($slug)
     {
-        return $slug;
+        $article = Article::where('slug', $slug)->with('user', 'tags')->first();
+
+        if (!$article) {
+            return abort(404);
+        }
+
+        $tags = Tag::with('articles:id,slug')->orderBy('title')->get();
+
+        return view('admin.articles.edit-article', compact('article', 'tags'));
     }
 
     /* delete article */
