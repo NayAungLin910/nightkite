@@ -132,12 +132,87 @@ class ArticleController extends Controller
         $article = Article::where('slug', $slug)->with('user', 'tags')->first();
 
         if (!$article) {
-            return abort(404);
+            return abort(404); // if no article is found 404
+        }
+
+        // if not super admin, check gate
+        if (Auth::user()->role !== '3') {
+
+            // only the admin who created the article can delete it
+            if (Gate::denies('delete-update-article', $article)) {
+                return abort(404);
+            }
         }
 
         $tags = Tag::with('articles:id,slug')->orderBy('title')->get();
 
         return view('admin.articles.edit-article', compact('article', 'tags'));
+    }
+
+    /* post edit article */
+    public function postEditArticle(Request $request, $slug)
+    {
+        $article = Article::where('slug', $slug)->with('user', 'tags')->first();
+
+        if (!$article) {
+            return abort(404); // if no article is found 404
+        }
+
+        // if not super admin, check gate
+        if (Auth::user()->role !== '3') {
+
+            // only the admin who created the article can delete it
+            if (Gate::denies('delete-update-article', $article)) {
+                return abort(404);
+            }
+        }
+
+        $request->validate([
+            "title" => "required|string",
+            "meta_description" => "required|string",
+            "description" => "required",
+            "image" => "image|max:5000",
+            "tags" => "required|exists:tags,id",
+        ]);
+
+        $image_name = $article->image;
+
+        // if new primary image of the article is uploaded
+        if ($request->hasFile('image')) {
+
+            // delete the old file
+            if (File::exists(public_path($image_name))) {
+                File::delete(public_path($image_name));
+            }
+
+            // update the new image
+            $image = $request->file('image');
+            $image_name = random_int(1000000000, 9999999999) . $image->getClientOriginalName();
+            $image->move(public_path('/storage/images'), $image_name);
+
+            // optimize the uploaded image
+            $image_path = public_path('/storage/images/') . $image_name;
+            $img = Image::make($image_path); // creates a new image source using image intervention package
+            $img->save($image_path, 50); // save the image with a medium quality
+            $image_name = '/storage/images/' . $image_name;
+        }
+
+        // use SummerImageUploadService to edit, transform and upload images inside the description
+        $description = SummerImageUploadService::editTransformUpload($article->description, $request->description);
+
+        // update article
+        $article->title = $request->title;
+        $article->slug = Str::slug(random_int(1000000000, 9999999999) . $request->title);
+        $article->meta_description = $request->meta_description;
+        $article->description = $description;
+        $article->image = $image_name;
+        $article->save();
+
+        // update the tags related to the article
+        $article->tags()->sync($request->tags);
+
+        return redirect()->route('admin.dashboard.edit-article', ['slug' => $article->slug])
+            ->with('success', "The article has been updated!");
     }
 
     /* delete article */

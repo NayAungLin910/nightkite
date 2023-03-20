@@ -195,11 +195,11 @@
                 <span class="text-base ml-4">Articles</span>
                 <span class="text-sm transition-all duration-500" id="articles-arrow">
                     <i
-                        class="fa-solid fa-chevron-down {{ request()->is('admin/dashboard/articles*') ? 'rotate-180' : '' }}"></i>
+                        class="fa-solid fa-chevron-down {{ request()->is('admin/dashboard/article*') ? 'rotate-180' : '' }}"></i>
                 </span>
             </div>
         </div>
-        <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/articles*') ? '' : 'hidden' }}"
+        <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/article*') ? '' : 'hidden' }}"
             id="articles-submenu">
             <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.create-article') }}">
                 <div

@@ -97,6 +97,9 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     // edit article
     Route::get('/dashboard/article/edit/{slug}', [\App\Http\Controllers\ArticleController::class, "editArticle"])
         ->name('admin.dashboard.edit-article');
+    
+    // post edit article
+    Route::post('/dashboard/article/edit/{slug}', [\App\Http\Controllers\ArticleController::class, "postEditArticle"]);
 
     // delete article
     Route::post('/dashboard/article/delete', [\App\Http\Controllers\ArticleController::class, "deleteArticle"])

@@ -85,10 +85,14 @@
 
                             </div>
                             <div class="py-2 px-4 flex place-content-between">
-                                <a href="{{ route('admin.dashboard.edit-article', ['slug' => $a->slug]) }}"
-                                    alt="edit the article named, {{ $a->title }}" class="sky-button-rounded w-10">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+
+                                <!-- only superadmin or the related admin will be accessible -->
+                                @if (Auth::user()->role === '3' || Auth::user()->id === $a->user_id)
+                                    <a href="{{ route('admin.dashboard.edit-article', ['slug' => $a->slug]) }}"
+                                        alt="edit the article named, {{ $a->title }}" class="sky-button-rounded w-10">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                @endif
 
                                 <!-- only superadmin or the related admin will be accessible -->
                                 @if (Auth::user()->role === '3' || Auth::user()->id === $a->user_id)
