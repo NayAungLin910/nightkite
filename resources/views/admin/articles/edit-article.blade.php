@@ -53,7 +53,8 @@
                     <!-- description summernote -->
                     <div class="my-2">
                         <label for="summernote">Description</label>
-                        <textarea id="summernote" name="description"></textarea>
+                        <textarea id="summernote" name="description">
+                        </textarea>
                     </div>
 
                     <!-- tags -->
@@ -90,6 +91,10 @@
     </div>
 @endsection
 @section('custom-script')
+    <!-- js code pretiffier -->
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+
+
     <!-- jquery script -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
@@ -99,6 +104,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
     <script>
+
         $('#summernote').summernote({
             placeholder: 'Description',
             minHeight: '15rem',
@@ -109,8 +115,8 @@
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['table', ['table']],
                 ['insert', ['link', 'picture']],
-                ['view', ['help']]
-            ]
+                ['view', ['help']],
+            ],
         });
         $('#summernote').summernote("code", `{!! $article->description !!}`)
     </script>

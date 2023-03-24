@@ -5,7 +5,7 @@
 @section('custom-content')
 
     <!-- progress bar on scroll -->
-    <div id="inner-progress-bar" class="sticky top-0 w-0 h-[0.4rem] rounded-tr-lg rounded-br-lg text-white bg-sky-500"></div>
+    <div id="inner-progress-bar" class="sticky top-0 w-0 h-[0.3rem] rounded-tr-lg rounded-br-lg text-white bg-sky-500"></div>
 
     <div class="my-2">
         <div class="flex flex-col lg:flex-row gap-3">
@@ -24,7 +24,7 @@
                 </div>
 
                 <!-- description -->
-                <div id="article-description" class="mt-1 text-lg lg:px-3 px-1">
+                <div id="article-description" class="mt-1 text-lg px-1">
                     {!! $article->description !!}
                 </div>
 
@@ -55,6 +55,9 @@
 
 @section('custom-script')
 
+    <!-- js code pretiffier -->
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    
     <!-- progressbar script -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {

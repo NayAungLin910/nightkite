@@ -31,9 +31,9 @@
         @apply p-4 my-3 border-l-4 bg-slate-50 text-black text-justify text-lg italic;
     }
 
-    pre {
+    /* pre {
         @apply p-4 my-3 border shadow rounded-xl text-sm bg-slate-50;
-    }
+    } */
 
     ul {
         @apply max-w-md space-y-1 list-disc list-inside;
@@ -45,6 +45,10 @@
 
     a {
         @apply text-blue-600 hover:underline;
+    }
+
+    pre {
+        @apply rounded-lg shadow-inner my-2 px-4 py-2 bg-slate-50 !important;
     }
 }
 

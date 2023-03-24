@@ -1,12 +1,13 @@
 @extends('layout.master-dashboard')
 @section('meta-title', 'Write Article - NightKite')
 @section('meta-description', 'The page to write a new article or blog and then publish it to the website.')
-@section('meta-og-title', "Create the Articles and Publish Them - NightKite")
-@section('meta-og-description', "Publish the articles or blogs by also attaching the related tags and images too.")
+@section('meta-og-title', 'Create the Articles and Publish Them - NightKite')
+@section('meta-og-description', 'Publish the articles or blogs by also attaching the related tags and images too.')
 @section('meta-canonical', url()->current())
 @section('custom-css')
     <!-- summernote css -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
 @endsection
 @section('custom-content')
     <div class="m-2">
@@ -90,21 +91,26 @@
 
     <!-- summernote script -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
+    
+    <!-- js code pretiffier -->
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    
     <script>
-        // initialize summernote
-        $('#summernote').summernote({
-            placeholder: 'Description',
-            minHeight: '15rem',
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture']],
-                ['view', ['help']]
-            ]
-        });
+        $(document).ready(function() {
+            // initialize summernote
+            $('#summernote').summernote({
+                placeholder: 'Description',
+                minHeight: '15rem',
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture']],
+                    ['view', ['help']],
+                ],
+            });
+        })
     </script>
 @endsection

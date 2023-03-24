@@ -17,7 +17,17 @@ class SummerImageUploadService
         $dom = new \DOMDocument();
         // include @ sign to escape warning
         @$dom->loadHTML($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        $imageFile = $dom->getElementsByTagName('img');
+
+        /*
+        Apply class prettyprint on all the pre tags from the description
+        in order to let the code prettifier to style it.
+        */
+        $preTags = $dom->getElementsByTagName('pre');
+        foreach ($preTags as $item => $pre) {
+            $pre->setAttribute('class', 'prettyprint');
+        }
+
+        $imageFile = $dom->getElementsByTagName('img'); // get all the image tags
 
         foreach ($imageFile as $item => $image) {
 
@@ -83,6 +93,20 @@ class SummerImageUploadService
         //domdocument for new description
         $domNew = new \DOMDocument();
         @$domNew->loadHTML($newDescription, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD); // include @ sign to escape warning
+        
+        /*
+        If the pre tag does not have class attribute, apply class 
+        prettyprint on all the pre tags from the description
+        in order to let the code prettifier to style it.
+        */
+        $preTags = $domNew->getElementsByTagName('pre');
+        foreach ($preTags as $item => $pre) {
+            if ($pre->hasAttribute('class')) { // if the pre tag has the class avoid proceeding furthers
+                continue;
+            }
+            $pre->setAttribute('class', 'prettyprint');
+        }
+
         $imageFileNew = $domNew->getElementsByTagName('img');
 
         $newDescriptionImages = []; // all the image names of the old description
