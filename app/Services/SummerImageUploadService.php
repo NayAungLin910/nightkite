@@ -24,7 +24,7 @@ class SummerImageUploadService
         */
         $preTags = $dom->getElementsByTagName('pre');
         foreach ($preTags as $item => $pre) {
-            $pre->setAttribute('class', 'prettyprint');
+            $pre->setAttribute('class', 'prettyprint overflow-auto');
         }
 
         $imageFile = $dom->getElementsByTagName('img'); // get all the image tags
@@ -104,7 +104,7 @@ class SummerImageUploadService
             if ($pre->hasAttribute('class')) { // if the pre tag has the class avoid proceeding furthers
                 continue;
             }
-            $pre->setAttribute('class', 'prettyprint');
+            $pre->setAttribute('class', 'prettyprint overflow-auto');
         }
 
         $imageFileNew = $domNew->getElementsByTagName('img');

@@ -30,7 +30,8 @@ Route::middleware(['NotAuth'])->group(function () {
 Route::view('/', 'welcome')->name('welcome');
 
 // view article
-Route::get('/articles/{slug}', [\App\Http\Controllers\ArticleController::class, "viewArticle"]);
+Route::get('/articles/{slug}', [\App\Http\Controllers\ArticleController::class, "viewArticle"])
+    ->name('article.view');
 
 // Routes only for authorized users
 Route::prefix('admin')->middleware(['AuthUser'])->group(function () {

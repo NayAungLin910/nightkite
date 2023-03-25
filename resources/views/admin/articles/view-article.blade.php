@@ -15,7 +15,7 @@
                 <div class="w-[320px] h-[50px] bg-slate-50 my-2 mx-auto"></div>
 
                 <!-- title -->
-                <h1 class="text-2xl text-center font-semibold mt-2 mb-3">{{ $article->title }}</h1>
+                <h1 class="text-2xl text-center font-semibold mt-2 mb-4">{{ $article->title }}</h1>
 
                 <!-- article image -->
                 <div class="px-3 pt-1 ">
@@ -28,8 +28,11 @@
                     {!! $article->description !!}
                 </div>
 
+                <br />
+                <hr class="border-[2.5px] rounded-lg border-sky-500" />
+
                 <!-- tags of the article -->
-                <div class="mt-6 mb-4 flex flex-wrap gap-3 bg-slate-100 px-3 py-2 rounded-lg">
+                <div class="mt-3 mb-4 flex flex-wrap gap-3 py-2 rounded-lg">
                     <p class="block w-full text-lg font-semibold">
                         Related Topics
                     </p>
@@ -39,6 +42,26 @@
                         </a>
                     @endforeach
                 </div>
+
+                @if ($readAlso)
+                    <!-- read also -->
+                    <div class="mt-2 mb-10">
+                        <p class="block w-full text-lg font-semibold">
+                            Read Also
+                        </p>
+                        @foreach ($readAlso as $rl)
+                            <a href="{{ route('article.view', ["slug" => $rl->slug]) }}" class="text-black hover:no-underline">
+                                <div
+                                    class="my-3 lg:w-1/2 bg-slate-50 shadow-md flex flex-row gap-3 rounded-xl items-center">
+                                    <img src="{{ url($rl->image) }}" loading="lazy"
+                                        class="max-h-16 rounded-tl-xl rounded-bl-xl"
+                                        alt="Image of the article, '{{ $rl->title }}'">
+                                    <p class="w-full whitespace-nowrap text-lg">{{ $rl->title }}</p>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
 
                 <!-- bottom ad -->
                 <div class="w-[300px] h-[250px] bg-slate-50 my-2 mx-auto mt-2"></div>
@@ -57,7 +80,7 @@
 
     <!-- js code pretiffier -->
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    
+
     <!-- progressbar script -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {

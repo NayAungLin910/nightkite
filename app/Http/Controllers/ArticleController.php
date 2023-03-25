@@ -123,7 +123,21 @@ class ArticleController extends Controller
             return abort(404); // returns 404 status code
         }
 
-        return view('admin.articles.view-article', compact('article'));
+        $tags = $article->tags; // get the tags of the article
+        $tagIds = $tags->pluck('id')->all(); // only get the collection of ids of the tags
+
+        // get maximum 3 articles which have tags similar to this article
+        $readAlso = Article::select('id', 'title', 'slug', 'meta_description', 'user_id', 'image')
+            ->with('tags:id')
+            ->whereHas('tags', function ($q) use ($tagIds) {
+                $q->whereIn('tags.id', $tagIds);
+            })
+            ->where('id', '!=', $article->id)
+            ->latest()
+            ->limit(3)
+            ->get();
+
+        return view('admin.articles.view-article', compact('article', 'readAlso'));
     }
 
     /* edit artilce */
