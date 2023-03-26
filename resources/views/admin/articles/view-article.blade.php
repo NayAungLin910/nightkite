@@ -43,16 +43,16 @@
                     @endforeach
                 </div>
 
-                @if ($readAlso)
+                @if ($readAlso->count() > 0)
                     <!-- read also -->
                     <div class="mt-2 mb-10">
                         <p class="block w-full text-lg font-semibold">
                             Read Also
                         </p>
                         @foreach ($readAlso as $rl)
-                            <a href="{{ route('article.view', ["slug" => $rl->slug]) }}" class="text-black hover:no-underline">
+                            <a href="{{ route('article.view', ["slug" => $rl->slug]) }}" class="text-black hover:no-underline group/readmore">
                                 <div
-                                    class="my-3 lg:w-1/2 bg-slate-50 shadow-md flex flex-row gap-3 rounded-xl items-center">
+                                    class="my-3 lg:w-1/2 bg-slate-50 shadow-md flex flex-row gap-3 rounded-xl items-center group-hover/readmore:bg-slate-100">
                                     <img src="{{ url($rl->image) }}" loading="lazy"
                                         class="max-h-16 rounded-tl-xl rounded-bl-xl"
                                         alt="Image of the article, '{{ $rl->title }}'">

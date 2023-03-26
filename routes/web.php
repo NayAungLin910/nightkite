@@ -3,16 +3,6 @@
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 // Routes for unauthorized user only
 Route::middleware(['NotAuth'])->group(function () {
@@ -29,9 +19,14 @@ Route::middleware(['NotAuth'])->group(function () {
 // welcome page
 Route::view('/', 'welcome')->name('welcome');
 
+// Articles
 // view article
 Route::get('/articles/{slug}', [\App\Http\Controllers\ArticleController::class, "viewArticle"])
     ->name('article.view');
+
+// search article
+Route::get('/articles/global/search', [\App\Http\Controllers\ArticleController::class, "globalSearchArticle"])
+    ->name('article.search');
 
 // Routes only for authorized users
 Route::prefix('admin')->middleware(['AuthUser'])->group(function () {

@@ -1,0 +1,131 @@
+[33mcommit cea10bf3868a5e7aa5bd5a9b269a5cae30d5ed2e[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Sat Mar 25 18:05:16 2023 +0630
+
+    added readalso article recommendation in article view, the pre tags are now has overflow-auto class
+
+[33mcommit f446b050b4c8563a68d623fc2b19d15ad76a490b[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Fri Mar 24 20:43:22 2023 +0630
+
+    added prettyprint class to all pre tags in edit article and create article methods to apply code block styles, added pre tag default styles
+
+[33mcommit ada00f5a2fab976e5617add3cbb7433858c92f76[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Mon Mar 20 16:48:16 2023 +0630
+
+    post requrest handle for article, new method in summer image upload service for edit article
+
+[33mcommit 020f060a615f0f0b53b8af4b93cbfc9b3092b253[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Sun Mar 19 17:24:41 2023 +0630
+
+    created article edit view, loaded the inital html data to the summernote textarea for article editing
+
+[33mcommit b18df1a6cba80ffec6a0b054231579b39a4fa89c[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Sat Mar 18 20:43:51 2023 +0630
+
+    move popup js code to external js files, imported app.css css styles into app.js and compile only app.js in vite, rewrite  popup js codes for all views
+
+[33mcommit 92c2099ebb4dc88ac1018ea097fdb1cbccf2e3d1[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Fri Mar 17 15:05:58 2023 +0630
+
+    added article delete, adjusted image compress quality,  added article delete option
+
+[33mcommit 2f27a09e9ec69965a7e333534420840368d7c5d1[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Thu Mar 16 16:52:53 2023 +0630
+
+    installed GD image manipulation library on wamp php, added image quality compression, added article delete button visibility
+
+[33mcommit 0358df43e61451c123ddb91248f4bb3511a28c75[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Tue Mar 14 20:11:50 2023 +0630
+
+    random_int() function is used to replace the uniqid function for better security, meta og tags added to all blade views
+
+[33mcommit f91e9bd3e18573034fe875c6f45b4b80dae40cf1[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Mon Mar 13 15:43:41 2023 +0630
+
+    tag rename feature
+
+[33mcommit 9dbafa753d6e2d361fef2c7a0eb4f69672980adb[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Sun Mar 12 19:49:42 2023 +0630
+
+    installed laravel debugbar, article view, enforced laravel strict rulles, scroll progress bar added on article view
+
+[33mcommit 22f15bbaea1b994bd9d0065cca1e81c732c5ef21[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Tue Mar 7 17:39:28 2023 +0630
+
+    configure SummeImage... service
+
+[33mcommit 624ba207aaaa16e74483b028aefcf19bfa90d21c[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Mon Mar 6 17:00:02 2023 +0630
+
+    test ads implemntation on article view
+
+[33mcommit ba35b05c3a406d273590746fc310fc09688d2a89[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Sun Mar 5 12:47:39 2023 +0630
+
+    article view, article filter
+
+[33mcommit 4347df182a5a1f87487aff0032bf63f37da804ec[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Sat Mar 4 15:31:33 2023 +0630
+
+    Article get view, text truncate and webkite css
+
+[33mcommit 12bb6d00660e0a452652ec52dfc789ff3ad0ec6f[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Fri Mar 3 13:27:12 2023 +0630
+
+    create article configured, article tag many to many configured, tested article create
+
+[33mcommit 2bb5950f4b19ea713cba453af62bd41fe64b28b2[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Wed Mar 1 19:56:33 2023 +0630
+
+    debug article create description domdocument, move the domdocument manipulation and image upload to external class, in create article add tags multiple select
+
+[33mcommit adbcfbf53c78b30fa65300447ef856683653efc3[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Sun Feb 26 17:21:13 2023 +0630
+
+    tag controller filter by me, others, all option added, rewrite filter option default code of all pages
+
+[33mcommit d72491c5ef802252adf7ec338d253e9d0e22c517[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Fri Feb 24 17:47:59 2023 +0630
+
+    Tag delete gate added, get-tag ui blade ui conditional changes
+
+[33mcommit 40444097875a765eb2acfd3fd8d6bdb79ce4f589[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Thu Feb 23 15:44:04 2023 +0630
+
+    sortby timeline get tags filter option added, popup green and orange border option added, popup debugged
+
+[33mcommit 4818b2488253a590309d755489c809681fe67601[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Wed Feb 22 16:49:41 2023 +0630
+
+    Tag search and delete, accept account page timeilne filter option added
+
+[33mcommit 9715461142cc8d8838b08b8f9dd550ead1f1a2d2[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Mon Feb 20 16:54:53 2023 +0630
+
+    Admin account accept and decline filter, Admin account search filter
+
+[33mcommit 97bdba109d84571ca0a2f8eef09ecf48c0ad801b[m
+Author: Nay Aung Lin <nayaung54545454@gmail.com>
+Date:   Sun Feb 19 10:49:33 2023 +0630
+
+    Initial commit

@@ -84,6 +84,11 @@
                     <button type="submit" class="green-button-rounded h-10 mt-5 whitespace-nowrap">
                         <i class="fa-solid fa-floppy-disk mr-1"></i> Save
                     </button>
+
+                    <!-- view button -->
+                    <a href="{{ route('article.view', ["slug" => $article->slug]) }}" class="sky-button-rounded h-10 mt-5 whitespace-nowrap hover:no-underline float-right">
+                        <i class="fa-solid fa-eye mr-1"></i> View
+                    </a>
                 </form>
             </div>
         </div>

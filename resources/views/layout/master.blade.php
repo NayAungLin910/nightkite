@@ -41,7 +41,7 @@
     @yield('custom-css')
 </head>
 
-<body class="">
+<body>
 
     <!-- top nav bar -->
     <nav class="px-5 bg-white shadow md:flex md:items-center">
@@ -60,6 +60,8 @@
         </div>
         <ul id="top-nav-ul"
             class="ul-clear md:flex md:ml-3 md:items-center z-10 md:z-auto md:static absolute bg-slate-50 text-black md:bg-white left-0 w-full md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500 ">
+
+            <!-- tags -->
             <li class="mx-3 my-5 md:my-0">
                 <a href="#" class="text-xl text-black hover:no-underline hover:text-cyan-500 duration-500">
                     <div class="flex items-center gap-1">
@@ -102,9 +104,25 @@
                     </div>
                 </li>
             @endif
+
+            <!-- search -->
+            <li class="mx-3 py-5 md:pr-12 md:my-0 group/search">
+                <i class="fa-solid fa-magnifying-glass text-lg cursor-pointer group-hover/search:text-sky-500"></i>
+                <div
+                    class="border hidden px-3 py-3 group-hover/search:block md:absolute md:top-[4.5rem] rounded-lg shadow-md bg-white">
+                    <form action="{{ route('article.search') }}">
+                        <div class="flex items-center gap-3">
+                            <input type="text" autocomplete="off" name="search" class="input-form-sky">
+                            <button type="submit" class="sky-button-rounded px-2 py-1 ">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </li>
         </ul>
     </nav>
-    
+
     <!-- custom content -->
     <main id="main-content" class="transition-all duration-500">
         @yield('custom-content')

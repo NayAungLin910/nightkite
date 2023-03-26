@@ -105,7 +105,7 @@ class ArticleController extends Controller
 
         $articles = $articles->select('id', 'title', 'slug', 'image', 'meta_description', 'user_id', 'created_at', 'updated_at')
             ->with('user:id,name,email', 'tags:id,title')
-            ->paginate(10);
+            ->paginate(9);
 
         $tags = Tag::orderBy('title')->get(); // for filter option
 
@@ -136,6 +136,7 @@ class ArticleController extends Controller
             ->latest()
             ->limit(3)
             ->get();
+
 
         return view('admin.articles.view-article', compact('article', 'readAlso'));
     }
@@ -282,5 +283,45 @@ class ArticleController extends Controller
         $article->delete();
 
         return redirect()->back()->with("info", "The article named, $articleTitle has been deleted!");
+    }
+
+    /* search the articles globally */
+    public function globalSearchArticle(Request $request)
+    {
+        $articles = Article::query();
+
+        /* select title similar to search */
+        if ($request->search) {
+            $articles = $articles->where('title', 'like', "%$request->search%");
+        }
+
+        /* select registration between startdate and enddate */
+        if ($request->startdate && $request->enddate) {
+
+            $startdate = Carbon::parse($request->startdate);
+            $enddate = Carbon::parse($request->enddate);
+
+            $articles = $articles->whereBetween('created_at', [$startdate, $enddate]);
+        }
+
+        /* orderby the admin list according to the selected timeline */
+        if ($request->timeline && $request->timeline === "oldest") {
+            $articles = $articles->oldest();
+        } else {
+            $articles = $articles->latest();
+        }
+
+        /* filter according to the selected tag */
+        if ($request->tag) {
+            $articles = $articles->whereHas('tags', fn ($q) => $q->where('tags.id', $request->tag));
+        }
+
+        $articles = $articles->select('id', 'title', 'slug', 'image', 'meta_description', 'user_id', 'created_at', 'updated_at')
+            ->with('user:id,name,email', 'tags:id,title')
+            ->paginate(9);
+
+        $tags = Tag::orderBy('title')->get(); // for filter option
+
+        return view('admin.articles.global.search-articles', compact('articles', 'tags'));
     }
 }
