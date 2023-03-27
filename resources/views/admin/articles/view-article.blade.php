@@ -31,35 +31,57 @@
                 <br />
                 <hr class="border-[2.5px] rounded-lg border-sky-500" />
 
-                <!-- tags of the article -->
-                <div class="mt-3 mb-4 flex flex-wrap gap-3 py-2 rounded-lg">
-                    <p class="block w-full text-lg font-semibold">
-                        Related Topics
-                    </p>
-                    @foreach ($article->tags as $tag)
-                        <a class="px-3 hover:no-underline py-1 cursor-pointer rounded-md shadow-lg bg-sky-700 text-white">
-                            {{ $tag->title }}
-                        </a>
-                    @endforeach
-                </div>
 
-                @if ($readAlso->count() > 0)
+                @if ($article->tags && $article->tags->count() > 0)
+                    <!-- tags of the article -->
+                    <div class="mt-3 mb-4 flex flex-wrap gap-3 py-2 rounded-lg">
+                        <p class="block w-full text-lg font-semibold">
+                            Related Topics
+                        </p>
+                        @foreach ($article->tags as $tag)
+                            <a href="{{ route('article.search', ['tag' => $tag->id]) }}"
+                                class="px-3 hover:no-underline py-1 cursor-pointer rounded-md shadow-lg bg-sky-700 text-white hover:text-sky-700 hover:bg-white border border-sky-700">
+                                {{ $tag->title }}
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
+
+                @if ($readAlso && $readAlso->count() > 0)
                     <!-- read also -->
-                    <div class="mt-2 mb-10">
+                    <div class="mt-2 mb-6">
                         <p class="block w-full text-lg font-semibold">
                             Read Also
                         </p>
                         @foreach ($readAlso as $rl)
-                            <a href="{{ route('article.view', ["slug" => $rl->slug]) }}" class="text-black hover:no-underline group/readmore">
+                            <a href="{{ route('article.view', ['slug' => $rl->slug]) }}"
+                                class="text-black hover:no-underline group/readmore">
                                 <div
                                     class="my-3 lg:w-1/2 bg-slate-50 shadow-md flex flex-row gap-3 rounded-xl items-center group-hover/readmore:bg-slate-100">
                                     <img src="{{ url($rl->image) }}" loading="lazy"
                                         class="max-h-16 rounded-tl-xl rounded-bl-xl"
                                         alt="Image of the article, '{{ $rl->title }}'">
-                                    <p class="w-full whitespace-nowrap text-lg">{{ $rl->title }}</p>
+
+                                    <p class="w-full font-semibold px-3 py-2">{{ $rl->title }}</p>
                                 </div>
                             </a>
                         @endforeach
+                    </div>
+                @endif
+
+                @if ($article->user)
+                    <!-- written by -->
+                    <div class="mb-10 text-lg">
+                        <p class="text-lg font-semibold mb-3">Written By</p>
+                        <a href="" class="hover:no-underline text-black">
+                            <div
+                                class="flex items-center gap-2 lg:w-1/2 bg-slate-50 hover:bg-slate-100 px-3 py-2 rounded-xl shadow-md">
+                                <img loading="lazy" src="{{ url($article->user->image) }}" class="rounded-full max-h-16"
+                                    alt="Profile image of {{ $article->user->name }}" />
+                                <p class="font-semibold">{{ $article->user->name }}</p>
+                            </div>
+                        </a>
+                        <p class="text-base mt-4">Latest Modified on {{ $article->updated_at }}</p>
                     </div>
                 @endif
 

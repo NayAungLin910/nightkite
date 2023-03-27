@@ -60,7 +60,7 @@
         <div class="grid md:grid-cols-3 grid-cols-1 gap-2 gap-y-4">
 
             <!-- if articles exist -->
-            @if ($articles->count() > 0)
+            @if ($articles && $articles->count() > 0)
                 @foreach ($articles as $a)
                     <div>
                         <div class="bg-slate-50 shadow-lg mx-4 h-auto border hover:shadow-2xl rounded-t-xl">

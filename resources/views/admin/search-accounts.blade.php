@@ -48,7 +48,7 @@
             </form>
 
             <!-- if there are records -->
-            @if ($admins->count() > 0)
+            @if ($admins && $admins->count() > 0)
                 <div class="overflow-auto rounded-lg shadow-md">
                     <table class="w-full border-collapse border">
                         <thead class="border-b text-lg">

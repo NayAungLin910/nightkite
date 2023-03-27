@@ -52,7 +52,7 @@
             </form>
 
             <!-- if there are records -->
-            @if ($tags->count() > 0)
+            @if ($tags && $tags->count() > 0)
                 <div class="overflow-auto rounded-lg shadow-md">
                     <table class="w-full border-collapse border">
                         <thead class="border-b text-lg">
