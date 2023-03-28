@@ -80,13 +80,21 @@
                         <input type="file" name="image" class="input-file-type" />
                     </div>
 
+                    <!-- feature -->
+                    <div class="my-2">
+                        <label for="feature">Feature the article on the front page</label>
+                        <input id="feature" name="feature" @if ($article->feature === '1') checked @endif
+                            class=" my-2 py-2 px-4 rounded-lg w-5 block h-5" type="checkbox" />
+                    </div>
+
                     <!-- create submit button -->
                     <button type="submit" class="green-button-rounded h-10 mt-5 whitespace-nowrap">
                         <i class="fa-solid fa-floppy-disk mr-1"></i> Save
                     </button>
 
                     <!-- view button -->
-                    <a href="{{ route('article.view', ["slug" => $article->slug]) }}" class="sky-button-rounded h-10 mt-5 whitespace-nowrap hover:no-underline float-right">
+                    <a href="{{ route('article.view', ['slug' => $article->slug]) }}"
+                        class="sky-button-rounded h-10 mt-5 whitespace-nowrap hover:no-underline float-right">
                         <i class="fa-solid fa-eye mr-1"></i> View
                     </a>
                 </form>
@@ -109,7 +117,6 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
     <script>
-
         $('#summernote').summernote({
             placeholder: 'Description',
             minHeight: '15rem',

@@ -17,7 +17,7 @@ Route::middleware(['NotAuth'])->group(function () {
 
 // Routes for both authorized and unauthorized users
 // welcome page
-Route::view('/', 'welcome')->name('welcome');
+Route::get('/', [\App\Http\Controllers\HomeController::class, "homePage"])->name('welcome');
 
 // Articles
 // view article
@@ -93,7 +93,7 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     // edit article
     Route::get('/dashboard/article/edit/{slug}', [\App\Http\Controllers\ArticleController::class, "editArticle"])
         ->name('admin.dashboard.edit-article');
-    
+
     // post edit article
     Route::post('/dashboard/article/edit/{slug}', [\App\Http\Controllers\ArticleController::class, "postEditArticle"]);
 

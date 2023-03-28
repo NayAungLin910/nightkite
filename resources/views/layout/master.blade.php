@@ -107,6 +107,9 @@
 
             <!-- search -->
             <li class="mx-3 py-5 md:pr-14 md:my-0 group/search">
+                <span class="text-xl group-hover/search:text-sky-500">
+                    Search Articles 
+                </span>
                 <i class="fa-solid fa-magnifying-glass text-lg cursor-pointer group-hover/search:text-sky-500"></i>
                 <div
                     class="border hidden px-3 py-3 group-hover/search:block md:absolute md:top-[4.5rem] rounded-lg shadow-md bg-white">

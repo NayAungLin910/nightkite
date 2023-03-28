@@ -18,6 +18,7 @@ class Article extends Model
         'description',
         'user_id',
         'image',
+        'feature',
     ];
 
     // created_at attribute mutator 

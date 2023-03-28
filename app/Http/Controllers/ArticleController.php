@@ -212,6 +212,21 @@ class ArticleController extends Controller
             $image_name = '/storage/images/' . $image_name;
         }
 
+        // if article feature checkbox is filled
+        if ($request->feature) {
+            Article::where('feature', '1')->update([
+                "feature" => "0"
+            ]); // unfeature all previously featured articles
+            
+            Article::where('id', $article->id)->update([
+                "feature" => "1"
+            ]); // feature the article
+        }else {
+            Article::where('id', $article->id)->update([
+                "feature" => "0"
+            ]); // unfeature the article
+        }
+
         // use SummerImageUploadService to edit, transform and upload images inside the description
         $description = SummerImageUploadService::editTransformUpload($article->description, $request->description);
 
@@ -221,6 +236,7 @@ class ArticleController extends Controller
         $article->meta_description = $request->meta_description;
         $article->description = $description;
         $article->image = $image_name;
+
         $article->save();
 
         // update the tags related to the article
