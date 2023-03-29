@@ -16,11 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(15)->has(Tag::factory()->count(2), 'tags') ->create();
+        \App\Models\User::factory(15)->has(Tag::factory()->count(2), 'tags')->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call([
+            UserSeeder::class,
+        ]);
     }
 }
