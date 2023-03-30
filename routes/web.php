@@ -28,6 +28,9 @@ Route::get('/articles/{slug}', [\App\Http\Controllers\ArticleController::class, 
 Route::get('/articles/global/search', [\App\Http\Controllers\ArticleController::class, "globalSearchArticle"])
     ->name('article.search');
 
+// author introuduction page
+Route::get('/author/{id}', [\App\Http\Controllers\AuthorController::class, "viewAuthor"])->name('author.view');
+
 // Routes only for authorized users
 Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     // dashboard of authoried user

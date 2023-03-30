@@ -31,7 +31,7 @@
             @if ($latestArticles && $latestArticles->count() > 0)
                 <div>
                     <a href="{{ route('article.search') }}">
-                        <h2 class="text-lg text-center font-semibold">Latest News</h2>
+                        <h2 class="text-lg text-center font-semibold">Latest Articles</h2>
                     </a>
                     @foreach ($latestArticles as $la)
                         <a href="{{ route('article.view', ['slug' => $la->slug]) }}"

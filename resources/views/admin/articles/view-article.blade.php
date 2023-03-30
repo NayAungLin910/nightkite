@@ -73,7 +73,8 @@
                     <!-- written by -->
                     <div class="mb-10 text-lg">
                         <p class="text-lg font-semibold mb-3">Written By</p>
-                        <a href="" class="hover:no-underline text-black">
+                        <a href="{{ route('author.view', ['id' => $article->user->id]) }}"
+                            class="hover:no-underline text-black">
                             <div
                                 class="flex items-center gap-2 lg:w-1/2 bg-slate-50 hover:bg-slate-100 px-3 py-2 rounded-xl shadow-md">
                                 <img loading="lazy" src="{{ url($article->user->image) }}" class="rounded-full max-h-16"
