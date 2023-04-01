@@ -1,4 +1,5 @@
 @extends('layout.master')
+
 @section('custom-content')
     <div class="px-3 py-2">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -12,7 +13,7 @@
                         <div class="mt-2">
                             <h1 class="text-lg text-center font-semibold">{{ $mainArticle->title }}</h1>
                         </div>
-                        <div class="my-2">
+                        <div class="my-2 bg-slate-300 ">
                             <p class="text-justify limit-lines-2">
                                 {{ $mainArticle->meta_description }}
                             </p>

@@ -38,6 +38,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- custom css -->
+    @viteReactRefresh
     @yield('custom-css')
 </head>
 
@@ -62,8 +63,8 @@
             class="ul-clear md:flex md:ml-3 md:items-center z-10 md:z-auto md:static absolute bg-slate-50 text-black md:bg-white left-0 w-full md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500 ">
 
             <!-- tags -->
-            <li class="mx-3 my-5 md:my-0">
-                <a href="#" class="text-xl text-black hover:no-underline hover:text-cyan-500 duration-500">
+            <li class="mx-3 py-5 md:mr-6 md:my-0 group/tags">
+                <a href="#" class="text-xl text-black hover:no-underline group-hover/tags:text-cyan-500">
                     <div class="flex items-center gap-1">
                         <i class="fa-solid fa-tag"></i>
                         <span>
@@ -71,6 +72,11 @@
                         </span>
                     </div>
                 </a>
+                {{-- TagsSearch Component --}}
+                <div id="tagSearch-app"
+                    class="border hidden p-2 group-hover/tags:block md:absolute md:top-[4.2rem] rounded-lg shadow-md bg-white">
+                </div>
+                @vite('resources/js/tagsSearch.jsx')
             </li>
 
             <!-- if auth -->
@@ -108,7 +114,7 @@
             <!-- search -->
             <li class="mx-3 py-5 md:pr-14 md:my-0 group/search">
                 <span class="text-xl group-hover/search:text-sky-500">
-                    Search Articles 
+                    Search Articles
                 </span>
                 <i class="fa-solid fa-magnifying-glass text-lg cursor-pointer group-hover/search:text-sky-500"></i>
                 <div
