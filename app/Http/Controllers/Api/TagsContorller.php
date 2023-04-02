@@ -13,7 +13,7 @@ class TagsContorller extends Controller
      */
     public function getTagsWelcomePage()
     {
-        $tags = Tag::limit('8')->get();
+        $tags = Tag::withCount('articles')->orderBy('articles_count', 'desc')->limit('8')->get();
 
         if (!$tags) {
             return response()->json([
@@ -28,5 +28,24 @@ class TagsContorller extends Controller
                 "tags" => $tags
             ]
         ], 200);
+    }
+
+    /**
+     * Handles post request of searching tag by
+     * their name.
+     */
+    public function searchTagsWelcomePgae(Request $request)
+    {
+        $request->validate([
+            "search" => "required|string"
+        ]);
+
+        $tags = Tag::where('title', 'like', "%$request->search%")->limit('8')->get();
+
+        return response()->json([
+            "data" => [
+                "tags" => $tags
+            ]
+        ]);
     }
 }

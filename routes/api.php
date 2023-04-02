@@ -18,4 +18,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+// get some tags for welcome page
 Route::get('/tags', [\App\Http\Controllers\Api\TagsContorller::class, "getTagsWelcomePage"]);
+
+// search tags from welcome page
+Route::post('/tags', [\App\Http\Controllers\Api\TagsContorller::class, "searchTagsWelcomePgae"]);
+

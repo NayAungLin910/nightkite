@@ -88,6 +88,10 @@
         focus:ring focus:ring-sky-400 border-sky-400;
     }
 
+    .loading-image-form {
+        @apply bg-[url("http://www.xiconeditor.com/image/icons/loading.gif")] bg-no-repeat bg-right bg-white;
+    }
+
     .input-file-type {
         @apply bg-white block my-2 rounded-lg text-black w-full focus:outline-none file:bg-sky-500 
         file:border-none file:shadow-lg file:text-white file:mr-2 

@@ -13,7 +13,7 @@
                         <div class="mt-2">
                             <h1 class="text-lg text-center font-semibold">{{ $mainArticle->title }}</h1>
                         </div>
-                        <div class="my-2 bg-slate-300 ">
+                        <div class="my-2">
                             <p class="text-justify limit-lines-2">
                                 {{ $mainArticle->meta_description }}
                             </p>
