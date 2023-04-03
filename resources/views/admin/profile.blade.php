@@ -1,12 +1,13 @@
 @extends('layout.master-dashboard')
-@section('meta-title', 'Profile of the Logined Admin - NightKite')
-@section('meta-description', 'View the various information of the logined admin.')
-@section('meta-og-title', "Admin Profile Page - NightKite")
-@section('meta-og-description', "Check the various information of the currently logined admin account from this page.")
+@section('meta-title', 'Profile of ' . Auth::user()->name . ' - NightKite')
+@section('meta-description', 'View the various information of ' . Auth::user()->name)
+@section('meta-og-title', Auth::user()->name . ' Profile Page - NightKite')
+@section('meta-og-description', 'Check the various information of the currently logined admin account, ' .
+    Auth::user()->name . ' from this page.')
 
 @section('custom-content')
 
-    <div class="m-2 mt-6">
+    <div class="m-2 md:mt-6 mt-16">
         <h1 class="text-xl text-center">
             @if (Auth::user()->role === '3')
                 <span
@@ -20,8 +21,28 @@
             {{ Auth::user()->name }}
         </h1>
         <div class="mt-10 mb-4 flex items-center">
-            <div class="rounded-lg px-6 py-4 shadow-lg mx-auto">
-                <table class="table-auto border-collapse">
+            <div class="rounded-lg px-6 py-4 shadow-lg bg-slate-50 mx-auto max-w-[26rem] overflow-auto">
+                <table class="table-auto w-full border-collapse">
+                    <tr>
+                        <td class="px-2 py-1 w-auto font-normal whitespace-nowrap" colspan="3">
+                            <img src="{{ Auth::user()->image }}" loading="lazy"
+                                alt="{{ Auth::user()->name }}'s profile image"
+                                class="rounded-full border shadow mx-auto max-h-[8rem]">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 py-1 w-auto font-normal whitespace-nowrap">
+                            <i class="fa-solid fa-user"></i>
+                            <span>Username</span>
+                        </td>
+                        <td class="px-2 py-1 w-auto font-normal whitespace-nowrap">
+                            <span id="name-info">{{ Auth::user()->name }}</span>
+
+                        </td>
+                        <td class="px-2 py-1 w-auto font-normal whitespace-nowrap">
+                            <i id="name-copy" onclick="copyText('name')" class="fa-solid fa-copy cursor-pointer ml-2"></i>
+                        </td>
+                    </tr>
                     <tr>
                         <td class="px-2 py-1 w-auto font-normal whitespace-nowrap">
                             <i class="fa-solid fa-envelope"></i>
@@ -29,10 +50,25 @@
                         </td>
                         <td class="px-2 py-1 w-auto font-normal whitespace-nowrap">
                             <span id="email-info">{{ Auth::user()->email }}</span>
+
+                        </td>
+                        <td class="px-2 py-1 w-auto font-normal whitespace-nowrap">
                             <i id="email-copy" onclick="copyText('email')" class="fa-solid fa-copy cursor-pointer ml-2"></i>
                         </td>
                     </tr>
                 </table>
+                <div class="p-2 text-justify">
+                    {{ Auth::user()->description }}
+                </div>
+                <div class="p-2 flex flex-row flex-wrap gap-2">
+                    <a class="sky-button-rounded hover:no-underline"
+                        href="{{ route('author.view', ['id' => Auth::user()->id]) }}">
+                        Articles
+                    </a>
+                    <a class="green-button-rounded hover:no-underline" href="{{ route('admin.dashboard.update-profile') }}">
+                        Update Profile
+                    </a>
+                </div>
             </div>
         </div>
     </div>

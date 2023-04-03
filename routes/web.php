@@ -39,6 +39,11 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     // view profile
     Route::view('/dashboard/profile', 'admin.profile')->name('admin.dashboard.profile');
 
+    // update profile
+    Route::get('/dashboard/profile/update', [\App\Http\Controllers\Auth\AdminAuthController::class, "updateProfile"])
+        ->name('admin.dashboard.update-profile');
+    Route::post('/dashboard/profile/update', [\App\Http\Controllers\Auth\AdminAuthController::class, "postUpdateProfile"]);
+
     // Routes for super admin only
     Route::middleware(['AuthAdmin'])->group(function () {
         // accept accounts 

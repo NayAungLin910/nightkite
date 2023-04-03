@@ -95,4 +95,20 @@ class AdminAuthController extends Controller
 
         return redirect()->route('welcome')->with('success', "Your account has been registered! Please wait for the super admin to accept the account!");
     }
+
+    /**
+     * show update profile page
+     */
+    public function updateProfile()
+    {
+        return view('auth.admin.profile-update');
+    }
+
+    /**
+     * update the profile info of the current user
+     */
+    public function postUpdateProfile(Request $request)
+    {
+        return $request->all();
+    }
 }
