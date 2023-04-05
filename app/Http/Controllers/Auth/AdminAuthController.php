@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Intervention\Image\Facades\Image;
@@ -109,6 +111,55 @@ class AdminAuthController extends Controller
      */
     public function postUpdateProfile(Request $request)
     {
-        return $request->all();
+        $request->validate([
+            "name" => "required|string|max:200|unique:users,name," . Auth::user()->id,
+            "email" => "required|email|string|unique:users,email," . Auth::user()->id,
+            "description" => "required|string|max:700",
+            "password" => "required|string",
+            "image" => "nullable|image|max:5000"
+        ]);
+
+        if (Gate::denies('password-auth', $request->password)) {
+            return redirect()->back()->withErrors([
+                "passwordError" => "Wrong password!"
+            ]);
+        }
+
+        //if the password auth succeeds
+
+        $image_path = Auth::user()->image;
+
+        // if there is image in request
+        if ($request->hasFile('image')) {
+
+            if (Auth::user()->image !== "/default_images/nightkite_logo_transparent.webp") {
+                // if the image is not the default one, deletes it
+
+                if (File::exists(public_path($image_path))) {
+                    // if file exists delete it
+                    File::delete(public_path($image_path));
+                }
+            }
+
+            // upload the profile image
+            $image = $request->file('image');
+            $image_name = random_int(1000000000, 9999999999) . $image->getClientOriginalName();
+            $image->move(public_path('/storage/images'), $image_name);
+
+            // optimize the uploaded image
+            $image_local_path = public_path('/storage/images/') . $image_name;
+            $img = Image::make($image_local_path); // creates a new image source using image intervention package
+            $img->save($image_local_path, 50); // save the image with a medium quality
+            $image_path = "/storage/images/" . $image_name; //update the image path
+        }
+
+        Auth::user()->update([
+            "name" => $request->name,
+            "email" => $request->email,
+            "description" => $request->description,
+            "image" => $image_path
+        ]);
+
+        return redirect()->back()->with("success", "User information has been updated!");
     }
 }

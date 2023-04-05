@@ -20,8 +20,18 @@
             {{ Auth::user()->name }}
         </h1>
         <div class="mt-6 max-w-[25rem] mx-auto px-2">
-            <form id="update-profile-accept-form" action="" method="POST">
+            <form id="update-profile-accept-form" action="{{ route('admin.dashboard.update-profile') }}"
+                enctype="multipart/form-data" method="POST">
                 @csrf
+
+                {{-- if errors --}}
+                @if ($errors->any())
+                    <div class="my-2">
+                        @foreach ($errors->all() as $error)
+                            <p class="text-red-600">{{ $error }}</p>
+                        @endforeach
+                    </div>
+                @endif
 
                 <!-- username -->
                 <div class="my-2">
@@ -43,15 +53,22 @@
                     <textarea name="description" id="description-textarea" cols="30" rows="10" class="input-form-sky h-44">{{ Auth::user()->description }}</textarea>
                 </div>
 
+                <!-- image -->
+                <div class="my-2">
+                    <label for="image">New Profile Image</label>
+                    <input type="file" id="image" name="image" class="input-file-type" />
+                </div>
+
                 <!-- authentication password -->
                 <div class="my-2">
                     <label for="password-auth-input"><i class="fa-solid fa-lock"></i> Password</label>
-                    <input id="password-auth-input" class="input-form-sky" type="password">
+                    <input id="password-auth-input" name="password" class="input-form-sky" type="password">
                 </div>
 
                 <div class="mb-2 mt-4 flex items-center place-content-between">
                     <button type="button"
-                        onclick="openPopupSubmit('Are you sure about updating the profile information of {{ Auth::user()->name }}?' , 'update-profile')"
+                        onclick="openPopupSubmit('Are you sure about updating the profile information of {{ Auth::user()->name }}?',
+                        'update-profile')"
                         class="green-button-rounded"><i class="fa-solid fa-floppy-disk"></i>
                         Update</button>
                     <a href="{{ route('admin.dashboard.profile') }}" class="orange-button-rounded hover:no-underline"><i
