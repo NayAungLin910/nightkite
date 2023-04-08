@@ -90,7 +90,7 @@
                         class="hidden md:absolute rounded-lg w-auto bg-white text-black shadow py-2 px-1">
                         <ul class="ul-clear">
                             <li class="rounded-lg cursor-pointer px-4 py-2 hover:bg-gray-100">
-                                <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.home') }}">
+                                <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.profile') }}">
                                     <div class="flex items-center gap-2">
                                         <i class="fa-solid fa-gauge"></i>
                                         Dashboard

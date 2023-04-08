@@ -1,11 +1,10 @@
 @extends('layout.master-dashboard')
-@section('meta-title', 'Update the Profile of ' . Auth::user()->name . ' - NightKite')
-@section('meta-description', 'Update the user information of ' . Auth::user()->name)
-@section('meta-og-title', Auth::user()->name . ' Update Profile Page - NightKite')
-@section('meta-og-description', 'Update the profile of the current user, ' . Auth::user()->name . ' from NightKite.')
+@section('meta-title', 'Change the Password of ' . Auth::user()->name . ' - NightKite')
+@section('meta-description', 'Change the password information of ' . Auth::user()->name)
+@section('meta-og-title', Auth::user()->name . ' Change Password Page - NightKite')
+@section('meta-og-description', 'Change the password of the current user , ' . Auth::user()->name . ' from NightKite.')
 
 @section('custom-content')
-
     <div class="m-2 md:mt-6 mt-16">
         <h1 class="text-xl text-center">
             <img src="{{ Auth::user()->image }}" loading="lazy" alt="{{ Auth::user()->name }}'s profile image"
@@ -22,8 +21,7 @@
             {{ Auth::user()->name }}
         </h1>
         <div class="mt-6 max-w-[25rem] mx-auto px-2">
-            <form id="update-profile-accept-form" action="{{ route('admin.dashboard.update-profile') }}"
-                enctype="multipart/form-data" method="POST">
+            <form id="change-password-accept-form" action="{{ route('admin.dashboard.change-password') }}" method="POST">
                 @csrf
 
                 {{-- if errors --}}
@@ -35,44 +33,31 @@
                     </div>
                 @endif
 
-                <!-- username -->
+                <!-- new password -->
                 <div class="my-2">
-                    <label for="name-input"><i class="fa-solid fa-user"></i> Username</label>
-                    <input id="name-input" type="text" name="name" class="input-form-sky"
-                        value="{{ Auth::user()->name }}">
+                    <label for="password-new-input">New Password</label>
+                    <input id="password-new-input" name="new_password" class="input-form-sky" type="password">
                 </div>
 
-                <!-- email -->
+                <!-- confirm password -->
                 <div class="my-2">
-                    <label for="email-input"><i class="fa-solid fa-envelope"></i> Email</label>
-                    <input id="email-input" type="email" name="email" class="input-form-sky"
-                        value="{{ Auth::user()->email }}">
-                </div>
-
-                <!-- description -->
-                <div class="my-2">
-                    <label for="description-textarea"><i class="fa-solid fa-book"></i> Description</label>
-                    <textarea name="description" id="description-textarea" cols="30" rows="10" class="input-form-sky h-44">{{ Auth::user()->description }}</textarea>
-                </div>
-
-                <!-- image -->
-                <div class="my-2">
-                    <label for="image">New Profile Image</label>
-                    <input type="file" id="image" name="image" class="input-file-type" />
+                    <label for="password-confirm-input">Confirm New Password</label>
+                    <input id="password-confirm-input" name="new_password_confirmation" class="input-form-sky"
+                        type="password">
                 </div>
 
                 <!-- authentication password -->
                 <div class="my-2">
-                    <label for="password-auth-input"><i class="fa-solid fa-lock"></i> Password</label>
+                    <label for="password-auth-input">Old Password</label>
                     <input id="password-auth-input" name="password" class="input-form-sky" type="password">
                 </div>
 
                 <div class="mb-2 mt-4 flex items-center place-content-between">
                     <button type="button"
-                        onclick="openPopupSubmit('Are you sure about updating the profile information of {{ Auth::user()->name }}?',
-                        'update-profile')"
-                        class="green-button-rounded"><i class="fa-solid fa-floppy-disk"></i>
-                        Update</button>
+                        onclick="openPopupSubmit('Are you sure about changing the new password?',
+                        'change-password')"
+                        class="green-button-rounded"><i class="fa-solid fa-repeat"></i>
+                        Change</button>
                     <a href="{{ route('admin.dashboard.profile') }}" class="orange-button-rounded hover:no-underline"><i
                             class="fa-solid fa-arrow-left"></i>
                         Back</a>

@@ -21,7 +21,7 @@
             {{ Auth::user()->name }}
         </h1>
         <div class="mt-10 mb-4 flex items-center">
-            <div class="rounded-lg px-6 py-4 shadow-lg bg-slate-50 mx-auto max-w-[26rem] overflow-auto">
+            <div class="rounded-lg px-6 py-4 shadow-lg bg-slate-50 mx-auto max-w-[26rem] border overflow-auto">
                 <table class="table-auto w-full border-collapse">
                     <tr>
                         <td class="px-2 py-1 w-auto font-normal whitespace-nowrap" colspan="3">
@@ -60,16 +60,19 @@
                 <div class="p-2 text-justify">
                     {{ Auth::user()->description }}
                 </div>
-                <div class="p-2 flex flex-row flex-wrap gap-2">
-                    <a class="sky-button-rounded hover:no-underline"
-                        href="{{ route('author.view', ['id' => Auth::user()->id]) }}">
-                        Articles
-                    </a>
-                    <a class="green-button-rounded hover:no-underline" href="{{ route('admin.dashboard.update-profile') }}">
-                        Update Profile
-                    </a>
-                </div>
             </div>
+        </div>
+        <div class="p-2 flex flex-row flex-wrap gap-2 items-center place-content-center">
+            <a class="sky-button-rounded hover:no-underline"
+                href="{{ route('author.view', ['id' => Auth::user()->id]) }}">
+                Articles
+            </a>
+            <a class="green-button-rounded hover:no-underline" href="{{ route('admin.dashboard.update-profile') }}">
+                Update Profile
+            </a>
+            <a class="orange-button-rounded hover:no-underline" href="{{ route('admin.dashboard.change-password') }}">
+                Change Password
+            </a>
         </div>
     </div>
 

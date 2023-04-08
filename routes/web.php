@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 
@@ -33,8 +32,6 @@ Route::get('/author/{id}', [\App\Http\Controllers\AuthorController::class, "view
 
 // Routes only for authorized users
 Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
-    // dashboard of authoried user
-    Route::view('/dashboard', 'admin.admin-home')->name('admin.dashboard.home');
 
     // view profile
     Route::view('/dashboard/profile', 'admin.profile')->name('admin.dashboard.profile');
@@ -43,6 +40,11 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     Route::get('/dashboard/profile/update', [\App\Http\Controllers\Auth\AdminAuthController::class, "updateProfile"])
         ->name('admin.dashboard.update-profile');
     Route::post('/dashboard/profile/update', [\App\Http\Controllers\Auth\AdminAuthController::class, "postUpdateProfile"]);
+
+    // change password
+    Route::view('/dashboard/profile/change-password', 'auth.admin.change-password')
+        ->name('admin.dashboard.change-password');
+    Route::post('/dashboard/profile/change-password', [\App\Http\Controllers\Auth\AdminAuthController::class, "changePassword"]);
 
     // Routes for super admin only
     Route::middleware(['AuthAdmin'])->group(function () {

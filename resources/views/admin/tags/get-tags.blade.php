@@ -34,8 +34,8 @@
                     </div>
                     <div>
                         <label for="filter-startdate">Start Date</label>
-                        <input type="datetime-local" value="{{ request('startdate') }}" class="input-form-sky" name="startdate"
-                            id="filter-startdate" />
+                        <input type="datetime-local" value="{{ request('startdate') }}" class="input-form-sky"
+                            name="startdate" id="filter-startdate" />
                     </div>
                     <div>
                         <label for="filter-enddate">End Date</label>
@@ -85,7 +85,11 @@
 
                                     </td>
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $tag->created_at }}</td>
-                                    <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $tag->articles_count }}
+                                    <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">
+                                        <a href="{{ route('article.search', ['tag' => $tag->id]) }}"
+                                            class="sky-button-rounded py-2 px-[0.9rem] hover:no-underline">
+                                            {{ $tag->articles_count }}
+                                        </a>
                                     </td>
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">
                                         <div
@@ -106,7 +110,9 @@
                                                 </form>
 
                                                 <!-- update tag link -->
-                                                <a class="sky-button-rounded w-10" alt="update the tag, {{ $tag->title }}" href="{{ route('admin.dashboard.update-tag', ['slug' => $tag->slug]) }}">
+                                                <a class="sky-button-rounded w-10"
+                                                    alt="update the tag, {{ $tag->title }}"
+                                                    href="{{ route('admin.dashboard.update-tag', ['slug' => $tag->slug]) }}">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
                                             @else

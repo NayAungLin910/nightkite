@@ -85,7 +85,6 @@ class AdminAuthController extends Controller
         $img = Image::make($image_path); // creates a new image source using image intervention package
         $img->save($image_path, 50); // save the image with a medium quality
 
-
         // create user
         $user = User::create([
             'name' => $request->name,
@@ -119,6 +118,7 @@ class AdminAuthController extends Controller
             "image" => "nullable|image|max:5000"
         ]);
 
+        // checks if the password matches the the current user's password
         if (Gate::denies('password-auth', $request->password)) {
             return redirect()->back()->withErrors([
                 "passwordError" => "Wrong password!"
@@ -153,6 +153,7 @@ class AdminAuthController extends Controller
             $image_path = "/storage/images/" . $image_name; //update the image path
         }
 
+        // update user info
         Auth::user()->update([
             "name" => $request->name,
             "email" => $request->email,
@@ -161,5 +162,31 @@ class AdminAuthController extends Controller
         ]);
 
         return redirect()->back()->with("success", "User information has been updated!");
+    }
+
+    /**
+     * change the passsword of the current user
+     */
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            "new_password" => ['required', 'confirmed', 'string', Rules\Password::defaults()],
+            "new_password_confirmation" => "required|string",
+            "password" => "required|string"
+        ]);
+
+        // checks if the password matches the the current user's password
+        if (Gate::denies('password-auth', $request->password)) {
+            return redirect()->back()->withErrors([
+                "passwordError" => "Wrong password!"
+            ]);
+        }
+
+        // update the password
+        Auth::user()->update([
+            "password" => Hash::make($request->new_password)
+        ]);
+
+        return redirect()->route('admin.dashboard.profile')->with("success", "Password has been changed!");
     }
 }
