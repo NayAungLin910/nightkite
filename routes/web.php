@@ -88,6 +88,10 @@ Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
     // post edit tag
     Route::post('/dashboard/tags/update/{slug}', [\App\Http\Controllers\TagController::class, "postUpdateTag"]);
 
+    // feature tag
+    Route::post('/dashboard/tags/feature', [\App\Http\Controllers\TagController::class, "featuredTag"])
+        ->name('admin.dashboard.feature-tag');
+
     // Articles management
     // return the article create view
     Route::get('/dashboard/articles/create', [\App\Http\Controllers\ArticleController::class, "getArticleCreate"])

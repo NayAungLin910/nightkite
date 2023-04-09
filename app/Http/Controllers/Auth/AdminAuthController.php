@@ -41,7 +41,7 @@ class AdminAuthController extends Controller
         if (Auth::attempt($data, $request->remember)) {
             $request->session()->regenerate();
 
-            return redirect()->route('admin.dashboard.home')->with('success', 'Logged in successfully!');
+            return redirect()->route('admin.dashboard.profile')->with('success', 'Logged in successfully!');
         }
 
         return back()->withErrors([

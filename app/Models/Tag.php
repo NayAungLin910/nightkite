@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Tag extends Model
 {
@@ -33,5 +35,10 @@ class Tag extends Model
     public function articles()
     {
         return $this->belongsToMany(Article::class);
+    }
+
+    public function featuredTag(): HasOne
+    {
+        return $this->hasOne(FeaturedTag::class);
     }
 }
