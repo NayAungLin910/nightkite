@@ -70,9 +70,11 @@
                         <tbody class="border-b">
                             @foreach ($tags as $tag)
                                 <tr class="border-b hover:bg-slate-50 group/tag">
-                                    <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $tag->title }} @if ($tag->featuredTag)
-                                        <span class="rounded-lg px-2 py-1 bg-green-600 text-white">Featured</span>
-                                    @endif</td>
+                                    <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $tag->title }}
+                                        @if ($tag->featuredTag)
+                                            <span class="rounded-lg px-2 py-1 bg-green-600 text-white">Featured</span>
+                                        @endif
+                                    </td>
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">
 
                                         <!-- if user exists, show user name if not show not found! -->

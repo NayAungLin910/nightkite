@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
-use Ramsey\Uuid\FeatureSet;
 
 class TagController extends Controller
 {
@@ -195,7 +194,7 @@ class TagController extends Controller
         }
 
         // checks if the total number of featured tags is or over 3, and if so, delete the oldest one
-        if (FeaturedTag::get()->count() >= 3) {
+        if (FeaturedTag::get()->count() >= 2) {
             $oldestFeaturedTag = FeaturedTag::oldest()->limit(1)->first();
             $oldestFeaturedTag->delete();
         }
