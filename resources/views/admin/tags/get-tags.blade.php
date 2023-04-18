@@ -1,8 +1,11 @@
 @extends('layout.master-dashboard')
+
 @section('meta-title', 'Search Tags - NightKite')
-@section('meta-description',
-    'Search the tags that are tagged along with blogs and articles using various filter
-    options.')
+@section('meta-description', 'Search for the tags that are tagged along with blogs and articles using various filter options.')
+
+@section('meta-og-title', 'Search Any Tag - NightKite')
+@section('meta-description', 'Search for any tags on NightKite by using the provided filter options.')
+
 @section('custom-content')
     <div class="m-2">
         <h1 class="text-xl text-center"><i class="fa-solid fa-magnifying-glass mr-2"></i>Search Tags</h1>
@@ -167,6 +170,6 @@
 @endsection
 
 @section('custom-script')
-    <script type="text/javascript" src="{{ asset('/js/popup.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/js/popup-delete.js') }}"></script>
+    @include('partials.popup')
+    @include('partials.popup-delete')
 @endsection

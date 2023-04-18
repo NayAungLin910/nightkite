@@ -1,13 +1,14 @@
-@section('meta-title', 'Register - NightKite')
-@section('meta-description', 'The admin register page of NightKite article website. Register an account to publish
-    articles and manage them.')
-@section('meta-canonical', url()->current())
-@section('meta-og-title', 'NightKite Admin Register Page')
-@section('meta-og-description', 'The page to register account to the NightKite article website for pubslishing the
-    articles and editing them.')
-@section('meta-og-url', url()->current())
-
 @extends('layout.master')
+
+@section('meta-title', 'Register - NightKite')
+@section('meta-description',
+    'The admin account registration page of the NightKite article website. Register an account
+    to publish articles and manage them.')
+
+@section('meta-og-title', 'NightKite Admin Register Page')
+@section('meta-og-description', 'The page to register an admin account to the NightKite article website for publishing
+    the articles and editing them.')
+
 @section('custom-content')
     <div class="">
         <div class="mx-auto my-4 rounded-xl shadow-md px-6 py-3 lg:w-1/3">
@@ -49,7 +50,8 @@
                 </div>
                 <div class="my-2">
                     <label for="description">Short Description</label>
-                    <textarea name="description" class="input-form-sky h-44" id="description" cols="30" rows="10" placeholder="Short Description..."></textarea>
+                    <textarea name="description" class="input-form-sky h-44" id="description" cols="30" rows="10"
+                        placeholder="Short Description..."></textarea>
                 </div>
                 <div class="my-2">
                     <label for="image">Image</label>

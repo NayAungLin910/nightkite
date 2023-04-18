@@ -1,15 +1,17 @@
 @extends('layout.master-dashboard')
-@section('meta-title', "$article->title - NightKite")
+
+@section('meta-title', 'Edit the article titled, "' . $article->title . '" - NightKite')
 @section('meta-description', "$article->meta_description")
+
 @section('meta-og-title', "Read an article about $article->title")
-@section('meta-og-description',
-    "Read the description of $article->title, which is as follows,
-    $article->meta_description - NightKite")
-@section('meta-canonical', url()->current())
+@section('meta-og-description', "$article->meta_description")
+@section('meta-og-image', url($article->image))
+
 @section('custom-css')
     <!-- summernote css -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 @endsection
+
 @section('custom-content')
     <div class="m-2">
 
@@ -103,6 +105,7 @@
 
     </div>
 @endsection
+
 @section('custom-script')
     <!-- js code pretiffier -->
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>

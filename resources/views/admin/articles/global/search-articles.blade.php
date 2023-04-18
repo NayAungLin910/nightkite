@@ -1,7 +1,15 @@
 @extends('layout.master')
-@section('meta-title', 'Search Article - NightKite')
-@section('meta-description', 'Search any article published on NighKite, by using the available filter options which are all very useful.')
-@section('meta-canonical', url()->current())
+
+@section('meta-title', 'Search Articles - NightKite')
+@section('meta-description',
+    'Search for any article published on NightKite by using the available filter options, which
+    are all very useful.')
+
+@section('meta-og-title', 'Easily Search Articles Published on NightKite')
+@section('meta-og-description',
+    'Articles published on NightKite website can be easily searched and filtered in just a
+    few clicks. Visit NightKite and start searching for articles you might be interested in.')
+
 @section('custom-content')
     <div class="my-2">
 
@@ -94,8 +102,4 @@
             {{ $articles->withQueryString()->links('pagination::tailwind') }}
         </div>
     </div>
-@endsection
-
-@section('custom-script')
-    <script type="text/javascript" src="{{ asset('/js/popup-delete.js') }}"></script>
 @endsection

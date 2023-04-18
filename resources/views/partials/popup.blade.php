@@ -1,4 +1,5 @@
-let identity = ""; // global identity variable
+<script>
+    let identity = ""; // global identity variable
 
 // open popup and display
 function openPopupSubmit(text, identity) {
@@ -23,3 +24,4 @@ function closePopup() {
     popup.classList.toggle('active'); // close popup
     document.querySelector(`#popup-overlay`).classList.toggle('active'); // close popup overlay
 }
+</script>

@@ -1,7 +1,12 @@
 @extends('layout.master')
+
 @section('meta-title', "$article->title - NightKite")
 @section('meta-description', "$article->meta_description")
-@section('meta-canonical', url()->current())
+
+@section('meta-og-title', "$article->title - NightKite")
+@section('meta-og-description', "$article->meta_description")
+@section('meta-og-image', url($article->image))
+
 @section('custom-content')
 
     <!-- progress bar on scroll -->

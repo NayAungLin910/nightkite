@@ -1,10 +1,12 @@
 @extends('layout.master-dashboard')
-@section('meta-title', 'Create Tags - NightKite')
-@section('meta-description',
-    'The tags that can be tagged on the articles or blogs written in NightKite can be created
+
+@section('meta-title', 'Create A Tag - NightKite')
+@section('meta-description', 'The tags that can be tagged on the articles or blogs written in NightKite can be created
     on this page.')
-@section('meta-og-title', "New tags Create Page - NightKite")
-@section('meta-og-description', "New tags can be created and be attached to the related articles or blogs.")
+
+@section('meta-og-title', 'Tag Create Page - NightKite')
+@section('meta-og-description', 'New tags can be created and be attached to the related articles or blogs.')
+
 @section('custom-content')
     <div class="m-2">
         <h1 class="text-xl text-center mb-10"><i class="fa-solid fa-plus mr-1"></i> Create Tags</h1>

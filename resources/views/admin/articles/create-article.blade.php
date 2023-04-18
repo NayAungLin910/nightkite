@@ -1,9 +1,11 @@
 @extends('layout.master-dashboard')
-@section('meta-title', 'Write Article - NightKite')
-@section('meta-description', 'The page to write a new article or blog and then publish it to the website.')
-@section('meta-og-title', 'Create the Articles and Publish Them - NightKite')
-@section('meta-og-description', 'Publish the articles or blogs by also attaching the related tags and images too.')
-@section('meta-canonical', url()->current())
+
+@section('meta-title', 'Write An Article - NightKite')
+@section('meta-description', 'The page to write a new article or blog and then publish it on the NightKite website.')
+
+@section('meta-og-title', 'Create a New Article and Publish It - NightKite')
+@section('meta-og-description', 'Publish a new article or blog by also attaching the related tags and images too.')
+
 @section('custom-css')
     <!-- summernote css -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">

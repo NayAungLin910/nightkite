@@ -1,10 +1,13 @@
 @extends('layout.master-dashboard')
-@section('meta-title', 'Accept Accounts - NightKite')
+
+@section('meta-title', 'Accept Admin Accounts - NightKite')
 @section('meta-description',
     'Accept the accounts that are registered in order to let the user login and publish blogs
     or articles. The accounts can also be declined on this page too.')
-@section('meta-og-title', "Registered Admin Accounts Accept Page - NightKite")
-@section('meta-og-description', "The admin accounts registered to NightKite can be accepted on this page.")
+
+@section('meta-og-title', 'Registered Admin Accounts Accept Page - NightKite')
+@section('meta-og-description', 'The admin accounts registered to NightKite can be accepted on this page.')
+
 @section('custom-content')
     <div class="m-2">
         <h1 class="text-xl text-center"><i class="fa-solid fa-user-check mr-2"></i>Accept Accounts</h1>
@@ -31,8 +34,8 @@
                     </div>
                     <div>
                         <label for="filter-startdate">Start Date</label>
-                        <input type="datetime-local" value="{{ request('startdate') }}" class="input-form-sky" name="startdate"
-                            id="filter-startdate" />
+                        <input type="datetime-local" value="{{ request('startdate') }}" class="input-form-sky"
+                            name="startdate" id="filter-startdate" />
                     </div>
                     <div>
                         <label for="filter-enddate">End Date</label>
@@ -127,6 +130,6 @@
 @endsection
 
 @section('custom-script')
-    <script type="text/javascript" src="{{ asset('/js/popup.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/js/popup-delete.js') }}"></script>
+    @include('partials.popup')
+    @include('partials.popup-delete')
 @endsection

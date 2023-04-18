@@ -1,11 +1,11 @@
-@section('meta-title', 'Login - NightKite')
-@section('meta-description', 'The admin login page of NightKite article website. If your account is already registered, login to publish articles and manage them.')
-@section('meta-canonical', url()->current())
-@section('meta-og-title', 'NightKite Admin Login Page')
-@section('meta-og-description', 'The page to login to the NightKite article website for pubslishing the articles and editing them.')
-@section('meta-og-url', url()->current())
-
 @extends('layout.master')
+
+@section('meta-title', 'Login Page - NightKite')
+@section('meta-description', 'The admin login page of NightKite article website. If your account is already registered, login to publish articles and manage them.')
+
+@section('meta-og-title', 'NightKite Admin Login Page')
+@section('meta-og-description', 'The page to login to the NightKite article website for publishing the articles and editing them.')
+
 @section('custom-content')
     <div class="">
         <div class="mx-auto my-4 rounded-xl shadow-md px-6 py-3 lg:w-1/3">

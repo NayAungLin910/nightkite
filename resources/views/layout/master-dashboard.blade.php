@@ -9,7 +9,7 @@
     <link rel="icon" href="{{ asset('/default_images/nightkite_logo_transparent.png') }}" />
 
     <title>@yield('meta-title', 'Admin Dashboard - NightKite')</title>
-    <meta name="description" content="@yield('meta-description', 'The admin dashboard of NightKite article website is where advanced features are available and articles and categories can be created.')" />
+    <meta name="description" content="@yield('meta-description', 'The admin dashboard of the NightKite article website is where advanced features are available and articles and categories can be created.')" />
     <link rel="canonical" href='@yield('meta-canonical', url()->current())' />
     <meta name="robots" content="@yield('meta-robots', 'index, follow')">
 
@@ -280,60 +280,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <!-- show toast according to session -->
-    @if (session()->has('error'))
-        <script>
-            Toastify({
-                text: "{{ session('error') }}",
-                duration: 3000,
-                destination: "",
-                newWindow: true,
-                close: true,
-                gravity: "bottom", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                style: {
-                    background: "linear-gradient(to right, #F12F26, #F06D67)",
-                },
-                onClick: function() {} // Callback after click
-            }).showToast();
-        </script>
-    @endif
-    @if (session()->has('success'))
-        <script>
-            Toastify({
-                text: "{{ session('success') }}",
-                duration: 3000,
-                destination: "",
-                newWindow: true,
-                close: true,
-                gravity: "bottom", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                style: {
-                    background: "linear-gradient(to right, #00b09b, #96c93d)",
-                },
-                onClick: function() {} // Callback after click
-            }).showToast();
-        </script>
-    @endif
-    @if (session()->has('info'))
-        <script>
-            Toastify({
-                text: "{{ session('info') }}",
-                duration: 3000,
-                destination: "",
-                newWindow: true,
-                close: true,
-                gravity: "bottom", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                style: {
-                    background: "linear-gradient(to right, #0978EE, #6EADEF)",
-                },
-                onClick: function() {} // Callback after click
-            }).showToast();
-        </script>
-    @endif
+    @include('partials.session-popup')
 
     <!-- sidebar open/close toggle -->
     <script>

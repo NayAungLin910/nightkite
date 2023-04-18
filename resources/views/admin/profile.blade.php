@@ -1,9 +1,12 @@
 @extends('layout.master-dashboard')
+
 @section('meta-title', 'Profile of ' . Auth::user()->name . ' - NightKite')
-@section('meta-description', 'View the various information of ' . Auth::user()->name)
+@section('meta-description', 'View the profile information of ' . Auth::user()->name)
+
 @section('meta-og-title', Auth::user()->name . ' Profile Page - NightKite')
-@section('meta-og-description', 'Check the various information of the currently logined admin account, ' .
+@section('meta-og-description', 'Check the profile information of the currently logined admin account, ' .
     Auth::user()->name . ' from this page.')
+@section('meta-og-image', url(Auth::user()->image))
 
 @section('custom-content')
 
@@ -63,8 +66,7 @@
             </div>
         </div>
         <div class="p-2 flex flex-row flex-wrap gap-2 items-center place-content-center">
-            <a class="sky-button-rounded hover:no-underline"
-                href="{{ route('author.view', ['id' => Auth::user()->id]) }}">
+            <a class="sky-button-rounded hover:no-underline" href="{{ route('author.view', ['id' => Auth::user()->id]) }}">
                 Articles
             </a>
             <a class="green-button-rounded hover:no-underline" href="{{ route('admin.dashboard.update-profile') }}">
@@ -73,6 +75,15 @@
             <a class="orange-button-rounded hover:no-underline" href="{{ route('admin.dashboard.change-password') }}">
                 Change Password
             </a>
+            <form action="{{ route('admin.logout') }}" id="admin-logout-delete-form" method="POST">
+                @csrf
+                <button
+                    onclick='openPopupDeleteSubmit("Are you sure about logging out form the account, {{ Auth::user()->name }}?", "admin-logout")'
+                    type="button" class="orange-button-rounded hover:no-underline">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Logout
+                </button>
+            </form>
         </div>
     </div>
 
@@ -110,4 +121,5 @@
         }
     </script>
 
+    @include('partials.popup-delete')
 @endsection

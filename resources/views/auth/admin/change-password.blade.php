@@ -1,8 +1,10 @@
 @extends('layout.master-dashboard')
+
 @section('meta-title', 'Change the Password of ' . Auth::user()->name . ' - NightKite')
-@section('meta-description', 'Change the password information of ' . Auth::user()->name)
-@section('meta-og-title', Auth::user()->name . ' Change Password Page - NightKite')
-@section('meta-og-description', 'Change the password of the current user , ' . Auth::user()->name . ' from NightKite.')
+@section('meta-description', 'Change the current password of ' . Auth::user()->name)
+
+@section('meta-og-title', Auth::user()->name . ', Change Password Page - NightKite')
+@section('meta-og-description', 'Change the password of the current user, ' . Auth::user()->name . ' from NightKite.')
 
 @section('custom-content')
     <div class="m-2 md:mt-6 mt-16">
@@ -68,5 +70,5 @@
 @endsection
 
 @section('custom-script')
-    <script type="text/javascript" src="{{ asset('/js/popup.js') }}"></script>
+    @include('partials.popup')
 @endsection

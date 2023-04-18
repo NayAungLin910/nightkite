@@ -9,7 +9,7 @@
     <link rel="icon" href="{{ asset('/default_images/nightkite_logo_transparent.png') }}" />
 
     <title>@yield('meta-title', 'NightKite')</title>
-    <meta name="description" content="@yield('meta-description', 'Give a visit and read informative content about physical and mental improvement topics for anyone. NightKite has got all the beneficial topics for you.')" />
+    <meta name="description" content="@yield('meta-description', 'Visit the NightKite website and read informative content about physical and mental improvement topics for anyone. NightKite has got all the beneficial topics for you.')" />
     <link rel="canonical" href='@yield('meta-canonical', url()->current())' />
     <meta name="robots" content="@yield('meta-robots', 'index, follow')">
 
@@ -97,10 +97,12 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="rounded-lg cursor-pointer px-4 py-2 hover:bg-gray-100">
-                                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST">
+                            <li class="rounded-lg px-4 py-2 hover:bg-gray-100">
+                                <form id="admin-logout-delete-form" action="{{ route('admin.logout') }}" method="POST">
                                     @csrf
-                                    <button type="submit" form="logout-form" class="flex items-center gap-2">
+                                    <button type="button"
+                                        onclick='openPopupDeleteSubmit("Are you sure about logging out form the account, {{ Auth::user()->name }}?", "admin-logout")'
+                                        class="flex items-center gap-2">
                                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
                                         Logout
                                     </button>
@@ -137,64 +139,32 @@
         @yield('custom-content')
     </main>
 
+    <!-- delete popup -->
+    <div class="bg-white duration-200 ease-in-out rounded-xl fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] shadow-md w-full md:w-auto z-30 py-6 px-4 scale-0 border-t-8 border-orange-500"
+        id="popup-delete">
+        <p class="text-lg font-semibold text-center" id="popup-text-delete"></p>
+        <div class="flex items-center gap-2 place-content-center mt-4">
+            <button class="orange-button-rounded w-auto" onclick="closePopupDelete()">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back
+            </button>
+            <button class="green-button-rounded w-auto" onclick="acceptPopupDelete()">
+                <i class="fa-solid fa-check"></i>
+                Accept
+            </button>
+        </div>
+    </div>
+
+    <!-- popup overlay delete -->
+    <div class="duration-200 ease-in-out opacity-0 fixed top-0 left-0 bottom-0 right-0 bg-black/[0.5] z-20 pointer-events-none"
+        id="popup-overlay-delete" onclick="closePopupDelete()">
+    </div>
+
     <!-- toastify js -->
     <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <!-- show toast according to session -->
-    @if (session()->has('error'))
-        <script>
-            Toastify({
-                text: "{{ session('error') }}",
-                duration: 3000,
-                destination: "",
-                newWindow: true,
-                close: true,
-                gravity: "bottom", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                style: {
-                    background: "linear-gradient(to right, #F12F26, #F06D67)",
-                },
-                onClick: function() {} // Callback after click
-            }).showToast();
-        </script>
-    @endif
-    @if (session()->has('success'))
-        <script>
-            Toastify({
-                text: "{{ session('success') }}",
-                duration: 3000,
-                destination: "",
-                newWindow: true,
-                close: true,
-                gravity: "bottom", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                style: {
-                    background: "linear-gradient(to right, #00b09b, #96c93d)",
-                },
-                onClick: function() {} // Callback after click
-            }).showToast();
-        </script>
-    @endif
-    @if (session()->has('info'))
-        <script>
-            Toastify({
-                text: "{{ session('info') }}",
-                duration: 3000,
-                destination: "",
-                newWindow: true,
-                close: true,
-                gravity: "bottom", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                style: {
-                    background: "linear-gradient(to right, #0978EE, #6EADEF)",
-                },
-                onClick: function() {} // Callback after click
-            }).showToast();
-        </script>
-    @endif
+    @include('partials.session-popup')
 
     <!-- top nav bar menu toggle on mobile view -->
     <script>
@@ -221,6 +191,8 @@
             dropdownList.classList.toggle('hidden');
         }
     </script>
+
+    @include('partials.popup-delete')
 
     <!-- custom script -->
     @yield('custom-script')

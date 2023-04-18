@@ -1,8 +1,11 @@
 @extends('layout.master-dashboard')
+
 @section('meta-title', 'Update the Profile of ' . Auth::user()->name . ' - NightKite')
 @section('meta-description', 'Update the user information of ' . Auth::user()->name)
-@section('meta-og-title', Auth::user()->name . ' Update Profile Page - NightKite')
+
+@section('meta-og-title', Auth::user()->name . 'Update Profile Page - NightKite')
 @section('meta-og-description', 'Update the profile of the current user, ' . Auth::user()->name . ' from NightKite.')
+@section('meta-og-image', url(Auth::user()->image))
 
 @section('custom-content')
 
@@ -83,5 +86,5 @@
 @endsection
 
 @section('custom-script')
-    <script type="text/javascript" src="{{ asset('/js/popup.js') }}"></script>
+    @include('partials.popup')
 @endsection

@@ -1,12 +1,15 @@
 @extends('layout.master')
+
 @section('meta-title', "The Author, $author->name's Introduction Page - NightKite")
 @section('meta-description',
     "The page where the author, $author->name's articles and the additional information are
     shown")
+
 @section('meta-og-title', "$author->name Introudction Page - NightKite")
 @section('meta-og-description',
     "Check out the articles written by $author->name, which are very valuable and
     informative.")
+
 @section('custom-content')
     <div class="px-3 py-2">
 

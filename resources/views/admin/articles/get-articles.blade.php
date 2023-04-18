@@ -1,7 +1,12 @@
 @extends('layout.master-dashboard')
-@section('meta-title', 'Search Article - NightKite')
-@section('meta-description', 'Search any article written on NightKite using various filter options given.')
-@section('meta-canonical', url()->current())
+
+@section('meta-title', 'Search Articles - NightKite')
+@section('meta-description', 'Search for any article written on NightKite using various filter options given.')
+
+@section('meta-og-title', 'Try Searching Any Article on NightKite.')
+@section('meta-og-description', 'Easily search for any articles you might be interested by using the various filtering
+    options provided on NightKite.')
+
 @section('custom-content')
     <div class="my-2">
 
@@ -130,5 +135,5 @@
 @endsection
 
 @section('custom-script')
-    <script type="text/javascript" src="{{ asset('/js/popup-delete.js') }}"></script>
+    @include('partials.popup-delete')
 @endsection

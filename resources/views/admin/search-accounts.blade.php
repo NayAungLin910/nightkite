@@ -1,8 +1,11 @@
 @extends('layout.master-dashboard')
-@section('meta-title', 'Search Accepted Accounts - NightKite')
+
+@section('meta-title', 'Search Accepted Admin Accounts - NightKite')
 @section('meta-description', 'Search the accepted admin and super admin accounts using various filter options.')
-@section('meta-og-title', "Accepted Accounts Search Page - NightKite")
-@section('meta-og-description', "The accepted admin accounts can be searched on this page easily.")
+
+@section('meta-og-title', 'Accepted Admin Accounts Search Page - NightKite')
+@section('meta-og-description', 'The accepted admin accounts can be searched on this page easily by using various filter
+    options provided.')
 
 @section('custom-content')
     <div class="m-2">
@@ -135,5 +138,5 @@
 @endsection
 
 @section('custom-script')
-    <script type="text/javascript" src="{{ asset('/js/popup-delete.js') }}"></script>
+    @include('partials.popup-delete')
 @endsection
