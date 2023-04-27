@@ -4,7 +4,8 @@
 @section('meta-description', 'Search the accepted admin and super admin accounts using various filter options.')
 
 @section('meta-og-title', 'Accepted Admin Accounts Search Page - NightKite')
-@section('meta-og-description', 'The accepted admin accounts can be searched on this page easily by using various filter
+@section('meta-og-description',
+    'The accepted admin accounts can be searched on this page easily by using various filter
     options provided.')
 
 @section('custom-content')
@@ -80,8 +81,16 @@
                                         <img class="max-h-14 rounded-full" src="{{ asset($admin->image) }}" loading="lazy"
                                             alt="{{ $admin->name }}'s profile image">
                                     </td>
-                                    <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $admin->name }}</td>
-                                    <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $admin->email }}</td>
+                                    <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">
+                                        <a href="{{ route('author.view', ['id' => $admin->id]) }}" class="text-black">
+                                            {{ $admin->name }}
+                                        </a>
+                                    </td>
+                                    <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">
+                                        <a href="{{ route('author.view', ['id' => $admin->id]) }}" class="text-black">
+                                            {{ $admin->email }}
+                                        </a>
+                                    </td>
                                     <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">
                                         @if ($admin->role === '3')
                                             <p
@@ -93,7 +102,8 @@
                                                 Admin</p>
                                         @endif
                                     </td>
-                                    <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $admin->created_at }}</td>
+                                    <td class="py-1 px-2 w-auto font-normal whitespace-nowrap">{{ $admin->created_at }}
+                                    </td>
 
                                     <!-- if super admin, show account delete option -->
                                     @if (Auth::user()->role === '3' && $admin->role !== '3')

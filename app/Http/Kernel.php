@@ -66,6 +66,5 @@ class Kernel extends HttpKernel
         'AuthUser' => \App\Http\Middleware\AuthUser::class,
         'NotAuth' => \App\Http\Middleware\NotAuth::class,
         'AuthAdmin' => \App\Http\Middleware\AuthAdmin::class,
-        'AuthUserOnly' => \App\Http\Middleware\AuthUserOnly::class,
     ];
 }

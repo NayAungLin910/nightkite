@@ -3,22 +3,27 @@
 use Illuminate\Support\Facades\Route;
 
 
-// Routes for unauthorized user only
-Route::middleware(['NotAuth'])->group(function () {
+/**
+ * Routes for unauthorized user only
+ */
+
+Route::middleware(['NotAuth'])->prefix('admin')->as('admin.')->group(function () {
     // login get and post
-    Route::view('/admin/login', 'auth.admin.login')->name('admin.login');
-    Route::post('/admin/login', [\App\Http\Controllers\Auth\AdminAuthController::class, "postLogin"]);
+    Route::view('/login', 'auth.admin.login')->name('login');
+    Route::post('/login', [\App\Http\Controllers\Auth\AdminAuthController::class, "postLogin"]);
 
     // register get and post
-    Route::view('/admin/register', 'auth.admin.register')->name('admin.register');
-    Route::post('/admin/register', [\App\Http\Controllers\Auth\AdminAuthController::class, "postRegister"]);
+    Route::view('/register', 'auth.admin.register')->name('register');
+    Route::post('/register', [\App\Http\Controllers\Auth\AdminAuthController::class, "postRegister"]);
 });
 
-// Routes for both authorized and unauthorized users
+/**
+ * Routes for both authorized and unauthorized users
+ */
+
 // welcome page
 Route::get('/', [\App\Http\Controllers\HomeController::class, "homePage"])->name('welcome');
 
-// Articles
 // view article
 Route::get('/articles/{slug}', [\App\Http\Controllers\ArticleController::class, "viewArticle"])
     ->name('article.view');
@@ -30,91 +35,94 @@ Route::get('/articles/global/search', [\App\Http\Controllers\ArticleController::
 // author introuduction page
 Route::get('/author/{id}', [\App\Http\Controllers\AuthorController::class, "viewAuthor"])->name('author.view');
 
-// Routes only for authorized users
-Route::prefix('admin')->middleware(['AuthUser'])->group(function () {
+/**
+ * Routes only for authorized users
+ */
+
+Route::prefix('admin/dashboard')->as('admin.dashboard.')->middleware(['AuthUser'])->group(function () {
 
     // view profile
-    Route::view('/dashboard/profile', 'admin.profile')->name('admin.dashboard.profile');
+    Route::view('profile', 'admin.profile')->name('profile');
 
     // update profile
-    Route::get('/dashboard/profile/update', [\App\Http\Controllers\Auth\AdminAuthController::class, "updateProfile"])
-        ->name('admin.dashboard.update-profile');
-    Route::post('/dashboard/profile/update', [\App\Http\Controllers\Auth\AdminAuthController::class, "postUpdateProfile"]);
+    Route::get('profile/update', [\App\Http\Controllers\Auth\AdminAuthController::class, "updateProfile"])
+        ->name('update-profile');
+    Route::post('profile/update', [\App\Http\Controllers\Auth\AdminAuthController::class, "postUpdateProfile"]);
 
     // change password
-    Route::view('/dashboard/profile/change-password', 'auth.admin.change-password')
-        ->name('admin.dashboard.change-password');
-    Route::post('/dashboard/profile/change-password', [\App\Http\Controllers\Auth\AdminAuthController::class, "changePassword"]);
+    Route::view('profile/change-password', 'auth.admin.change-password')
+        ->name('change-password');
+    Route::post('profile/change-password', [\App\Http\Controllers\Auth\AdminAuthController::class, "changePassword"]);
 
     // Routes for super admin only
     Route::middleware(['AuthAdmin'])->group(function () {
         // accept accounts 
-        Route::get('/dashboard/accept-accounts', [\App\Http\Controllers\AdminAccountManagement::class, 'getAcceptAccounts'])
-            ->name('admin.dashboard.accept-accounts');
-        Route::post('/dashboard/accept-accounts', [\App\Http\Controllers\AdminAccountManagement::class, 'postAcceptAccount']);
+        Route::get('accept-accounts', [\App\Http\Controllers\AdminAccountManagement::class, 'getAcceptAccounts'])
+            ->name('accept-accounts');
+        Route::post('accept-accounts', [\App\Http\Controllers\AdminAccountManagement::class, 'postAcceptAccount']);
 
         // decline account
-        Route::post('/dashboard/decline-account', [\App\Http\Controllers\AdminAccountManagement::class, 'declineAccount'])
-            ->name('admin.dashboard.decline-account');
+        Route::post('decline-account', [\App\Http\Controllers\AdminAccountManagement::class, 'declineAccount'])
+            ->name('decline-account');
 
         // delete the accepted admin account
-        Route::post('/dashboard/delete-admin-account', [\App\Http\Controllers\AdminAccountManagement::class, 'deleteAdminAccount'])
-            ->name('admin.dashboard.delete-admin-account');
+        Route::post('delete-admin-account', [\App\Http\Controllers\AdminAccountManagement::class, 'deleteAdminAccount'])
+            ->name('delete-admin-account');
     });
 
     // search accepted admins
-    Route::get('/dashboard/search-account', [\App\Http\Controllers\AdminAccountManagement::class, "searchAdmin"])
-        ->name('admin.dashboard.search-account');
+    Route::get('search-account', [\App\Http\Controllers\AdminAccountManagement::class, "searchAdmin"])
+        ->name('search-account');
 
-    // Tags management
     // return create tag view
-    Route::view('/dashboard/tags/create', 'admin.tags.create-tags')->name('admin.dashboard.create-tags');
+    Route::view('tags/create', 'admin.tags.create-tags')->name('create-tags');
 
     // create tag
-    Route::post('/dashboard/tags/create', [\App\Http\Controllers\TagController::class, "postTag"]);
+    Route::post('tags/create', [\App\Http\Controllers\TagController::class, "postTag"]);
 
     // search tag
-    Route::get('/dashboard/tags/get', [\App\Http\Controllers\TagController::class, "getTag"])
-        ->name('admin.dashboard.get-tags');
+    Route::get('tags/get', [\App\Http\Controllers\TagController::class, "getTag"])
+        ->name('get-tags');
 
     // delete tag
-    Route::post('/dashboard/tags/delete', [\App\Http\Controllers\TagController::class, "deleteTag"])
-        ->name('admin.dashboard.delete-tag');
+    Route::post('tags/delete', [\App\Http\Controllers\TagController::class, "deleteTag"])
+        ->name('delete-tag');
 
     // show edit tag
-    Route::get('/dashboard/tags/update/{slug}', [\App\Http\Controllers\TagController::class, "showUpdateTag"])
-        ->name('admin.dashboard.update-tag');
+    Route::get('tags/update/{slug}', [\App\Http\Controllers\TagController::class, "showUpdateTag"])
+        ->name('update-tag');
 
     // post edit tag
-    Route::post('/dashboard/tags/update/{slug}', [\App\Http\Controllers\TagController::class, "postUpdateTag"]);
+    Route::post('tags/update/{slug}', [\App\Http\Controllers\TagController::class, "postUpdateTag"]);
 
     // feature tag
-    Route::post('/dashboard/tags/feature', [\App\Http\Controllers\TagController::class, "featuredTag"])
-        ->name('admin.dashboard.feature-tag');
+    Route::post('tags/feature', [\App\Http\Controllers\TagController::class, "featuredTag"])
+        ->name('feature-tag');
 
     // Articles management
     // return the article create view
-    Route::get('/dashboard/articles/create', [\App\Http\Controllers\ArticleController::class, "getArticleCreate"])
-        ->name('admin.dashboard.create-article');
+    Route::get('articles/create', [\App\Http\Controllers\ArticleController::class, "getArticleCreate"])
+        ->name('create-article');
 
     // create article
-    Route::post('/dashboard/articles/create', [\App\Http\Controllers\ArticleController::class, "postArticleCreate"]);
+    Route::post('articles/create', [\App\Http\Controllers\ArticleController::class, "postArticleCreate"]);
 
     // search article
-    Route::get('/dashboard/articles/search', [\App\Http\Controllers\ArticleController::class, "getArticles"])
-        ->name('admin.dashboard.search-article');
+    Route::get('articles/search', [\App\Http\Controllers\ArticleController::class, "getArticles"])
+        ->name('search-article');
 
     // edit article
-    Route::get('/dashboard/article/edit/{slug}', [\App\Http\Controllers\ArticleController::class, "editArticle"])
-        ->name('admin.dashboard.edit-article');
+    Route::get('article/edit/{slug}', [\App\Http\Controllers\ArticleController::class, "editArticle"])
+        ->name('edit-article');
 
     // post edit article
-    Route::post('/dashboard/article/edit/{slug}', [\App\Http\Controllers\ArticleController::class, "postEditArticle"]);
+    Route::post('article/edit/{slug}', [\App\Http\Controllers\ArticleController::class, "postEditArticle"]);
 
     // delete article
-    Route::post('/dashboard/article/delete', [\App\Http\Controllers\ArticleController::class, "deleteArticle"])
-        ->name('admin.dashboard.delete-article');
+    Route::post('article/delete', [\App\Http\Controllers\ArticleController::class, "deleteArticle"])
+        ->name('delete-article');
 
     // logout route 
-    Route::post('/logout', [\App\Http\Controllers\Auth\AdminAuthController::class, "postLogout"])->name('admin.logout');
+    Route::post('/logout', [\App\Http\Controllers\Auth\AdminAuthController::class, "postLogout"])
+        ->name('logout');
 });

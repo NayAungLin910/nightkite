@@ -8,7 +8,7 @@
 
 @section('custom-content')
     <div class="">
-        <div class="mx-auto my-4 rounded-xl shadow-md px-6 py-3 lg:w-1/3">
+        <div class="mx-auto my-4 rounded-xl shadow-md px-6 py-3 border lg:w-1/3 bg-slate-50">
             <h1 class="text-2xl text-center">Login - NightKite</h1>
             <form action="{{ route('admin.login') }}" method="POST" enctype="multipart/form-data">
                 @csrf

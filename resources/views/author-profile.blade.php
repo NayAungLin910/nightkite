@@ -18,6 +18,7 @@
             <img src="{{ url($author->image) }}" class="max-h-24 rounded-full border shadow mx-auto" loading="lazy"
                 alt="{{ $author->name }}'s profile image" />
             <h1 class="text-xl font-semibold text-center mt-2">{{ $author->name }}</h1>
+            <h2 class="text-lg text-center">{{ $author->email }}</h2>
             <p class="text-lg my-3 text-center md:w-1/2 mx-auto">
                 {{ $author->description }}
             </p>
@@ -31,7 +32,7 @@
 
             <div class="grid md:grid-cols-3 grid-cols-1 gap-1 gap-y-3">
                 @foreach ($articles as $article)
-                    <div class="bg-slate-50 shadow-lg mx-2 my-1 h-auto hover:shadow-2xl">
+                    <div class="bg-slate-50 shadow-lg rounded-t-xl mx-2 my-1 h-auto hover:shadow-2xl">
                         <img src="{{ $article->image }}" alt="{{ $article->title }}"
                             class="rounded-t-xl mx-auto max-h-[25rem]" loading="lazy" />
                         <div class="py-2 px-4">
@@ -53,6 +54,11 @@
                 {{ $articles->withQueryString()->links('pagination::tailwind') }}
             </div>
 
+        </div>
+    @else
+        <div class="my-2 mx-auto text-center py-20">
+            <span class="text-lg font-semibold py-4 px-4 bg-slate-100 shadow-md rounded-lg">No articles found
+                😕!</span>
         </div>
     @endif
 

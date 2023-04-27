@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Article;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -47,5 +48,13 @@ class UserSeeder extends Seeder
                 'user_id' => $user->id,
             ]);
         }
+        
+        User::factory(15)
+            ->has(Article::factory()
+                ->hasAttached(Tag::factory()
+                    ->state(['user_id' => $user->id])
+                    ->count(2))
+                ->count(2), 'articles')
+            ->create();
     }
 }

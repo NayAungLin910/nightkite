@@ -75,7 +75,7 @@
             <a class="orange-button-rounded hover:no-underline" href="{{ route('admin.dashboard.change-password') }}">
                 Change Password
             </a>
-            <form action="{{ route('admin.logout') }}" id="admin-logout-delete-form" method="POST">
+            <form action="{{ route('admin.dashboard.logout') }}" id="admin-logout-delete-form" method="POST">
                 @csrf
                 <button
                     onclick='openPopupDeleteSubmit("Are you sure about logging out form the account, {{ Auth::user()->name }}?", "admin-logout")'

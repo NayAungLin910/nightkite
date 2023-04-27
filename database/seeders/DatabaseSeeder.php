@@ -16,8 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(15)->has(Tag::factory()->count(2), 'tags')->create();
-
         $this->call([
             UserSeeder::class,
         ]);

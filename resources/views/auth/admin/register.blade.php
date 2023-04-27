@@ -11,7 +11,7 @@
 
 @section('custom-content')
     <div class="">
-        <div class="mx-auto my-4 rounded-xl shadow-md px-6 py-3 lg:w-1/3">
+        <div class="mx-auto my-4 rounded-xl shadow-md border bg-slate-50 px-6 py-3 lg:w-1/3">
             <h1 class="text-2xl text-center">Register - NightKite</h1>
             <form action="{{ route('admin.register') }}" method="POST" enctype="multipart/form-data">
                 @csrf
