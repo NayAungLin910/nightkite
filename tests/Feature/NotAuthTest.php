@@ -26,6 +26,23 @@ class NotAuthTest extends TestCase
         $response->assertStatus(200);
     }
 
+    
+    /**
+     * Login page is not visitable and get redirected
+     * when already logined
+     * @return void
+     */
+    public function test_login_page_visit_after_login(): void
+    {
+        $user = User::factory()->accepted()->create();
+
+        $response = $this->actingAs($user)->get(route('admin.login'));
+
+        $response->assertStatus(302);
+
+        $response->assertRedirect(route('welcome'));
+    }
+
     /**
      * Register page is accessible
      * before auth
