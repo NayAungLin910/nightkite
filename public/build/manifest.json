@@ -1,0 +1,28 @@
+{
+  "_axios-aba6f0e0.js": {
+    "file": "assets/axios-aba6f0e0.js"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app-fed48f99.css",
+    "src": "resources/js/app.css"
+  },
+  "resources/js/app.js": {
+    "css": [
+      "assets/app-fed48f99.css"
+    ],
+    "file": "assets/app-c17887a6.js",
+    "imports": [
+      "_axios-aba6f0e0.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/js/tagsSearch.jsx": {
+    "file": "assets/tagsSearch-5366a0de.js",
+    "imports": [
+      "_axios-aba6f0e0.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/tagsSearch.jsx"
+  }
+}
