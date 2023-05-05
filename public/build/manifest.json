@@ -18,7 +18,7 @@
     "src": "resources/js/app.js"
   },
   "resources/js/tagsSearch.jsx": {
-    "file": "assets/tagsSearch-5366a0de.js",
+    "file": "assets/tagsSearch-431467fd.js",
     "imports": [
       "_axios-aba6f0e0.js"
     ],
