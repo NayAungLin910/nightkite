@@ -21,6 +21,10 @@ class Article extends Model
         'feature',
     ];
 
+    protected $appends = [
+        'updated_at_original',
+    ];
+
     // created_at attribute mutator 
     protected function createdAt(): Attribute
     {
@@ -35,6 +39,12 @@ class Article extends Model
         return Attribute::make(
             get: fn ($value) => Carbon::parse($value)->format('d/m/Y h:i:s')
         );
+    }
+
+    // get the original timestamp format of updated_at attribute
+    protected function getUpdatedAtOriginalAttribute(): string
+    {
+        return Carbon::parse($this->updated_at)->format('Y-d-m h:i:s');
     }
 
     public function user()
