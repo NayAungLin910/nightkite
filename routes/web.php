@@ -35,6 +35,9 @@ Route::get('/articles/global/search', [\App\Http\Controllers\ArticleController::
 // author introuduction page
 Route::get('/author/{id}', [\App\Http\Controllers\AuthorController::class, "viewAuthor"])->name('author.view');
 
+// dynamic sitemap route
+Route::get('sitemap.xml', [\App\Http\Controllers\SitemapController::class, "index"])->name('sitemap');
+
 /**
  * Routes only for authorized users
  */
