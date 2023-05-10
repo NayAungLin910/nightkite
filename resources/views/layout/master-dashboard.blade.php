@@ -10,7 +10,7 @@
 
     <title>@yield('meta-title', 'Admin Dashboard - NightKite')</title>
     <meta name="description" content="@yield('meta-description', 'The admin dashboard of the NightKite article website is where advanced features are available and articles and categories can be created.')" />
-    <link rel="canonical" href='@yield('meta-canonical', url()->current())' />
+    <link rel="canonical" href='@yield(' meta-canonical', url()->current())' />
     <meta name="robots" content="@yield('meta-robots', 'index, follow')">
 
     <!-- Open Graph meta tags -->
@@ -33,12 +33,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
 
     <!-- fontawesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- custom css -->
     @yield('custom-css')
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-02QER390XJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-02QER390XJ');
+    </script>
 </head>
 
 <body>
@@ -51,14 +62,12 @@
     </span>
 
     <!-- side bar -->
-    <div id="sidebar"
-        class="fixed z-10 top-0 bottom-0 lg:left-0 left-[-300px] p-2 w-[300px] overflow-y-auto 
+    <div id="sidebar" class="fixed z-10 top-0 bottom-0 lg:left-0 left-[-300px] p-2 w-[300px] overflow-y-auto 
     text-center bg-slate-50 text-black shadow h-screen">
         <div class="text-dark text-xl">
             <div class="p-2.5 mt-1 flex items-center">
                 <a href="{{ route('welcome') }}">
-                    <img class="h-16" src="{{ asset('/default_images/nightkite_banner_transparent.webp') }}"
-                        loading="lazy" alt="NightKite banner" />
+                    <img class="h-16" src="{{ asset('/default_images/nightkite_banner_transparent.webp') }}" loading="lazy" alt="NightKite banner" />
                 </a>
                 <span class="ml-10 cursor-pointer lg:hidden text-black text-2xl" onclick="openSidebar()">
                     <i class="fa-solid fa-xmark"></i>
@@ -78,8 +87,7 @@
 
         <!-- back to site -->
         <a class="text-black hover:no-underline" href="{{ route('welcome') }}">
-            <div
-                class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-slate-50 hover:bg-slate-200 text-black">
+            <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-slate-50 hover:bg-slate-200 text-black">
                 <span>
                     <i class="fa-solid fa-arrow-left"></i>
                 </span>
@@ -89,8 +97,7 @@
 
         <!-- profile -->
         <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.profile') }}">
-            <div
-                class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-slate-200 text-black {{ request()->is('admin/dashboard/profile*') ? 'bg-slate-200' : 'bg-slate-50' }}">
+            <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-slate-200 text-black {{ request()->is('admin/dashboard/profile*') ? 'bg-slate-200' : 'bg-slate-50' }}">
                 <span>
                     <i class="fa-solid fa-user"></i>
                 </span>
@@ -102,37 +109,32 @@
 
         <!-- admins account management -->
         <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer
-            bg-slate-50 hover:bg-slate-200 text-black"
-            onclick="dropdown('admins')">
+            bg-slate-50 hover:bg-slate-200 text-black" onclick="dropdown('admins')">
             <span>
                 <i class="fa-solid fa-users"></i>
             </span>
             <div class="flex justify-between w-full items-center">
                 <span class="text-base ml-4">Admins</span>
                 <span class="text-sm transition-all duration-500" id="admins-arrow">
-                    <i
-                        class="fa-solid fa-chevron-down {{ request()->is('admin/dashboard/accept-accounts*') || request()->is('admin/dashboard/search-account*') ? 'rotate-180' : '' }}"></i>
+                    <i class="fa-solid fa-chevron-down {{ request()->is('admin/dashboard/accept-accounts*') || request()->is('admin/dashboard/search-account*') ? 'rotate-180' : '' }}"></i>
                 </span>
             </div>
         </div>
-        <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/accept-accounts*') || request()->is('admin/dashboard/search-account*') ? '' : 'hidden' }}"
-            id="admins-submenu">
+        <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/accept-accounts*') || request()->is('admin/dashboard/search-account*') ? '' : 'hidden' }}" id="admins-submenu">
             @if (Auth::user()->role === '3')
-                <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.accept-accounts') }}">
-                    <div
-                        class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/accept-accounts*') ? 'bg-slate-200' : '' }}">
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-user-check"></i>
-                            <span class="text-sm">
-                                Accept Accounts
-                            </span>
-                        </div>
+            <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.accept-accounts') }}">
+                <div class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/accept-accounts*') ? 'bg-slate-200' : '' }}">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-user-check"></i>
+                        <span class="text-sm">
+                            Accept Accounts
+                        </span>
                     </div>
-                </a>
+                </div>
+            </a>
             @endif
             <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.search-account') }}">
-                <div
-                    class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/search-account*') ? 'bg-slate-200' : '' }}">
+                <div class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/search-account*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span class="text-sm">
@@ -145,24 +147,20 @@
 
         <!-- tags create, search and delete -->
         <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer
-            bg-slate-50 hover:bg-slate-200 text-black"
-            onclick="dropdown('tags')">
+            bg-slate-50 hover:bg-slate-200 text-black" onclick="dropdown('tags')">
             <span>
                 <i class="fa-solid fa-tag"></i>
             </span>
             <div class="flex justify-between w-full items-center">
                 <span class="text-base ml-4">Tags</span>
                 <span class="text-sm transition-all duration-500" id="tags-arrow">
-                    <i
-                        class="fa-solid fa-chevron-down {{ request()->is('admin/dashboard/tags*') ? 'rotate-180' : '' }}"></i>
+                    <i class="fa-solid fa-chevron-down {{ request()->is('admin/dashboard/tags*') ? 'rotate-180' : '' }}"></i>
                 </span>
             </div>
         </div>
-        <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/tags*') ? '' : 'hidden' }}"
-            id="tags-submenu">
+        <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/tags*') ? '' : 'hidden' }}" id="tags-submenu">
             <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.create-tags') }}">
-                <div
-                    class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/tags/create*') ? 'bg-slate-200' : '' }}">
+                <div class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/tags/create*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-plus"></i>
                         <span class="text-sm">
@@ -172,8 +170,7 @@
                 </div>
             </a>
             <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.get-tags') }}">
-                <div
-                    class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/tags/get*') ? 'bg-slate-200' : '' }}">
+                <div class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/tags/get*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span class="text-sm">
@@ -186,24 +183,20 @@
 
         <!-- articles create, search and delete -->
         <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer
-            bg-slate-50 hover:bg-slate-200 text-black"
-            onclick="dropdown('articles')">
+            bg-slate-50 hover:bg-slate-200 text-black" onclick="dropdown('articles')">
             <span>
                 <i class="fa-solid fa-newspaper"></i>
             </span>
             <div class="flex justify-between w-full items-center">
                 <span class="text-base ml-4">Articles</span>
                 <span class="text-sm transition-all duration-500" id="articles-arrow">
-                    <i
-                        class="fa-solid fa-chevron-down {{ request()->is('admin/dashboard/article*') ? 'rotate-180' : '' }}"></i>
+                    <i class="fa-solid fa-chevron-down {{ request()->is('admin/dashboard/article*') ? 'rotate-180' : '' }}"></i>
                 </span>
             </div>
         </div>
-        <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/article*') ? '' : 'hidden' }}"
-            id="articles-submenu">
+        <div class="text-left mt-2 w-4/5 mx-auto text-dark {{ request()->is('admin/dashboard/article*') ? '' : 'hidden' }}" id="articles-submenu">
             <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.create-article') }}">
-                <div
-                    class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/articles/create*') ? 'bg-slate-200' : '' }}">
+                <div class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/articles/create*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-plus"></i>
                         <span class="text-sm">
@@ -213,8 +206,7 @@
                 </div>
             </a>
             <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.search-article') }}">
-                <div
-                    class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/articles/search*') ? 'bg-slate-200' : '' }}">
+                <div class="cursor-pointer p-2 hover:bg-slate-200 rounded-md mt-1 duration-500 {{ request()->is('admin/dashboard/articles/search*') ? 'bg-slate-200' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span class="text-sm">
@@ -235,8 +227,7 @@
     </main>
 
     <!-- popup -->
-    <div class="bg-white duration-200 ease-in-out rounded-xl fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] shadow-md w-full md:w-auto z-30 py-6 px-4 scale-0 border-t-8 border-green-500"
-        id="popup">
+    <div class="bg-white duration-200 ease-in-out rounded-xl fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] shadow-md w-full md:w-auto z-30 py-6 px-4 scale-0 border-t-8 border-green-500" id="popup">
         <p class="text-lg font-semibold text-center" id="popup-text"></p>
         <div class="flex items-center gap-2 place-content-center mt-4">
             <button class="orange-button-rounded w-auto" onclick="closePopup()">
@@ -251,8 +242,7 @@
     </div>
 
     <!-- delete popup -->
-    <div class="bg-white duration-200 ease-in-out rounded-xl fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] shadow-md w-full md:w-auto z-30 py-6 px-4 scale-0 border-t-8 border-orange-500"
-        id="popup-delete">
+    <div class="bg-white duration-200 ease-in-out rounded-xl fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] shadow-md w-full md:w-auto z-30 py-6 px-4 scale-0 border-t-8 border-orange-500" id="popup-delete">
         <p class="text-lg font-semibold text-center" id="popup-text-delete"></p>
         <div class="flex items-center gap-2 place-content-center mt-4">
             <button class="orange-button-rounded w-auto" onclick="closePopupDelete()">
@@ -267,13 +257,11 @@
     </div>
 
     <!-- popup overlay-->
-    <div class="duration-200 ease-in-out opacity-0 fixed top-0 left-0 bottom-0 right-0 bg-black/[0.5] z-20 pointer-events-none"
-        id="popup-overlay" onclick="closePopup()">
+    <div class="duration-200 ease-in-out opacity-0 fixed top-0 left-0 bottom-0 right-0 bg-black/[0.5] z-20 pointer-events-none" id="popup-overlay" onclick="closePopup()">
     </div>
 
     <!-- popup overlay delete -->
-    <div class="duration-200 ease-in-out opacity-0 fixed top-0 left-0 bottom-0 right-0 bg-black/[0.5] z-20 pointer-events-none"
-        id="popup-overlay-delete" onclick="closePopupDelete()">
+    <div class="duration-200 ease-in-out opacity-0 fixed top-0 left-0 bottom-0 right-0 bg-black/[0.5] z-20 pointer-events-none" id="popup-overlay-delete" onclick="closePopupDelete()">
     </div>
 
     <!-- toastify js -->

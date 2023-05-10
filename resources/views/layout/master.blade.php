@@ -10,7 +10,7 @@
 
     <title>@yield('meta-title', 'NightKite')</title>
     <meta name="description" content="@yield('meta-description', 'Visit the NightKite website and read informative content about physical and mental improvement topics for anyone. NightKite has got all the beneficial topics for you.')" />
-    <link rel="canonical" href='@yield('meta-canonical', url()->current())' />
+    <link rel="canonical" href='@yield(' meta-canonical', url()->current())' />
     <meta name="robots" content="@yield('meta-robots', 'index, follow')">
 
     <!-- Open Graph meta tags -->
@@ -33,13 +33,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
 
     <!-- fontawesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- custom css -->
     @viteReactRefresh
     @yield('custom-css')
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-02QER390XJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-02QER390XJ');
+    </script>
 </head>
 
 <body>
@@ -49,8 +60,7 @@
         <div class="flex justify-between items-center">
             <span class="text-2xl">
                 <a href="{{ url('/') }}">
-                    <img class="h-14 inline" src="{{ asset('/default_images/nightkite_banner.webp') }}"
-                        alt="NightKite banner" loading="lazy" />
+                    <img class="h-14 inline" src="{{ asset('/default_images/nightkite_banner.webp') }}" alt="NightKite banner" loading="lazy" />
                 </a>
             </span>
 
@@ -59,8 +69,7 @@
                 <i class="fa-solid fa-bars" onclick="toggleMenu(this)"></i>
             </span>
         </div>
-        <ul id="top-nav-ul"
-            class="ul-clear md:flex md:ml-3 md:items-center z-10 md:z-auto md:static absolute bg-slate-50 text-black left-0 w-full md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500 ">
+        <ul id="top-nav-ul" class="ul-clear md:flex md:ml-3 md:items-center z-10 md:z-auto md:static absolute bg-slate-50 text-black left-0 w-full md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500 ">
 
             <!-- tags -->
             <li class="mx-3 py-5 md:mr-6 md:my-0 group/tags">
@@ -73,44 +82,39 @@
                     </div>
                 </a>
                 {{-- TagsSearch Component --}}
-                <div id="tagSearch-app"
-                    class="border hidden p-2 group-hover/tags:block md:absolute md:top-[4.2rem] rounded-lg shadow-md bg-white">
+                <div id="tagSearch-app" class="border hidden p-2 group-hover/tags:block md:absolute md:top-[4.2rem] rounded-lg shadow-md bg-white">
                 </div>
                 @vite('resources/js/tagsSearch.jsx')
             </li>
 
             <!-- if auth -->
             @if (Auth::check())
-                <li class="mx-3 my-5 md:my-0">
-                    <button class=" cursor-pointer" onclick="dropdownToggle('profile')">
-                        <img src="{{ Auth::user()->image }}" class="w-10 border rounded-full shadow" loading="lazy"
-                            alt="{{ Auth::user()->name }}'s profile image" />
-                    </button>
-                    <div id="profile-dropdown"
-                        class="hidden md:absolute rounded-lg w-auto bg-white text-black shadow py-2 px-1">
-                        <ul class="ul-clear">
-                            <li class="rounded-lg cursor-pointer px-4 py-2 hover:bg-gray-100">
-                                <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.profile') }}">
-                                    <div class="flex items-center gap-2">
-                                        <i class="fa-solid fa-gauge"></i>
-                                        Dashboard
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="rounded-lg px-4 py-2 hover:bg-gray-100">
-                                <form id="admin-logout-delete-form" action="{{ route('admin.dashboard.logout') }}" method="POST">
-                                    @csrf
-                                    <button type="button"
-                                        onclick='openPopupDeleteSubmit("Are you sure about logging out form the account, {{ Auth::user()->name }}?", "admin-logout")'
-                                        class="flex items-center gap-2">
-                                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                                        Logout
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+            <li class="mx-3 my-5 md:my-0">
+                <button class=" cursor-pointer" onclick="dropdownToggle('profile')">
+                    <img src="{{ Auth::user()->image }}" class="w-10 border rounded-full shadow" loading="lazy" alt="{{ Auth::user()->name }}'s profile image" />
+                </button>
+                <div id="profile-dropdown" class="hidden md:absolute rounded-lg w-auto bg-white text-black shadow py-2 px-1">
+                    <ul class="ul-clear">
+                        <li class="rounded-lg cursor-pointer px-4 py-2 hover:bg-gray-100">
+                            <a class="text-black hover:no-underline" href="{{ route('admin.dashboard.profile') }}">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-gauge"></i>
+                                    Dashboard
+                                </div>
+                            </a>
+                        </li>
+                        <li class="rounded-lg px-4 py-2 hover:bg-gray-100">
+                            <form id="admin-logout-delete-form" action="{{ route('admin.dashboard.logout') }}" method="POST">
+                                @csrf
+                                <button type="button" onclick='openPopupDeleteSubmit("Are you sure about logging out form the account, {{ Auth::user()->name }}?", "admin-logout")' class="flex items-center gap-2">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             @endif
 
             <!-- search -->
@@ -119,8 +123,7 @@
                     Search Articles
                 </span>
                 <i class="fa-solid fa-magnifying-glass text-lg cursor-pointer group-hover/search:text-sky-500"></i>
-                <div
-                    class="border hidden px-3 py-3 group-hover/search:block md:absolute md:top-[4.5rem] rounded-lg shadow-md bg-white">
+                <div class="border hidden px-3 py-3 group-hover/search:block md:absolute md:top-[4.5rem] rounded-lg shadow-md bg-white">
                     <form action="{{ route('article.search') }}">
                         <div class="flex items-center gap-3">
                             <input type="text" autocomplete="off" name="search" class="input-form-sky">
@@ -140,8 +143,7 @@
     </main>
 
     <!-- delete popup -->
-    <div class="bg-white duration-200 ease-in-out rounded-xl fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] shadow-md w-full md:w-auto z-30 py-6 px-4 scale-0 border-t-8 border-orange-500"
-        id="popup-delete">
+    <div class="bg-white duration-200 ease-in-out rounded-xl fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] shadow-md w-full md:w-auto z-30 py-6 px-4 scale-0 border-t-8 border-orange-500" id="popup-delete">
         <p class="text-lg font-semibold text-center" id="popup-text-delete"></p>
         <div class="flex items-center gap-2 place-content-center mt-4">
             <button class="orange-button-rounded w-auto" onclick="closePopupDelete()">
@@ -156,8 +158,7 @@
     </div>
 
     <!-- popup overlay delete -->
-    <div class="duration-200 ease-in-out opacity-0 fixed top-0 left-0 bottom-0 right-0 bg-black/[0.5] z-20 pointer-events-none"
-        id="popup-overlay-delete" onclick="closePopupDelete()">
+    <div class="duration-200 ease-in-out opacity-0 fixed top-0 left-0 bottom-0 right-0 bg-black/[0.5] z-20 pointer-events-none" id="popup-overlay-delete" onclick="closePopupDelete()">
     </div>
 
     <!-- toastify js -->
